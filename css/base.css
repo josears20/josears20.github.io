@@ -1,0 +1,195 @@
+/* ==========================================================================
+   base.css — Reset, tipografía global, fondo y utilidades
+   ========================================================================== */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+* { margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + 16px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+img, svg, canvas { display: block; max-width: 100%; }
+img { height: auto; }
+ul, ol { list-style: none; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+strong { color: var(--text); font-weight: 600; }
+[hidden] { display: none !important; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+::selection { background: rgba(var(--accent-rgb), 0.3); color: #fff; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Scrollbar discreta */
+* { scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.15) transparent; }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); border-radius: 10px; border: 3px solid var(--bg); }
+
+/* --------------------------------------------------------------------------
+   Utilidades
+   -------------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.text-gradient {
+  background: var(--gradient);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   Texto justificado en toda la web, sin cortar palabras con guiones
+   -------------------------------------------------------------------------- */
+p,
+.xp__list li,
+.modal__highlights li,
+.focus-list span {
+  text-align: justify;
+  text-justify: inter-word;
+}
+p, li, span, h1, h2, h3, h4, dd, dt {
+  hyphens: none;
+  -webkit-hyphens: none;
+}
+/* Etiquetas y líneas cortas: justificarlas solo abre huecos */
+.eyebrow, .hero__role, .section__index, .xp__date, .xp__org, .edu__date, .edu__org,
+.location__city, .location__tz, .modal__meta, .logo__meta, .footer p,
+.chat__name, .chat__status, .chat__msg p { text-align: left; }
+
+.inline-link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: rgba(var(--accent-rgb), 0.4);
+  text-underline-offset: 3px;
+  transition: text-decoration-color var(--dur-fast);
+}
+.inline-link:hover { text-decoration-color: var(--accent); }
+
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px; left: 12px;
+  z-index: 200;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: #001018;
+  font-weight: 600;
+  transform: translateY(-150%);
+  transition: transform var(--dur-fast);
+}
+.skip-link:focus { transform: none; }
+
+/* --------------------------------------------------------------------------
+   Fondo: rejilla en perspectiva + halos de color + grano
+   Todo en CSS y fijo: cero coste por frame.
+   -------------------------------------------------------------------------- */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+  background: radial-gradient(120% 80% at 70% 0%, #0d1220 0%, var(--bg) 60%);
+}
+
+.backdrop__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 60% at 60% 20%, #000 20%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 60% 20%, #000 20%, transparent 75%);
+}
+
+/* Halos estáticos: un degradado radial ya es suave, no necesita filter: blur()
+   (el blur a pantalla completa era lo que más penalizaba el scroll) */
+.backdrop__glow {
+  position: absolute;
+  border-radius: 50%;
+}
+.backdrop__glow--a {
+  width: 60vw; height: 60vw;
+  top: -22vw; right: -14vw;
+  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.14), transparent 62%);
+}
+.backdrop__glow--b {
+  width: 56vw; height: 56vw;
+  bottom: -26vw; left: -18vw;
+  background: radial-gradient(circle, rgba(var(--accent-2-rgb), 0.12), transparent 62%);
+}
+
+/* --------------------------------------------------------------------------
+   Animaciones de entrada al hacer scroll (IntersectionObserver en ui.js)
+   Solo se oculta el contenido si hay JS (.js en <html>).
+   `--i` escalona la aparición de elementos hermanos.
+   -------------------------------------------------------------------------- */
+/* Solo opacity + transform: ambas se animan en la GPU sin repintar */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  transition:
+    opacity 650ms var(--ease-out),
+    transform 650ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 60ms);
+}
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+  .js [data-reveal] { opacity: 1; transform: none; filter: none; }
+}

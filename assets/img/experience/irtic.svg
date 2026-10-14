@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750">
+  <!-- IRTIC 2025–2026 · DS4M Mediterráneo (grande) + campaña + MIRACLE -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0a1830"/><stop offset="1" stop-color="#05070c"/></linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d2140"/><stop offset="1" stop-color="#081224"/></linearGradient>
+    <linearGradient id="route" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#2f8bff"/><stop offset=".6" stop-color="#5ce1ff"/><stop offset="1" stop-color="#d6fbff"/></linearGradient>
+    <linearGradient id="poster" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#10264a"/><stop offset="1" stop-color="#061023"/></linearGradient>
+    <linearGradient id="mir" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1a1440"/><stop offset="1" stop-color="#0a0b1a"/></linearGradient>
+    <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#5ce1ff" stop-opacity=".55"/><stop offset="1" stop-color="#5ce1ff" stop-opacity="0"/></radialGradient>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+  </defs>
+  <rect width="1200" height="750" fill="url(#bg)"/>
+  <g fill="#fff" opacity=".35"><circle cx="90" cy="60" r="1.5"/><circle cx="300" cy="30" r="1"/><circle cx="560" cy="70" r="1.4"/><circle cx="1010" cy="40" r="1.2"/><circle cx="1150" cy="120" r="1"/><circle cx="40" cy="700" r="1.3"/></g>
+
+  <!-- ===== DS4M: panel principal ===== -->
+  <rect x="40" y="40" width="760" height="670" rx="26" fill="url(#panel)" stroke="#5ce1ff" stroke-opacity=".25"/>
+  <circle cx="92" cy="92" r="26" fill="#fff"/>
+  <g stroke="#0a1830" stroke-width="3" fill="#0a1830"><circle cx="92" cy="92" r="5"/><path d="M92 92l-12-10M92 92l13-8M92 92l-4 15M92 92l14 9" fill="none"/><circle cx="80" cy="82" r="3"/><circle cx="105" cy="84" r="3"/><circle cx="88" cy="107" r="3"/><circle cx="106" cy="101" r="3"/></g>
+  <text x="132" y="88" font-family="Space Grotesk, Segoe UI, sans-serif" font-size="28" font-weight="700" fill="#eef1f7">DS4M</text>
+  <text x="132" y="112" font-family="Georgia, serif" font-style="italic" font-size="17" fill="#a7c4e8">mediterráneo</text>
+  <text x="772" y="96" text-anchor="end" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="700" letter-spacing="3" fill="#a7c4e8">DATA SPACE FOR MOBILITY</text>
+
+  <!-- Corredor mediterráneo de luz -->
+  <path d="M520 160c-30 40-20 70-55 105s-60 40-55 95 50 70 30 120-80 60-110 110-30 60-60 80" fill="none" stroke="#5ce1ff" stroke-width="16" stroke-opacity=".18" filter="url(#soft)"/>
+  <path d="M520 160c-30 40-20 70-55 105s-60 40-55 95 50 70 30 120-80 60-110 110-30 60-60 80" fill="none" stroke="url(#route)" stroke-width="5" stroke-linecap="round"/>
+  <g stroke="#5ce1ff" stroke-opacity=".35" stroke-width="1.2">
+    <path d="M465 265l120-40M410 360l110-25M440 480l-215-10M330 590l-120 30M520 160l90-30M465 265l-150-30M410 360l-170-60M440 480l-200 0"/>
+  </g>
+  <g fill="#d6fbff"><circle cx="520" cy="160" r="7"/><circle cx="465" cy="265" r="7"/><circle cx="410" cy="360" r="7"/><circle cx="440" cy="480" r="8"/><circle cx="330" cy="590" r="7"/><circle cx="270" cy="670" r="6"/></g>
+  <circle cx="440" cy="480" r="40" fill="url(#glow)"/>
+  <!-- Iconos de movilidad -->
+  <g fill="none" stroke="#a7c4e8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="610" cy="222" r="24"/><path d="M598 230v-14h24v14M598 230h24M603 234v3M617 234v3"/>
+    <circle cx="545" cy="330" r="24"/><path d="M531 335l6-14h16l6 14zM535 335v4M555 335v4"/>
+    <circle cx="200" cy="470" r="24"/><path d="M185 472h30l-5 8h-20zM191 472v-10h14l4 10"/>
+    <circle cx="210" cy="300" r="24"/><circle cx="202" cy="306" r="6"/><circle cx="220" cy="306" r="6"/><path d="M202 306l8-12 10 12M210 294h6"/>
+    <circle cx="200" cy="625" r="24"/><path d="M186 625l26-8-6 10 8 6-26 6z"/>
+  </g>
+  <!-- Etiquetas de trabajo -->
+  <g font-family="JetBrains Mono, Consolas, monospace" font-size="15" fill="#eef1f7">
+    <rect x="72" y="160" width="160" height="40" rx="20" fill="#5ce1ff" fill-opacity=".12" stroke="#5ce1ff" stroke-opacity=".5"/><text x="152" y="186" text-anchor="middle">Full Stack</text>
+    <rect x="72" y="210" width="110" height="40" rx="20" fill="#fff" fill-opacity=".05" stroke="#fff" stroke-opacity=".2"/><text x="127" y="236" text-anchor="middle">Scrum</text>
+    <rect x="192" y="210" width="110" height="40" rx="20" fill="#fff" fill-opacity=".05" stroke="#fff" stroke-opacity=".2"/><text x="247" y="236" text-anchor="middle">BBDD</text>
+  </g>
+
+  <!-- Póster de campaña datæ valor -->
+  <g transform="rotate(-5 700 520)">
+    <rect x="600" y="370" width="230" height="310" rx="10" fill="#e9edf5"/>
+    <rect x="610" y="380" width="210" height="290" rx="6" fill="url(#poster)"/>
+    <text x="625" y="425" font-family="Space Grotesk, Segoe UI, sans-serif" font-size="20" font-weight="700" fill="#eef1f7">DATA SPACE</text>
+    <text x="625" y="449" font-family="Space Grotesk, Segoe UI, sans-serif" font-size="20" font-weight="700" fill="#8fe9ff">4OR MOBILITY</text>
+    <text x="625" y="500" font-family="Inter, Segoe UI, sans-serif" font-size="36" font-weight="400" fill="#eef1f7">datæ valor</text>
+    <path d="M790 530c-10 20-30 30-35 55s-30 40-55 60" fill="none" stroke="#5ce1ff" stroke-width="3"/>
+    <rect x="625" y="620" width="120" height="8" rx="4" fill="#8fe9ff"/><rect x="625" y="636" width="90" height="8" rx="4" fill="#8fe9ff" opacity=".6"/>
+    <rect x="770" y="616" width="38" height="38" rx="4" fill="#fff"/>
+  </g>
+
+  <!-- ===== MIRACLE ===== -->
+  <rect x="830" y="40" width="330" height="430" rx="26" fill="url(#mir)" stroke="#8b7bff" stroke-opacity=".35"/>
+  <text x="995" y="96" text-anchor="middle" font-family="Space Grotesk, Segoe UI, sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="#eef1f7">MIRACLE</text>
+  <text x="995" y="122" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#a99fff">IA · cirugía laparoscópica robótica</text>
+  <!-- Brazo robótico -->
+  <g stroke-linecap="round">
+    <rect x="905" y="408" width="120" height="24" rx="8" fill="#2a2f3a"/>
+    <path d="M965 408V340l60-70 50 30" fill="none" stroke="#e9edf5" stroke-width="22"/>
+    <path d="M965 408V340l60-70 50 30" fill="none" stroke="#c9ced8" stroke-width="8" opacity=".5"/>
+    <circle cx="965" cy="340" r="16" fill="#2a2f3a"/><circle cx="1025" cy="270" r="16" fill="#2a2f3a"/>
+    <path d="M1075 300l22 42" stroke="#9aa3b5" stroke-width="6"/><path d="M1097 342l-8 14M1097 342l10 12" stroke="#9aa3b5" stroke-width="4"/>
+  </g>
+  <!-- Nodos IA -->
+  <g fill="none" stroke="#8b7bff" stroke-width="2" opacity=".85"><path d="M870 190h60l25 30M870 240h50M870 290h40l30-30"/></g>
+  <g fill="#8b7bff"><circle cx="870" cy="190" r="6"/><circle cx="870" cy="240" r="6"/><circle cx="870" cy="290" r="6"/></g>
+  <path d="M960 175l7 18 18 7-18 7-7 18-7-18-18-7 18-7z" fill="#c4bcff"/>
+
+  <!-- Camiseta + Vídeo -->
+  <rect x="830" y="490" width="330" height="220" rx="26" fill="#0b1020" stroke="#fff" stroke-opacity=".1"/>
+  <path d="M870 560l30-18h32c4 10 20 10 24 0h32l30 18-14 28-18-8v80h-84v-80l-18 8z" fill="#1d2a4a" stroke="#5ce1ff" stroke-opacity=".5"/>
+  <circle cx="944" cy="585" r="10" fill="#e9edf5"/>
+  <path d="M960 600c-6 14-16 22-14 40" fill="none" stroke="#5ce1ff" stroke-width="2"/>
+  <rect x="1040" y="545" width="96" height="62" rx="10" fill="#06070b" stroke="#fff" stroke-opacity=".2"/>
+  <path d="M1080 562v28l22-14z" fill="#5ce1ff"/>
+  <g fill="#5ce1ff" opacity=".8"><rect x="1040" y="625" width="40" height="10" rx="3"/><rect x="1084" y="625" width="52" height="10" rx="3" fill="#8b7bff"/><rect x="1040" y="641" width="64" height="10" rx="3" fill="#ffad7a"/><rect x="1108" y="641" width="28" height="10" rx="3"/></g>
+  <rect x="1094" y="618" width="2" height="40" fill="#fff"/>
+  <text x="995" y="690" text-anchor="middle" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#a7aec0">branding · vídeo · RRSS</text>
+</svg>

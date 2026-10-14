@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750">
+  <!-- Portada del spot Datæ Valor: TV + plataformas de streaming + línea de tiempo de montaje -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1430"/><stop offset="1" stop-color="#05060b"/></linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b2448"/><stop offset="1" stop-color="#050d1d"/></linearGradient>
+    <linearGradient id="route" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#2f8bff"/><stop offset="1" stop-color="#bff6ff"/></linearGradient>
+    <radialGradient id="halo" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#5ce1ff" stop-opacity=".28"/><stop offset="1" stop-color="#5ce1ff" stop-opacity="0"/></radialGradient>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+  </defs>
+  <rect width="1200" height="750" fill="url(#bg)"/>
+  <ellipse cx="520" cy="300" rx="460" ry="280" fill="url(#halo)"/>
+  <!-- Televisor -->
+  <rect x="110" y="70" width="820" height="470" rx="22" fill="#0a0c12" stroke="#fff" stroke-opacity=".18" stroke-width="2"/>
+  <rect x="130" y="90" width="780" height="430" rx="10" fill="url(#screen)"/>
+  <path d="M470 540h100l20 40H450z" fill="#1a1d27"/><rect x="380" y="578" width="280" height="12" rx="6" fill="#1a1d27"/>
+  <!-- contenido del spot -->
+  <g fill="#fff" opacity=".5"><circle cx="200" cy="140" r="1.5"/><circle cx="340" cy="120" r="1.2"/><circle cx="760" cy="130" r="1.5"/><circle cx="860" cy="200" r="1.2"/></g>
+  <text x="180" y="200" font-family="Space Grotesk, Segoe UI, sans-serif" font-size="40" font-weight="700" fill="#eef1f7">DATA SPACE</text>
+  <text x="180" y="244" font-family="Space Grotesk, Segoe UI, sans-serif" font-size="40" font-weight="700" fill="#8fe9ff">4OR MOBILITY</text>
+  <text x="180" y="330" font-family="Inter, Segoe UI, sans-serif" font-size="70" font-weight="400" fill="#eef1f7">datæ valor</text>
+  <text x="180" y="390" font-family="Space Grotesk, Segoe UI, sans-serif" font-size="24" font-weight="700" fill="#8fe9ff">INTRODÚCETE EN LA ECONOMÍA DEL DATO</text>
+  <path d="M860 120c-20 40-10 70-45 100s-40 50-30 90-50 70-80 100-60 50-90 70" fill="none" stroke="#5ce1ff" stroke-width="14" opacity=".25" filter="url(#soft)"/>
+  <path d="M860 120c-20 40-10 70-45 100s-40 50-30 90-50 70-80 100-60 50-90 70" fill="none" stroke="url(#route)" stroke-width="4" stroke-linecap="round"/>
+  <g fill="#d6fbff"><circle cx="815" cy="220" r="6"/><circle cx="785" cy="310" r="6"/><circle cx="705" cy="410" r="6"/></g>
+  <!-- barra de reproducción y badge -->
+  <rect x="160" y="480" width="720" height="6" rx="3" fill="#fff" fill-opacity=".15"/><rect x="160" y="480" width="430" height="6" rx="3" fill="#5ce1ff"/><circle cx="590" cy="483" r="9" fill="#fff"/>
+  <rect x="770" y="110" width="120" height="34" rx="17" fill="#e63946"/><circle cx="792" cy="127" r="6" fill="#fff"/>
+  <text x="840" y="133" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="14" font-weight="800" letter-spacing="2" fill="#fff">ON AIR</text>
+
+  <!-- Plataformas donde se emitió -->
+  <g font-family="Inter, Segoe UI, sans-serif" font-size="17" font-weight="700" fill="#eef1f7">
+    <g transform="translate(970 80)"><rect width="190" height="88" rx="18" fill="#141826" stroke="#fff" stroke-opacity=".14"/><rect x="18" y="24" width="40" height="30" rx="5" fill="none" stroke="#5ce1ff" stroke-width="3"/><path d="M30 62h16" stroke="#5ce1ff" stroke-width="3"/><text x="72" y="52">Televisión</text></g>
+    <g transform="translate(970 186)"><rect width="190" height="88" rx="18" fill="#141826" stroke="#fff" stroke-opacity=".14"/><g fill="#4ade80"><rect x="22" y="40" width="6" height="16" rx="3"/><rect x="32" y="30" width="6" height="26" rx="3"/><rect x="42" y="22" width="6" height="34" rx="3"/><rect x="52" y="34" width="6" height="22" rx="3"/></g><text x="72" y="52">Spotify</text></g>
+    <g transform="translate(970 292)"><rect width="190" height="88" rx="18" fill="#141826" stroke="#fff" stroke-opacity=".14"/><path d="M26 24h10l12 30V24h10v40H48L36 34v30H26z" fill="#e63946"/><text x="72" y="52">Netflix</text></g>
+    <g transform="translate(970 398)"><rect width="190" height="88" rx="18" fill="#141826" stroke="#fff" stroke-opacity=".14"/><path d="M26 30l26 14-26 14z" fill="#5ab0ff"/><path d="M22 66c14 8 30 8 40 0" fill="none" stroke="#5ab0ff" stroke-width="3" stroke-linecap="round"/><text x="72" y="52">Prime Video</text></g>
+  </g>
+
+  <!-- Línea de tiempo de edición -->
+  <rect x="40" y="620" width="1120" height="100" rx="16" fill="#0b0d15" stroke="#fff" stroke-opacity=".1"/>
+  <g>
+    <rect x="70" y="638" width="180" height="22" rx="5" fill="#5ce1ff"/><rect x="256" y="638" width="120" height="22" rx="5" fill="#8b7bff"/><rect x="382" y="638" width="230" height="22" rx="5" fill="#5ce1ff" opacity=".7"/><rect x="618" y="638" width="150" height="22" rx="5" fill="#8b7bff" opacity=".8"/><rect x="774" y="638" width="356" height="22" rx="5" fill="#5ce1ff" opacity=".5"/>
+    <rect x="70" y="668" width="420" height="16" rx="4" fill="#ffad7a" opacity=".85"/><rect x="496" y="668" width="634" height="16" rx="4" fill="#ffad7a" opacity=".55"/>
+    <path d="M70 700c20-8 40 6 60-2s40 8 60 0 40-10 60 0 40 6 60-4 40 10 60 2 40-8 60 0 40 6 60-2 40 8 60 0 40-6 60 2 40-8 60 0 40 6 60-2 40 6 60 0 40-6 60 2" fill="none" stroke="#4ade80" stroke-width="3" opacity=".7"/>
+    <rect x="590" y="628" width="3" height="84" fill="#fff"/><path d="M584 626h15l-7.5 9z" fill="#fff"/>
+  </g>
+</svg>

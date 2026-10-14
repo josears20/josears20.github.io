@@ -1,0 +1,10 @@
+# Solo se publica la web: index.html, css/, js/, assets/ y el CV.
+# Todo lo demás es material de trabajo y se queda en local.
+/*
+!/index.html
+!/CV_JoseAntonioCuerda.pdf
+!/css/
+!/js/
+!/assets/
+!/.gitignore
+!/.nojekyll

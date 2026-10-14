@@ -1,0 +1,67 @@
+/* ==========================================================================
+   tokens.css — Design tokens
+   Única fuente de verdad para color, tipografía, espaciado y movimiento.
+   El resto de hojas solo consumen estas variables.
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* --- Superficies --- */
+  --bg: #06070b;
+  --bg-elev: #0b0d14;
+  --surface: rgba(255, 255, 255, 0.035);
+  --surface-hover: rgba(255, 255, 255, 0.06);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+
+  /* --- Texto --- */
+  --text: #eef1f7;
+  --text-2: #a7aec0;
+  --text-3: #6d7588;
+
+  /* --- Acentos (cian = ojos del robot, violeta = luz de contra, ámbar = toque cálido) --- */
+  --accent: #5ce1ff;
+  --accent-rgb: 92, 225, 255;
+  --accent-2: #8b7bff;
+  --accent-2-rgb: 139, 123, 255;
+  --accent-3: #ffad7a;
+  --success: #4ade80;
+  --gradient: linear-gradient(110deg, var(--accent) 0%, var(--accent-2) 55%, var(--accent-3) 100%);
+
+  /* --- Tipografía --- */
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-md: 1.125rem;
+  --fs-lg: clamp(1.25rem, 1rem + 0.8vw, 1.5rem);
+  --fs-xl: clamp(1.75rem, 1.2rem + 2vw, 2.75rem);
+  --fs-hero: clamp(2.5rem, 1rem + 3.6vw, 4.4rem);
+
+  /* --- Espaciado y layout --- */
+  --container: 1200px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --section-y: clamp(80px, 12vw, 160px);
+  --nav-h: 72px;
+
+  --radius-sm: 10px;
+  --radius: 20px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+
+  /* --- Efectos --- */
+  --blur: 18px;
+  --shadow-lg: 0 40px 100px -30px rgba(0, 0, 0, 0.7);
+  --ring: 0 0 0 3px rgba(var(--accent-rgb), 0.35);
+
+  /* --- Movimiento --- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 180ms;
+  --dur: 420ms;
+  --dur-slow: 900ms;
+}

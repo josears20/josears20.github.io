@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Jose Antonio Cuerda · Ingeniero Multimedia & Full Stack Developer</title>
+  <meta name="description" content="Portfolio de Jose Antonio Cuerda Aparicio, Ingeniero Multimedia y Full Stack Developer en Valencia. Plataformas web, aplicaciones 3D interactivas con Unity y Three.js, e I+D en IRTIC e INTRAS (Universitat de València).">
+  <meta name="author" content="Jose Antonio Cuerda Aparicio">
+  <meta name="theme-color" content="#06070b">
+
+  <!-- Open Graph: vista previa al compartir el enlace -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Jose Antonio Cuerda · Ingeniero Multimedia & Full Stack Developer">
+  <meta property="og:description" content="Plataformas web full stack, 3D en tiempo real y diseño multimedia.">
+  <meta property="og:image" content="assets/img/projects/portfolio.svg">
+  <meta property="og:locale" content="es_ES">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2306070b'/%3E%3Crect x='12' y='20' width='40' height='24' rx='8' fill='%23e8ecf4'/%3E%3Crect x='17' y='25' width='30' height='14' rx='5' fill='%2305070d'/%3E%3Crect x='23' y='29' width='5' height='6' rx='2' fill='%235ce1ff'/%3E%3Crect x='36' y='29' width='5' height='6' rx='2' fill='%235ce1ff'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Estilos en capas: tokens → base → componentes → secciones -->
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js" as="script" crossorigin>
+  <link rel="stylesheet" href="css/tokens.css?v=4">
+  <link rel="stylesheet" href="css/base.css?v=4">
+  <link rel="stylesheet" href="css/components.css?v=4">
+  <link rel="stylesheet" href="css/sections.css?v=4">
+  <!-- Capa visual "terminal": menú, cabeceras y tarjetas con aire de editor de código.
+       Para volver al diseño anterior basta con quitar esta línea. -->
+  <link rel="stylesheet" href="css/terminal.css?v=5">
+
+  <!-- Marca el documento como "con JS" para que las animaciones de entrada solo oculten contenido si van a poder mostrarlo -->
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <!-- Capas de fondo decorativas (fijas, sin coste de JS) -->
+  <div class="backdrop" aria-hidden="true">
+    <div class="backdrop__grid"></div>
+    <div class="backdrop__glow backdrop__glow--a"></div>
+    <div class="backdrop__glow backdrop__glow--b"></div>
+  </div>
+
+  <!-- ============ NAVEGACIÓN ============ -->
+  <header class="nav" data-nav>
+    <div class="nav__inner">
+      <a class="nav__logo" href="#inicio" aria-label="Ir al inicio">
+        <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="nav__user">jose</span><span class="nav__at">@</span><span class="nav__host">cuerda</span><span class="nav__path">:~$</span><span class="term-caret" aria-hidden="true"></span>
+      </a>
+
+      <nav class="nav__menu" id="nav-menu" aria-label="Principal">
+        <ul class="nav__links">
+          <li><a href="#sobre-mi" data-spy>Sobre mí</a></li>
+          <li><a href="#experiencia" data-spy>Experiencia</a></li>
+          <li><a href="#proyectos" data-spy>Proyectos</a></li>
+          <li><a href="#logos" data-spy>Logos</a></li>
+          <li><a href="#prensa" data-spy>Prensa</a></li>
+          <li><a href="#stack" data-spy>Stack</a></li>
+          <li><a href="#formacion" data-spy>Formación</a></li>
+        </ul>
+        <a class="btn btn--primary btn--sm nav__cta" href="#contacto">Contacto</a>
+      </nav>
+
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Abrir menú">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ HERO + ROBOT 3D ============ -->
+    <section id="inicio" class="hero" aria-labelledby="hero-title">
+      <div class="container hero__inner">
+        <div class="hero__copy">
+          <p class="eyebrow" data-reveal><span class="status-dot" aria-hidden="true"></span> Disponible para nuevos proyectos · Valencia</p>
+
+          <h1 class="hero__title" id="hero-title">
+            <span class="hero__line" data-reveal style="--i:1">Jose Antonio</span>
+            <span class="hero__line text-gradient" data-reveal style="--i:2">Cuerda Aparicio</span>
+          </h1>
+
+          <p class="hero__role" data-reveal style="--i:3">
+            Ingeniero Multimedia <span aria-hidden="true">/</span> Full Stack Developer
+          </p>
+
+          <p class="hero__lead" data-reveal style="--i:4">
+            Hago webs, aplicaciones en 3D y diseño. Desde 2024 trabajo en el
+            <strong>IRTIC</strong> y el <strong>INTRAS</strong>, dos institutos de
+            investigación de la Universitat de València.
+          </p>
+
+          <div class="hero__actions" data-reveal style="--i:5">
+            <a class="btn btn--primary" href="#proyectos" data-robot-mood="happy">
+              Ver proyectos
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="btn btn--ghost" href="CV_JoseAntonioCuerda.pdf" download data-robot-mood="happy">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+              Descargar CV
+            </a>
+          </div>
+
+          <dl class="hero__stats" data-reveal style="--i:6">
+            <div><dt>Años de experiencia</dt><dd>+2</dd></div>
+            <div><dt>Proyectos de investigación</dt><dd>3</dd></div>
+            <div><dt>Tecnologías</dt><dd data-tech-count>30</dd></div>
+          </dl>
+        </div>
+
+        <!-- Escenario WebGL: el robot sigue el cursor. Si WebGL falla se muestra un fallback estático vía CSS -->
+        <div class="hero__stage" data-reveal style="--i:2">
+          <div class="hero__floor" aria-hidden="true"></div>
+          <canvas id="robot-canvas" role="img" aria-label="Robot 3D minimalista que gira la cabeza para seguir el cursor"></canvas>
+          <div class="hero__stage-fallback" aria-hidden="true"></div>
+          <p class="hero__hint" aria-hidden="true"><span class="kbd">●</span> <span class="hint--pointer">Mueve el cursor · haz clic en el robot</span><span class="hint--touch">Toca el robot</span></p>
+        </div>
+      </div>
+
+      <a class="hero__scroll" href="#sobre-mi" aria-label="Bajar a la sección Sobre mí"><span></span></a>
+    </section>
+
+    <!-- ============ 01 · SOBRE MÍ (bento) ============ -->
+    <section id="sobre-mi" class="section" aria-labelledby="about-title">
+      <div class="container">
+        <header class="section__head" data-reveal>
+          <p class="section__index"><span class="cmd-path">~/sobre-mi</span> <span class="cmd-sign">$</span> cat perfil.md</p>
+          <h2 class="section__title" id="about-title">Programo, diseño <em>y edito vídeo.</em></h2>
+        </header>
+
+        <div class="bento">
+          <article class="card bento__profile" data-reveal>
+            <figure class="profile__photo">
+              <img src="assets/img/profile.webp" alt="Retrato de Jose Antonio Cuerda Aparicio con americana oscura y camisa blanca" width="720" height="1009" loading="lazy" decoding="async">
+            </figure>
+            <div class="profile__text">
+              <h3>Hola, soy Jose.</h3>
+              <p>
+                Soy <strong>Ingeniero Multimedia</strong> por la Universitat de València y he hecho el
+                <strong>Máster en Tecnologías Web, Computación en la Nube y Aplicaciones Móviles (TWCAM)</strong>.
+                Desde 2024 trabajo en institutos de investigación de la UV haciendo webs,
+                aplicaciones en 3D y herramientas para recoger y analizar datos.
+              </p>
+              <p>
+                Me gusta tanto programar como diseñar, y en mi trabajo suelo hacer las dos cosas.
+                En DS4M Mediterráneo, por ejemplo, me encargué de la web y también diseñé la campaña
+                que luego se vio en marquesinas y estaciones de toda España.
+              </p>
+            </div>
+          </article>
+
+          <article class="card bento__focus" data-reveal style="--i:1">
+            <h3 class="card__label">Lo que hago</h3>
+            <ul class="focus-list">
+              <li>
+                <span class="focus-list__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>
+                </span>
+                <div><strong>Webs completas</strong><span>Lo que ves y lo que hay detrás: Node.js, React, Angular, PHP y bases de datos.</span></div>
+              </li>
+              <li>
+                <span class="focus-list__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3zM12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg>
+                </span>
+                <div><strong>3D interactivo</strong><span>Aplicaciones y simulaciones con Unity y C#, Three.js y Blender.</span></div>
+              </li>
+              <li>
+                <span class="focus-list__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>
+                </span>
+                <div><strong>Apps móviles</strong><span>Android con Kotlin, Ionic y React Native.</span></div>
+              </li>
+              <li>
+                <span class="focus-list__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 000 18M3.5 9h17M3.5 15h17"/></svg>
+                </span>
+                <div><strong>Diseño y vídeo</strong><span>Logos vectoriales en Figma, carteles, campañas, animación y edición de vídeo.</span></div>
+              </li>
+            </ul>
+          </article>
+
+          <article class="card bento__location" data-reveal style="--i:2">
+            <h3 class="card__label">Base</h3>
+            <div class="location">
+              <div class="location__map">
+                <img src="assets/img/iberia.svg" alt="Mapa de la península ibérica con Valencia señalada en la costa mediterránea" width="400" height="309" loading="lazy" decoding="async">
+                <span class="location__ping" aria-hidden="true"></span>
+                <span class="location__label" aria-hidden="true">Valencia</span>
+              </div>
+              <p class="location__city">Valencia, España</p>
+              <p class="location__tz">CET · UTC+1</p>
+            </div>
+          </article>
+
+          <article class="card bento__langs" data-reveal style="--i:3">
+            <h3 class="card__label">Idiomas</h3>
+            <ul class="langs">
+              <li><span>Castellano</span><span class="langs__lvl">Nativo</span><span class="langs__bar" style="--v:100%"></span></li>
+              <li><span>Valenciano</span><span class="langs__lvl">B2 certificado</span><span class="langs__bar" style="--v:78%"></span></li>
+              <li><span>Inglés</span><span class="langs__lvl">B1 (sin certificar)</span><span class="langs__bar" style="--v:50%"></span></li>
+            </ul>
+          </article>
+
+          <article class="card bento__method" data-reveal style="--i:4">
+            <h3 class="card__label">Cómo trabajo</h3>
+            <ul class="chips">
+              <li class="chip">En equipo</li>
+              <li class="chip">Por sprints (Scrum)</li>
+              <li class="chip">Con IA como ayuda</li>
+              <li class="chip">Buscando soluciones</li>
+              <li class="chip">Cuidando los detalles</li>
+              <li class="chip">Redes sociales</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 02 · EXPERIENCIA ============ -->
+    <section id="experiencia" class="section" aria-labelledby="exp-title">
+      <div class="container">
+        <header class="section__head" data-reveal>
+          <p class="section__index"><span class="cmd-path">~/experiencia</span> <span class="cmd-sign">$</span> git log</p>
+          <h2 class="section__title" id="exp-title">Dónde he trabajado <em>hasta ahora.</em></h2>
+        </header>
+
+        <ol class="timeline">
+          <li class="timeline__item" data-reveal>
+            <article class="card xp">
+              <figure class="xp__media">
+                <img src="assets/img/experience/irtic.svg" alt="Ilustración del trabajo en el IRTIC con el corredor de datos de DS4M Mediterráneo, el póster de la campaña Datæ Valor, el brazo robótico de MIRACLE y piezas de branding y vídeo" width="1200" height="750" loading="lazy" decoding="async">
+              </figure>
+              <div class="xp__body">
+                <header class="xp__head">
+                  <p class="xp__date"><time datetime="2025-11">Nov 2025</time> – <time datetime="2026-08">Ago 2026</time></p>
+                  <h3 class="xp__role">Software & Full Stack Developer</h3>
+                  <p class="xp__org">IRTIC · Universitat de València</p>
+                </header>
+                <ul class="xp__list">
+                  <li>En <strong>MIRACLE</strong>, un proyecto que usa IA para ayudar en operaciones con robots quirúrgicos, programé parte del software y organicé cómo se conectaban sus aplicaciones. También usé IA para automatizar tareas.</li>
+                  <li>Desarrollo web completo para el proyecto europeo <strong>DS4M Mediterráneo</strong>, trabajando por sprints con el equipo (Scrum).</li>
+                  <li>Diseñé la imagen, el merchandising y la campaña <strong>Datæ Valor</strong>, que se vio en marquesinas y estaciones de toda España y salió en prensa.</li>
+                  <li>Bases de datos, publicación de las webs y mejoras para que cargaran más rápido.</li>
+                  <li>Edición de vídeo, redes sociales y mantenimiento de la <a class="inline-link" href="https://ds4mmed.uv.es/index.php/es/" target="_blank" rel="noopener">web oficial</a>.</li>
+                </ul>
+                <ul class="chips chips--sm" aria-label="Tecnologías y áreas">
+                  <li class="chip">IA</li><li class="chip">Full Stack</li><li class="chip">Scrum</li><li class="chip">Bases de datos</li><li class="chip">Branding</li>
+                </ul>
+              </div>
+            </article>
+          </li>
+
+          <li class="timeline__item" data-reveal>
+            <article class="card xp">
+              <figure class="xp__media">
+                <img src="assets/img/experience/intras-fullstack.svg" alt="Ilustración del trabajo en el INTRAS con el portal web de DS4M Mediterráneo, la plataforma de medición de ESCOLA y el montaje del vídeo del 30 aniversario" width="1200" height="750" loading="lazy" decoding="async">
+              </figure>
+              <div class="xp__body">
+                <header class="xp__head">
+                  <p class="xp__date"><time datetime="2024-09">Sep 2024</time> – <time datetime="2025-09">Sep 2025</time></p>
+                  <h3 class="xp__role">Software & Full Stack Developer <span class="xp__tag">Prácticas extracurriculares</span></h3>
+                  <p class="xp__org">INTRAS · Universitat de València</p>
+                </header>
+                <ul class="xp__list">
+                  <li>Partes de la web y herramientas para el equipo del proyecto europeo <strong>DS4M Mediterráneo</strong>.</li>
+                  <li>Una plataforma para el proyecto <strong>ESCOLA</strong> que registra y analiza cómo reaccionan los niños ante situaciones de peligro.</li>
+                  <li>Diseño, programación y publicación de webs con WordPress, HTML, CSS, JavaScript y PHP.</li>
+                  <li>Vídeos para el instituto y la animación del logo del <strong>30 aniversario del INTRAS</strong>.</li>
+                </ul>
+                <p class="xp__note">Durante esta etapa desarrollé también mi <strong>TFG</strong>, <a class="inline-link" href="https://youtu.be/04wgOXJavtA" target="_blank" rel="noopener">VialGo</a>, una aplicación 3D interactiva para aprender a conducir.</p>
+                <ul class="chips chips--sm" aria-label="Tecnologías y áreas">
+                  <li class="chip">WordPress</li><li class="chip">PHP</li><li class="chip">JavaScript</li><li class="chip">HTML/CSS</li><li class="chip">CapCut</li>
+                </ul>
+              </div>
+            </article>
+          </li>
+
+          <li class="timeline__item" data-reveal>
+            <article class="card xp">
+              <figure class="xp__media">
+                <img src="assets/img/experience/intras-unity.svg" alt="Ilustración del editor de Unity con la escena 3D de un colegio del proyecto ESCOLA y un script en C#" width="1200" height="750" loading="lazy" decoding="async">
+              </figure>
+              <div class="xp__body">
+                <header class="xp__head">
+                  <p class="xp__date"><time datetime="2024-03">Mar 2024</time> – <time datetime="2024-07">Jul 2024</time></p>
+                  <h3 class="xp__role">Software & Application Developer <span class="xp__tag">Prácticas curriculares</span></h3>
+                  <p class="xp__org">INTRAS · Universitat de València</p>
+                </header>
+                <ul class="xp__list">
+                  <li>Aplicaciones interactivas para el proyecto <a class="inline-link" href="https://www.uv.es/uvweb/instituto-universitario-investigacion-transito-seguridad-vial-INTRAS/es/grupos-investigacion/dats/experiencia-investigacion/escola-entornos-seguros-colegios-libres-accidentes-1285893039971/ProjecteInves.html?id=1286330274153" target="_blank" rel="noopener"><strong>ESCOLA</strong></a> (Entornos Seguros COlegios Libres de Accidentes).</li>
+                  <li>Programación en <strong>C#</strong> con <strong>Unity</strong>.</li>
+                  <li>Escenarios en 3D y pruebas para que todo funcionara fluido.</li>
+                </ul>
+                <ul class="chips chips--sm" aria-label="Tecnologías y áreas">
+                  <li class="chip">Unity</li><li class="chip">C#</li><li class="chip">3D</li><li class="chip">Pruebas</li>
+                </ul>
+              </div>
+            </article>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ 03 · PROYECTOS (renderizados desde js/data.js) ============ -->
+    <section id="proyectos" class="section" aria-labelledby="projects-title">
+      <div class="container">
+        <header class="section__head section__head--split" data-reveal>
+          <div>
+            <p class="section__index"><span class="cmd-path">~/proyectos</span> <span class="cmd-sign">$</span> ls</p>
+            <h2 class="section__title" id="projects-title">Algunas cosas <em>que he hecho.</em></h2>
+          </div>
+          <div class="filters" role="group" aria-label="Filtrar proyectos" data-filters></div>
+        </header>
+
+        <div class="projects" id="projects-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- ============ 04 · LOGOS (renderizados desde js/data.js) ============ -->
+    <section id="logos" class="section" aria-labelledby="logos-title">
+      <div class="container">
+        <header class="section__head" data-reveal>
+          <p class="section__index"><span class="cmd-path">~/logos</span> <span class="cmd-sign">$</span> ls *.svg</p>
+          <h2 class="section__title" id="logos-title">Logos que he diseñado, <em>todos en vectorial.</em></h2>
+          <p class="section__lead">Los dibujé en Figma como vectores, así que se ven igual de nítidos en una tarjeta de visita que en una lona de varios metros. Cada uno tiene versión para fondo claro y oscuro.</p>
+        </header>
+        <div class="logos" id="logos-grid"></div>
+      </div>
+    </section>
+
+    <!-- ============ 05 · PRENSA (renderizada desde js/data.js) ============ -->
+    <section id="prensa" class="section" aria-labelledby="press-title">
+      <div class="container">
+        <header class="section__head" data-reveal>
+          <p class="section__index"><span class="cmd-path">~/prensa</span> <span class="cmd-sign">$</span> grep "Datæ Valor"</p>
+          <h2 class="section__title" id="press-title">La campaña <em>en los medios.</em></h2>
+          <p class="section__lead">La campaña Datæ Valor que diseñé para DS4M Mediterráneo se vio en marquesinas y estaciones de toda España, sus anuncios se emitieron en televisión, Netflix, Prime Video y Spotify, y varios medios hablaron de ella.</p>
+        </header>
+        <div class="press" id="press-grid"></div>
+      </div>
+    </section>
+
+    <!-- ============ 05 · STACK (renderizado desde js/data.js) ============ -->
+    <section id="stack" class="section" aria-labelledby="stack-title">
+      <div class="container">
+        <header class="section__head" data-reveal>
+          <p class="section__index"><span class="cmd-path">~/stack</span> <span class="cmd-sign">$</span> cat herramientas.txt</p>
+          <h2 class="section__title" id="stack-title">Con qué <em>trabajo.</em></h2>
+        </header>
+        <div class="stack" id="stack-grid"></div>
+      </div>
+    </section>
+
+    <!-- ============ 05 · FORMACIÓN ============ -->
+    <section id="formacion" class="section" aria-labelledby="edu-title">
+      <div class="container">
+        <header class="section__head" data-reveal>
+          <p class="section__index"><span class="cmd-path">~/formacion</span> <span class="cmd-sign">$</span> cat estudios.md</p>
+          <h2 class="section__title" id="edu-title">Lo que <em>he estudiado.</em></h2>
+        </header>
+
+        <div class="edu">
+          <article class="card edu__item edu__item--major" data-reveal>
+            <p class="edu__date"><time datetime="2025-09">Sep 2025</time> – <time datetime="2026-07">Jul 2026</time></p>
+            <h3>Máster Universitario en Tecnologías Web, Computación en la Nube y Aplicaciones Móviles</h3>
+            <p class="edu__org">Universitat de València · TWCAM</p>
+            <div class="edu__thesis">
+              <span class="edu__badge">TFM</span>
+              <p>PlayVerseX, una web que recomienda videojuegos según tus gustos, con el servidor en Node.js y MongoDB y dos versiones de la web, en Angular y en React.</p>
+            </div>
+          </article>
+
+          <article class="card edu__item edu__item--major" data-reveal style="--i:1">
+            <p class="edu__date"><time datetime="2020-09">Sep 2020</time> – <time datetime="2025-07">Jul 2025</time></p>
+            <h3>Grado en Ingeniería Multimedia</h3>
+            <p class="edu__org">Universitat de València</p>
+            <div class="edu__thesis">
+              <span class="edu__badge">TFG</span>
+              <p>VialGo. Educación Vial en la Era Digital, una aplicación 3D interactiva para el aprendizaje de la conducción. <a class="inline-link" href="https://youtu.be/04wgOXJavtA" target="_blank" rel="noopener">Ver vídeo</a></p>
+            </div>
+          </article>
+
+          <article class="card edu__item" data-reveal style="--i:2">
+            <p class="edu__date"><time datetime="2018">2018</time> – <time datetime="2020">2020</time></p>
+            <h3>Bachillerato Científico</h3>
+            <p class="edu__org">Instituto Mª Auxiliadora de Valencia (Salesianas)</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 06 · CONTACTO ============ -->
+    <section id="contacto" class="section section--contact" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="card contact" data-reveal>
+          <div class="contact__glow" aria-hidden="true"></div>
+          <p class="section__index"><span class="cmd-path">~/contacto</span> <span class="cmd-sign">$</span> mail jose</p>
+          <h2 class="contact__title" id="contact-title">¿Hablamos? <span class="text-gradient">Escríbeme.</span></h2>
+          <p class="contact__lead">Estoy buscando nuevos proyectos y trabajo, sobre todo en desarrollo web, 3D y diseño. Si crees que puedo encajar, mándame un correo y lo hablamos.</p>
+
+          <div class="contact__actions">
+            <div class="contact__email">
+              <a class="contact__email-text" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=joseacuerda@gmail.com" target="_blank" rel="noopener">joseacuerda@gmail.com</a>
+              <button class="contact__email-hint" type="button" data-copy="joseacuerda@gmail.com" aria-describedby="copy-status">Copiar</button>
+            </div>
+            <span id="copy-status" class="sr-only" role="status"></span>
+          </div>
+
+          <ul class="contact__links">
+            <li><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=joseacuerda@gmail.com" target="_blank" rel="noopener" class="link-pill">Escribir desde Gmail ↗</a></li>
+            <li><a href="https://www.linkedin.com/in/jose-antonio-cuerda-aparicio-800428185/" target="_blank" rel="noopener" class="link-pill">LinkedIn ↗</a></li>
+            <li data-github hidden><a href="#" target="_blank" rel="noopener" class="link-pill">GitHub ↗</a></li>
+            <li><a href="CV_JoseAntonioCuerda.pdf" download class="link-pill">CV en PDF ↓</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p>© <span data-year>2026</span> Jose Antonio Cuerda Aparicio</p>
+      <p class="footer__meta">Hecha por mí con HTML, CSS, JavaScript y Three.js</p>
+      <a href="#inicio" class="footer__top">Volver arriba ↑</a>
+    </div>
+  </footer>
+
+  <!-- Modal de detalle de proyecto (elemento nativo <dialog>: foco, Esc y accesibilidad incluidos) -->
+  <dialog class="modal" id="project-modal" aria-labelledby="modal-title">
+    <div class="modal__panel">
+      <button class="modal__close" type="button" aria-label="Cerrar" data-close>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div class="modal__content" id="modal-content"></div>
+    </div>
+  </dialog>
+
+  <!-- Chatbot: botón flotante + panel (js/chat.js) -->
+  <div class="chat" data-chat>
+    <button class="chat__fab" type="button" aria-expanded="false" aria-controls="chat-panel" data-chat-toggle>
+      <span class="chat__fab-face" aria-hidden="true"><i></i><i></i></span>
+      <span class="chat__fab-label">Pregúntame</span>
+    </button>
+    <section class="chat__panel" id="chat-panel" role="dialog" aria-label="Asistente sobre Jose Antonio" hidden>
+      <header class="chat__head">
+        <span class="chat__avatar" aria-hidden="true"><i></i><i></i></span>
+        <div><p class="chat__name">Asistente de Jose</p><p class="chat__status">Solo respondo sobre Jose y su trabajo</p></div>
+        <button class="chat__close" type="button" aria-label="Cerrar chat" data-chat-toggle>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </header>
+      <div class="chat__log" role="log" aria-live="polite"></div>
+      <div class="chat__suggest" aria-label="Preguntas sugeridas"></div>
+      <form class="chat__form" autocomplete="off">
+        <label class="sr-only" for="chat-input">Escribe tu pregunta</label>
+        <input id="chat-input" class="chat__input" type="text" placeholder="Pregunta algo sobre Jose…" maxlength="200">
+        <button class="chat__send" type="submit" aria-label="Enviar pregunta">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l16-8-6 16-2-7z"/></svg>
+        </button>
+      </form>
+    </section>
+  </div>
+
+  <!-- Toast para feedback breve (copiar email, etc.) -->
+  <div class="toast" role="status" aria-live="polite" hidden></div>
+
+  <!-- Three.js (build UMD clásico → funciona también abriendo el archivo sin servidor) -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js" crossorigin defer></script>
+  <script src="js/data.js?v=4" defer></script>
+  <script src="js/robot.js?v=4" defer></script>
+  <script src="js/ui.js?v=4" defer></script>
+  <script src="js/chat.js?v=4" defer></script>
+  <script src="js/cursor.js?v=4" defer></script>
+  <script src="js/main.js?v=4" defer></script>
+</body>
+</html>
