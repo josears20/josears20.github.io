@@ -24,7 +24,7 @@ window.PORTFOLIO_DATA = {
     name: 'Jose Antonio Cuerda Aparicio',
     email: 'joseacuerda@gmail.com',
     linkedin: 'https://www.linkedin.com/in/jose-antonio-cuerda-aparicio-800428185/',
-    github: '', // TODO añade tu URL de GitHub y aparecerá en Contacto
+    github: 'https://github.com/josears20',
     cv: 'CV_JoseAntonioCuerda.pdf',
   },
 
