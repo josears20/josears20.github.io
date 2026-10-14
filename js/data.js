@@ -63,7 +63,7 @@ window.PORTFOLIO_DATA = {
       summary: 'Web oficial del proyecto europeo DS4M Mediterráneo, con participación en su desarrollo durante dos años.',
       description: [
         'DS4M Mediterráneo es un proyecto europeo que impulsa un espacio de datos para que empresas e instituciones del Corredor Mediterráneo compartan información y mejoren el transporte y la movilidad.',
-        'Primero desde el INTRAS y después desde el IRTIC, participación en el equipo responsable de la web oficial: diseño, desarrollo full stack y mantenimiento, además de herramientas web internas, bases de datos y despliegues.',
+        'Proyecto desarrollado en colaboración con el INTRAS y el IRTIC. Participación en el equipo responsable de la web oficial: diseño, desarrollo full stack y mantenimiento, además de herramientas web internas, bases de datos y despliegues.',
       ],
       highlights: [
         'Participación en el diseño, el desarrollo y el mantenimiento de la web',
@@ -363,7 +363,7 @@ window.PORTFOLIO_DATA = {
       highlights: [
         'Robot 3D generado por código con Three.js',
         'Seguimiento del cursor con la cabeza y los ojos',
-        'Carga optimizada y animación en pausa cuando no está a la vista',
+        'Lazy loading de recursos y renderizado 3D en pausa fuera de pantalla',
         'Navegable con teclado y compatible con la preferencia de movimiento reducido',
       ],
       stack: ['Three.js', 'WebGL', 'JavaScript', 'CSS'],

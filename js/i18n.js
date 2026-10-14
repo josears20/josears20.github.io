@@ -73,11 +73,11 @@
     'projects.cmd': '<span class="cmd-path">~/projects</span> <span class="cmd-sign">$</span> ls',
     'projects.title': 'Featured <em>projects.</em>',
     'projects.filter': 'Filter projects',
-    'logos.title': 'Visual identity, <em>100% vector.</em>',
+    'logos.title': 'Institutional <em>logo design.</em>',
     'logos.lead': 'Designed in Figma as vector graphics, they scale without any loss of quality from a business card to a large-format banner. Each logo includes versions for light and dark backgrounds.',
     'press.cmd': '<span class="cmd-path">~/press</span> <span class="cmd-sign">$</span> grep "Datæ Valor"',
     'press.title': 'The campaign <em>in the media.</em>',
-    'press.lead': 'The DS4M Mediterráneo Datæ Valor campaign, which I helped design, was rolled out on bus shelters, stations and airports such as Joaquín Sorolla (Valencia) and Barcelona airport, among others. Its spots aired on TV, Netflix, Prime Video and Spotify, and it was covered by several media outlets.',
+    'press.lead': 'The DS4M Mediterráneo Datæ Valor campaign, with my involvement in its design, was rolled out on bus shelters, stations and airports such as Joaquín Sorolla (Valencia) and Barcelona airport, among others. Its spots aired on TV, Netflix, Prime Video and Spotify, and it was covered by several media outlets.',
     'stack.cmd': '<span class="cmd-path">~/stack</span> <span class="cmd-sign">$</span> cat tools.txt',
     'stack.title': 'Tech <em>stack.</em>',
     'edu.cmd': '<span class="cmd-path">~/education</span> <span class="cmd-sign">$</span> cat studies.md',
@@ -176,7 +176,7 @@
         summary: 'Official website of the European project DS4M Mediterráneo, with two years of involvement in its development.',
         description: [
           'DS4M Mediterráneo is a European project building a data space so that companies and institutions along the Mediterranean Corridor can share information and improve transport and mobility.',
-          'First from INTRAS and then from IRTIC, part of the team responsible for the official website: design, full stack development and maintenance, as well as internal web tools, databases and deployments.',
+          'A project developed in collaboration with INTRAS and IRTIC. Part of the team responsible for the official website: design, full stack development and maintenance, as well as internal web tools, databases and deployments.',
         ],
         highlights: [
           'Involvement in the design, development and maintenance of the website',
@@ -393,7 +393,7 @@
         highlights: [
           '3D robot generated in code with Three.js',
           'Cursor tracking with head and eyes',
-          'Optimised loading and animation paused when out of view',
+          'Lazy loading of assets and 3D rendering paused when off screen',
           'Keyboard navigable and respects the reduced-motion preference',
         ],
         links: [{ label: 'Back to the robot' }],
