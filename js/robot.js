@@ -1,81 +1,29 @@
-/* ==========================================================================
-   robot.js — Robot 3D interactivo (Three.js r149, build UMD global `THREE`)
-   --------------------------------------------------------------------------
-   ARQUITECTURA
-   RobotScene es una clase autocontenida que recibe un <canvas>:
-
-     constructor ─┬─ _initRenderer()     WebGLRenderer, DPR limitado, tone mapping
-                  ├─ _initScene()        cámara y luces
-                  ├─ _buildEnvironment() mapa de entorno de "estudio" (reflejos PBR)
-                  ├─ _buildRobot()       geometría 100 % procedural (sin modelos)
-                  ├─ _buildAtmosphere()  partículas + sombra de contacto
-                  └─ _bindEvents()       puntero, clic, resize, visibilidad
-
-     _tick() → _update(dt, t) → renderer.render()
-
-   ACABADO
-   Por defecto se usa el acabado "pro": un entorno de estudio generado con
-   PMREMGenerator (paneles emisivos: softbox cenital, tiras cian y violeta)
-   para que la cerámica, el cromo y el visor tengan reflejos reales.
-   Añadiendo ?robot=clasico a la URL se vuelve al acabado anterior.
-
-   SEGUIMIENTO DEL CURSOR
-   1. El puntero se convierte a NDC relativas al canvas (se permiten valores
-      fuera de [-1, 1] para que mire también hacia el texto de al lado).
-   2. Un rayo desde la cámara interseca un plano frontal: ese punto es lo
-      que el robot mira.
-   3. Yaw/pitch se limitan a un rango "anatómico" y se suavizan con
-      amortiguación exponencial independiente de los FPS. Ojos, cabeza y
-      torso usan constantes distintas (los ojos llegan antes).
-
-   SALUDO
-   Un clic sobre el canvas lanza una animación de ~2 s: el brazo sube,
-   el antebrazo se mueve de lado a lado, la cabeza se inclina y los ojos
-   sonríen.
-
-   RENDIMIENTO
-   DPR máximo 1.5, sin postprocesado (el "bloom" son sprites aditivos) y
-   el bucle se pausa fuera de pantalla o con la pestaña oculta.
-   ========================================================================== */
-
 (function (global) {
   'use strict';
 
   const THREE = global.THREE;
   const PRO = !/[?&]robot=clasico/.test(global.location.search);
 
-  /* ------------------------------------------------------------------------
-     Constantes de comportamiento (ajustables)
-     ------------------------------------------------------------------------ */
   const CONFIG = {
     accent: 0x5ce1ff,
     accentHappy: 0xffc58a,
     rimViolet: 0x8b7bff,
     maxDpr: 1.5,
-    lookPlaneZ: 3.2,       // plano imaginario donde se proyecta el cursor
-    yawLimit: 1.0,         // ±rad que puede girar la cabeza
+    lookPlaneZ: 3.2,
+    yawLimit: 1.0,
     pitchLimit: 0.55,
-    dampEyes: 34,          // cuanto más alto, más rápido reacciona
+    dampEyes: 34,
     dampHead: 13,
     dampBody: 6,
-    bodyFollow: 0.3,       // fracción del giro de cabeza que acompaña el torso
-    idleAfter: 3.5,        // s sin puntero → el robot "curiosea" solo
-    waveDuration: 2.2,     // s que dura el saludo
+    bodyFollow: 0.3,
+    idleAfter: 3.5,
+    waveDuration: 2.2,
   };
 
-  /* ------------------------------------------------------------------------
-     Utilidades
-     ------------------------------------------------------------------------ */
   const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
   const damp = (a, b, lambda, dt) => a + (b - a) * (1 - Math.exp(-lambda * dt));
   const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
 
-  /**
-   * Caja con aristas redondeadas a partir de un BoxGeometry subdividido.
-   * Cada vértice se proyecta sobre una esfera de radio `r` centrada en el
-   * punto más cercano de la caja interior; la normal es esa misma dirección,
-   * así que no hay costuras de sombreado entre caras.
-   */
   function roundedBox(w, h, d, r, seg = 10) {
     const geo = new THREE.BoxGeometry(w, h, d, seg, seg, seg);
     const pos = geo.attributes.position;
@@ -96,7 +44,6 @@
     return geo;
   }
 
-  /** Textura radial (blanco → transparente) para glows y sombras falsas */
   function radialTexture(inner = 'rgba(255,255,255,1)', outer = 'rgba(255,255,255,0)') {
     const size = 128;
     const c = document.createElement('canvas');
@@ -113,29 +60,20 @@
     return tex;
   }
 
-  /* ========================================================================
-     RobotScene
-     ======================================================================== */
   class RobotScene {
-    /**
-     * @param {HTMLCanvasElement} canvas
-     * @param {{ reducedMotion?: boolean, onEngage?: Function }} [options]
-     */
     constructor(canvas, options = {}) {
       this.canvas = canvas;
       this.container = canvas.parentElement;
       this.reducedMotion = !!options.reducedMotion;
       this.onEngage = options.onEngage || (() => {});
 
-      // Estado de interacción
       this.pointerNdc = new THREE.Vector2(0, 0.15);
       this.lastPointerAt = -Infinity;
       this.pointerSpeed = 0;
       this.engaged = false;
-      this.mood = 'neutral';   // 'neutral' | 'happy'
-      this.waveT = -1;         // segundos desde que empezó el saludo (-1 = no saluda)
+      this.mood = 'neutral';
+      this.waveT = -1;
 
-      // Estado animado (valores suavizados)
       this.state = {
         headYaw: 0, headPitch: 0, headRoll: 0,
         bodyYaw: 0,
@@ -168,14 +106,11 @@
       this._resize();
     }
 
-    /* ----------------------------------------------------------------------
-       Renderer
-       ---------------------------------------------------------------------- */
     _initRenderer() {
       this.renderer = new THREE.WebGLRenderer({
         canvas: this.canvas,
         antialias: true,
-        alpha: true,                 // fondo transparente: se ve el CSS de detrás
+        alpha: true,
         powerPreference: 'high-performance',
       });
       this.renderer.setClearColor(0x000000, 0);
@@ -184,9 +119,6 @@
       this.renderer.toneMappingExposure = PRO ? 1.0 : 1.05;
     }
 
-    /* ----------------------------------------------------------------------
-       Cámara y luces
-       ---------------------------------------------------------------------- */
     _initScene() {
       this.scene = new THREE.Scene();
 
@@ -195,14 +127,12 @@
       this.camera.position.copy(this.cameraBase);
       this.cameraLookAt = new THREE.Vector3(0, 1.62, 0);
 
-      // Con mapa de entorno, las luces directas pueden ser más suaves
       this.scene.add(new THREE.HemisphereLight(0xc8dcff, 0x0a0c14, PRO ? 0.25 : 0.55));
 
       const key = new THREE.DirectionalLight(0xffffff, PRO ? 1.1 : 1.35);
       key.position.set(3, 5, 5);
       this.scene.add(key);
 
-      // Contraluces de color: dibujan la silueta sobre el fondo oscuro
       const rimCyan = new THREE.DirectionalLight(CONFIG.accent, PRO ? 1.8 : 2.2);
       rimCyan.position.set(-5, 2.5, -4);
       this.scene.add(rimCyan);
@@ -211,16 +141,10 @@
       rimViolet.position.set(5, 1, -4);
       this.scene.add(rimViolet);
 
-      // Luz de acento: viaja con el punto al que mira el robot
       this.accentLight = new THREE.PointLight(CONFIG.accent, 0.9, 9, 1.6);
       this.scene.add(this.accentLight);
     }
 
-    /* ----------------------------------------------------------------------
-       Entorno de estudio para reflejos (se calcula una sola vez)
-       Una habitación oscura con paneles emisivos; PMREMGenerator la convierte
-       en un mapa de entorno prefiltrado que usan los materiales PBR.
-       ---------------------------------------------------------------------- */
     _buildEnvironment() {
       const env = new THREE.Scene();
       env.add(new THREE.Mesh(
@@ -236,11 +160,11 @@
         m.rotation.set(rot[0], rot[1], rot[2]);
         env.add(m);
       };
-      panel(9, 3.5, 0xffffff, 3.2, [0, 6.5, 1.5], [Math.PI / 2, 0, 0]);      // softbox cenital
-      panel(4, 6, 0xffffff, 1.8, [7, 1.5, 5], [0, -Math.PI / 3, 0]);         // ventana lateral
-      panel(1.2, 8, CONFIG.accent, 3.0, [-8, 1, -2], [0, Math.PI / 2, 0]);   // tira cian
-      panel(1.2, 8, CONFIG.rimViolet, 2.6, [8, 1, -3], [0, -Math.PI / 2, 0]); // tira violeta
-      panel(12, 1.4, 0xffffff, 0.5, [0, -3, 7], [0, 0, 0]);                  // rebote de suelo
+      panel(9, 3.5, 0xffffff, 3.2, [0, 6.5, 1.5], [Math.PI / 2, 0, 0]);
+      panel(4, 6, 0xffffff, 1.8, [7, 1.5, 5], [0, -Math.PI / 3, 0]);
+      panel(1.2, 8, CONFIG.accent, 3.0, [-8, 1, -2], [0, Math.PI / 2, 0]);
+      panel(1.2, 8, CONFIG.rimViolet, 2.6, [8, 1, -3], [0, -Math.PI / 2, 0]);
+      panel(12, 1.4, 0xffffff, 0.5, [0, -3, 7], [0, 0, 0]);
 
       const pmrem = new THREE.PMREMGenerator(this.renderer);
       this.envTarget = pmrem.fromScene(env, 0.035);
@@ -249,9 +173,6 @@
       env.traverse((o) => { if (o.geometry) o.geometry.dispose(); if (o.material) o.material.dispose(); });
     }
 
-    /* ----------------------------------------------------------------------
-       Materiales
-       ---------------------------------------------------------------------- */
     _materials() {
       if (!PRO) {
         return {
@@ -264,29 +185,15 @@
         };
       }
       return {
-        // Cerámica blanca con barniz: base algo satinada + capa de clearcoat brillante
         shell: new THREE.MeshPhysicalMaterial({ color: 0xf4f6fa, roughness: 0.24, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.06 }),
-        // Paneles secundarios algo más mates para que se lean las piezas
         satin: new THREE.MeshPhysicalMaterial({ color: 0xdfe4ec, roughness: 0.45, metalness: 0, clearcoat: 0.5, clearcoatRoughness: 0.3 }),
-        // Grafito metálico (articulaciones, cuello, carcasas)
         dark: new THREE.MeshStandardMaterial({ color: 0x262a33, roughness: 0.3, metalness: 0.85 }),
-        // Cromo pulido para anillos y detalles
         chrome: new THREE.MeshStandardMaterial({ color: 0xdfe3ea, roughness: 0.12, metalness: 1 }),
-        // Visor de cristal negro con reflejos fuertes
         visor: new THREE.MeshPhysicalMaterial({ color: 0x010204, roughness: 0.05, metalness: 0.5, clearcoat: 1, clearcoatRoughness: 0.02, envMapIntensity: 1.5 }),
         glow: new THREE.MeshBasicMaterial({ color: CONFIG.accent, toneMapped: false }),
       };
     }
 
-    /* ----------------------------------------------------------------------
-       Robot procedural
-       Jerarquía:
-         robot (flota)
-         ├─ torso (gira un poco) → pecho, núcleo, mochila, propulsor, brazos
-         │    └─ brazo: hombro → brazo → codo → antebrazo → mano
-         ├─ neck (segmentado)
-         └─ head (yaw/pitch)     → visor → ojos, orejas, antena
-       ---------------------------------------------------------------------- */
     _buildRobot() {
       const mat = this._materials();
       this.materials = mat;
@@ -309,7 +216,6 @@
       this.robot = robot;
       this.scene.add(robot);
 
-      /* --- Torso --- */
       const torso = new THREE.Group();
       this.torso = torso;
       robot.add(torso);
@@ -318,13 +224,11 @@
       body.scale.set(1, 0.9, 0.82);
       torso.add(body);
 
-      // Junta de cintura: anillo de grafito que separa pecho y abdomen
       const waist = mesh(new THREE.TorusGeometry(0.6, 0.022, 10, 64), mat.dark, 0, 0.86, 0);
       waist.rotation.x = Math.PI / 2;
       waist.scale.set(1.02, 0.84, 1);
       torso.add(waist);
 
-      // Placa del pecho con pantalla de cristal y núcleo luminoso
       torso.add(mesh(roundedBox(0.62, 0.42, 0.12, 0.06, 6), mat.dark, 0, 1.24, 0.46));
       torso.add(mesh(roundedBox(0.5, 0.3, 0.05, 0.04, 4), mat.visor, 0, 1.24, 0.52));
       const core = mesh(new THREE.TorusGeometry(0.075, 0.018, 12, 40), mat.glow, 0, 1.24, 0.555);
@@ -333,14 +237,11 @@
       coreGlow.position.copy(core.position);
       torso.add(coreGlow);
       this.coreGlow = coreGlow;
-      // Barras de "estado" junto al núcleo
       [-0.17, 0.17].forEach((x) => torso.add(mesh(roundedBox(0.05, 0.14, 0.02, 0.01, 2), mat.glow, x, 1.24, 0.548)));
 
-      // Mochila trasera con rejillas
       torso.add(mesh(roundedBox(0.66, 0.5, 0.16, 0.07, 6), mat.satin, 0, 1.18, -0.5));
       for (let i = 0; i < 3; i++) torso.add(mesh(roundedBox(0.4, 0.03, 0.02, 0.012, 2), mat.dark, 0, 1.08 + i * 0.09, -0.585));
 
-      // Propulsor bajo el cuerpo
       const thruster = mesh(new THREE.CylinderGeometry(0.2, 0.3, 0.16, 40), mat.dark, 0, 0.2, 0);
       torso.add(thruster);
       const thrusterRim = mesh(new THREE.TorusGeometry(0.21, 0.014, 8, 48), mat.chrome, 0, 0.13, 0);
@@ -354,7 +255,6 @@
       ringGlow.position.y = 0.02;
       torso.add(ringGlow);
 
-      // Brazos: hombro → brazo → codo → antebrazo → mano
       this.arms = [-1, 1].map((side) => {
         const shoulder = new THREE.Group();
         shoulder.position.set(side * 0.74, 1.58, 0);
@@ -385,27 +285,22 @@
         return shoulder;
       });
 
-      /* --- Cuello segmentado --- */
       const neck = new THREE.Group();
       neck.add(mesh(new THREE.CylinderGeometry(0.1, 0.12, 0.3, 24), mat.chrome, 0, 1.94, 0));
       [1.84, 1.93, 2.02].forEach((y, i) => neck.add(mesh(new THREE.CylinderGeometry(0.17 - i * 0.015, 0.19 - i * 0.015, 0.05, 32), mat.dark, 0, y, 0)));
       robot.add(neck);
 
-      /* --- Cabeza --- */
       const head = new THREE.Group();
-      head.position.y = 2.04;          // el pivote está en el cuello
-      head.rotation.order = 'YXZ';     // primero yaw, luego pitch
+      head.position.y = 2.04;
+      head.rotation.order = 'YXZ';
       this.head = head;
       robot.add(head);
 
       head.add(mesh(roundedBox(1.5, 1.08, 1.2, 0.34, 16), mat.shell, 0, 0.56, 0));
-      // Marco del visor en grafito + cristal
       head.add(mesh(roundedBox(1.32, 0.72, 0.14, 0.15, 10), mat.dark, 0, 0.56, 0.54));
       head.add(mesh(roundedBox(1.22, 0.62, 0.14, 0.12, 10), mat.visor, 0, 0.56, 0.57));
-      // Rejillas superiores
       for (let i = -1; i <= 1; i++) head.add(mesh(roundedBox(0.26, 0.02, 0.06, 0.01, 2), mat.dark, i * 0.32, 1.1, -0.15));
 
-      // Ojos: grupo que se desplaza dentro del visor
       const eyes = new THREE.Group();
       eyes.position.set(0, 0.57, 0.65);
       head.add(eyes);
@@ -422,7 +317,6 @@
         return eye;
       });
 
-      // "Orejas": carcasa de grafito, anillo cromado y halo luminoso
       [-1, 1].forEach((side) => {
         const pod = mesh(new THREE.CylinderGeometry(0.21, 0.21, 0.14, 40), mat.dark, side * 0.79, 0.56, 0);
         pod.rotation.z = Math.PI / 2;
@@ -435,7 +329,6 @@
         head.add(halo);
       });
 
-      // Antena
       head.add(mesh(new THREE.CylinderGeometry(0.05, 0.06, 0.06, 20), mat.dark, 0.34, 1.11, -0.05));
       const antenna = mesh(new THREE.CylinderGeometry(0.014, 0.018, 0.4, 12), mat.chrome, 0.35, 1.3, -0.05);
       antenna.rotation.z = -0.12;
@@ -448,9 +341,6 @@
       this.antennaGlow = tipGlow;
     }
 
-    /* ----------------------------------------------------------------------
-       Atmósfera: polvo luminoso + sombra de contacto falsa
-       ---------------------------------------------------------------------- */
     _buildAtmosphere() {
       const COUNT = 260;
       const positions = new Float32Array(COUNT * 3);
@@ -480,9 +370,6 @@
       this.scene.add(shadow);
     }
 
-    /* ----------------------------------------------------------------------
-       Eventos
-       ---------------------------------------------------------------------- */
     _bindEvents() {
       this._onPointerMove = (e) => {
         const rect = this.canvas.getBoundingClientRect();
@@ -501,7 +388,6 @@
       global.addEventListener('pointermove', this._onPointerMove, { passive: true });
       global.addEventListener('pointerdown', this._onPointerMove, { passive: true });
 
-      // Cualquier clic/toque sobre el escenario hace que salude
       this._onClick = () => this.wave();
       this.canvas.addEventListener('click', this._onClick);
 
@@ -519,30 +405,23 @@
     }
 
     _resize() {
-      // Se mide el propio canvas: el escenario tiene además la barra de ventana
       const w = this.canvas.clientWidth;
       const h = this.canvas.clientHeight;
       if (!w || !h) return;
       this.renderer.setPixelRatio(Math.min(global.devicePixelRatio || 1, CONFIG.maxDpr));
       this.renderer.setSize(w, h, false);
       this.camera.aspect = w / h;
-      // En formatos estrechos alejamos la cámara para que el robot quepa a lo ancho
       const fit = clamp(0.85 / this.camera.aspect, 1, 1.6);
       this.camera.position.z = this.cameraBase.z * fit;
       this.camera.updateProjectionMatrix();
       if (!this._running) this._render();
     }
 
-    /* ----------------------------------------------------------------------
-       API pública
-       ---------------------------------------------------------------------- */
     start() { this._wantsRun = true; this._syncRunning(); }
     stop() { this._wantsRun = false; this._syncRunning(); }
 
-    /** 'neutral' | 'happy' — por ejemplo al pasar por un botón */
     setMood(mood) { this.mood = mood; }
 
-    /** Saluda con la mano (ignora clics mientras ya está saludando) */
     wave() {
       if (this.waveT >= 0 && this.waveT < CONFIG.waveDuration * 0.7) return;
       this.waveT = 0;
@@ -565,9 +444,6 @@
       this.renderer.dispose();
     }
 
-    /* ----------------------------------------------------------------------
-       Bucle
-       ---------------------------------------------------------------------- */
     _syncRunning() {
       const shouldRun = this._wantsRun && this._visible && !document.hidden;
       if (shouldRun && !this._running) {
@@ -582,7 +458,8 @@
 
     _tick() {
       if (!this._running) return;
-      const dt = Math.min(this._clock.getDelta(), 1 / 20); // sin saltos tras una pausa
+      // tope para que no dé un salto al volver de otra pestaña
+      const dt = Math.min(this._clock.getDelta(), 1 / 20);
       this._elapsed += dt;
       this._update(dt, this._elapsed);
       this._render();
@@ -594,18 +471,13 @@
       this.renderer.render(this.scene, this.camera);
     }
 
-    /* ----------------------------------------------------------------------
-       Lógica por frame
-       ---------------------------------------------------------------------- */
     _update(dt, t) {
       const s = this.state;
       const motion = this.reducedMotion ? 0 : 1;
 
-      /* 1 · Intro: el robot "se enciende" durante el primer segundo y medio */
       s.intro = Math.min(1, s.intro + dt / 1.5);
       const intro = 1 - Math.pow(1 - s.intro, 3);
 
-      /* 2 · Saludo: envolvente 0 → 1 → 0 durante waveDuration */
       let waveEnv = 0;
       if (this.waveT >= 0) {
         this.waveT += dt;
@@ -614,10 +486,8 @@
         if (p >= 1) this.waveT = -1;
       }
 
-      /* 3 · Objetivo de la mirada */
       const idle = t - this.lastPointerAt > CONFIG.idleAfter;
       if (waveEnv > 0.05) {
-        // Mientras saluda, mira al frente (al visitante)
         this._rawTarget.set(0, 2.5, CONFIG.lookPlaneZ);
       } else if (idle) {
         this._rawTarget.set(Math.sin(t * 0.45) * 1.8, 2.5 + Math.sin(t * 0.73) * 0.6, CONFIG.lookPlaneZ);
@@ -630,7 +500,6 @@
       this._smoothTarget.y = damp(this._smoothTarget.y, this._rawTarget.y, targetLambda, dt);
       this._smoothTarget.z = this._rawTarget.z;
 
-      /* 4 · Ángulos deseados desde la cabeza hasta el objetivo */
       this.head.getWorldPosition(this._headWorld);
       this._headWorld.y += 0.56;
       const dx = this._smoothTarget.x - this._headWorld.x;
@@ -639,14 +508,11 @@
       const yaw = clamp(Math.atan2(dx, dz), -CONFIG.yawLimit, CONFIG.yawLimit);
       const pitch = clamp(Math.atan2(dy, Math.hypot(dx, dz)), -CONFIG.pitchLimit, CONFIG.pitchLimit);
 
-      /* 5 · Cuerpo → cabeza → ojos, cada uno a su velocidad */
       const prevYaw = s.headYaw;
       s.bodyYaw = damp(s.bodyYaw, yaw * CONFIG.bodyFollow, CONFIG.dampBody, dt);
       s.headYaw = damp(s.headYaw, yaw, CONFIG.dampHead, dt);
       s.headPitch = damp(s.headPitch, pitch, CONFIG.dampHead, dt);
       const yawVel = (s.headYaw - prevYaw) / Math.max(dt, 1e-4);
-      // Inclinación lateral por la velocidad de giro + ladeo simpático al saludar
-      // (hacia el lado contrario al brazo que saluda, para dejarle sitio)
       s.headRoll = damp(s.headRoll, clamp(-yawVel * 0.06, -0.18, 0.18) + waveEnv * 0.14, 6, dt);
 
       const leadX = (yaw - s.headYaw) * 0.35 + yaw * 0.05;
@@ -659,7 +525,6 @@
       this.eyes.position.x = s.eyeX;
       this.eyes.position.y = 0.57 + s.eyeY;
 
-      /* 6 · Parpadeo + ojos sonrientes (humor o saludo) */
       s.nextBlink -= dt;
       if (s.nextBlink <= 0) { s.blink = 0; s.nextBlink = 2.2 + Math.random() * 3.8; }
       s.blink = Math.min(1, s.blink + dt / 0.16);
@@ -674,25 +539,21 @@
       this.glowSprites.forEach((g) => g.material.color.copy(this._tmpColor));
       this.accentLight.color.copy(this._tmpColor);
 
-      /* 7 · Flotación + saltito al empezar a saludar */
       const bob = Math.sin(t * 1.6) * 0.06 * motion;
       const hop = this.waveT >= 0 ? Math.sin(clamp(this.waveT / 0.45, 0, 1) * Math.PI) * 0.12 : 0;
       this.robot.position.y = bob + hop - (1 - intro) * 0.6;
       this.robot.scale.setScalar(0.85 + intro * 0.15);
 
-      /* 8 · Brazos: balanceo en reposo; el derecho (del visitante) saluda */
       this.arms.forEach((arm) => {
         const { side, elbow } = arm.userData;
         const sway = Math.sin(t * 1.6 + side) * 0.05 * motion;
         const waving = side > 0 ? waveEnv : 0;
-        // El brazo sube hacia fuera y el antebrazo oscila entre "hacia fuera" y
-        // "vertical", sin pasar nunca hacia la cabeza
+        // si se suben mucho estos números, la mano acaba metida en la cabeza
         arm.rotation.z = side * (0.14 + sway) + waving * 2.1;
         arm.rotation.x = -s.bodyYaw * side * 0.3 - waving * 0.35;
         elbow.rotation.z = side * 0.08 + waving * (0.42 + Math.sin(this.waveT * 11) * 0.32);
       });
 
-      /* 9 · Pulsos luminosos */
       const pulse = 0.75 + Math.sin(t * 2.4) * 0.25;
       this.coreGlow.material.opacity = 0.45 + pulse * 0.35 + waveEnv * 0.4;
       this.antennaGlow.material.opacity = 0.5 + Math.sin(t * 3.1) * 0.3 + waveEnv * 0.5;
@@ -702,12 +563,10 @@
       this.shadow.scale.setScalar(1 - lift * 0.6);
       this.shadow.material.opacity = clamp(0.8 - lift * 1.2, 0.2, 0.9) * intro;
 
-      /* 10 · Luz de acento: sigue al objetivo, más intensa con movimiento rápido */
       this.pointerSpeed = damp(this.pointerSpeed, 0, 3, dt);
       this.accentLight.position.set(this._smoothTarget.x, this._smoothTarget.y, 1.6);
       this.accentLight.intensity = (0.6 + this.pointerSpeed * 1.6 + waveEnv * 1.2) * intro;
 
-      /* 11 · Parallax sutil de cámara y deriva del polvo */
       const px = clamp(this.pointerNdc.x, -1, 1);
       const py = clamp(this.pointerNdc.y, -1, 1);
       this.camera.position.x = damp(this.camera.position.x, px * 0.35 * motion, 2, dt);

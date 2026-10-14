@@ -1,13 +1,3 @@
-/* ==========================================================================
-   cursor.js — Cursor personalizado
-   --------------------------------------------------------------------------
-   Un único círculo que va pegado al ratón (sin retardo ni elementos que se
-   separan). Sobre enlaces y botones crece un poco; sobre campos de texto se
-   oculta y se usa el cursor de texto normal.
-   Solo se activa con ratón (pointer: fine). En táctil o con reduced motion
-   se mantiene el cursor del sistema.
-   ========================================================================== */
-
 (function (global) {
   'use strict';
 
@@ -23,7 +13,6 @@
 
   let x = -100, y = -100;
 
-  // Qué estado toca según el elemento bajo el puntero
   const STATES = [
     ['input, textarea', 'text'],
     ['a, button, [role="button"], label, .pcard, #robot-canvas', 'link'],
@@ -44,15 +33,13 @@
     setState(e.target);
   }, { passive: true });
 
-  // Al hacer scroll sin mover el ratón, el elemento bajo el cursor cambia
   let scrollRaf = 0;
   global.addEventListener('scroll', () => {
     if (scrollRaf) return;
     scrollRaf = requestAnimationFrame(() => { scrollRaf = 0; setState(document.elementFromPoint(x, y)); });
   }, { passive: true });
 
-  // Un <dialog> abierto vive en la "top layer", por encima de todo: mientras el
-  // modal está abierto, el cursor se muda dentro de él para seguir visible
+  // con un modal abierto el cursor tiene que ir dentro del dialog, si no se queda debajo
   document.querySelectorAll('dialog').forEach((dlg) => {
     new MutationObserver(() => {
       (dlg.open ? dlg : document.body).append(dot);

@@ -8,7 +8,6 @@
   <meta name="author" content="Jose Antonio Cuerda Aparicio">
   <meta name="theme-color" content="#06070b">
 
-  <!-- Open Graph: vista previa al compartir el enlace -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Jose Antonio Cuerda · Ingeniero Multimedia & Full Stack Developer">
   <meta property="og:description" content="Plataformas web full stack, 3D en tiempo real y diseño multimedia.">
@@ -26,30 +25,24 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Estilos en capas: tokens → base → componentes → secciones -->
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js" as="script" crossorigin>
-  <link rel="stylesheet" href="css/tokens.css?v=4">
-  <link rel="stylesheet" href="css/base.css?v=4">
-  <link rel="stylesheet" href="css/components.css?v=4">
-  <link rel="stylesheet" href="css/sections.css?v=4">
-  <!-- Capa visual "terminal": menú, cabeceras y tarjetas con aire de editor de código.
-       Para volver al diseño anterior basta con quitar esta línea. -->
-  <link rel="stylesheet" href="css/terminal.css?v=5">
+  <link rel="stylesheet" href="css/tokens.css?v=6">
+  <link rel="stylesheet" href="css/base.css?v=6">
+  <link rel="stylesheet" href="css/components.css?v=6">
+  <link rel="stylesheet" href="css/sections.css?v=6">
+  <link rel="stylesheet" href="css/terminal.css?v=6">
 
-  <!-- Marca el documento como "con JS" para que las animaciones de entrada solo oculten contenido si van a poder mostrarlo -->
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Saltar al contenido</a>
 
-  <!-- Capas de fondo decorativas (fijas, sin coste de JS) -->
   <div class="backdrop" aria-hidden="true">
     <div class="backdrop__grid"></div>
     <div class="backdrop__glow backdrop__glow--a"></div>
     <div class="backdrop__glow backdrop__glow--b"></div>
   </div>
 
-  <!-- ============ NAVEGACIÓN ============ -->
   <header class="nav" data-nav>
     <div class="nav__inner">
       <a class="nav__logo" href="#inicio" aria-label="Ir al inicio">
@@ -78,7 +71,6 @@
 
   <main id="main">
 
-    <!-- ============ HERO + ROBOT 3D ============ -->
     <section id="inicio" class="hero" aria-labelledby="hero-title">
       <div class="container hero__inner">
         <div class="hero__copy">
@@ -118,7 +110,6 @@
           </dl>
         </div>
 
-        <!-- Escenario WebGL: el robot sigue el cursor. Si WebGL falla se muestra un fallback estático vía CSS -->
         <div class="hero__stage" data-reveal style="--i:2">
           <div class="hero__floor" aria-hidden="true"></div>
           <canvas id="robot-canvas" role="img" aria-label="Robot 3D minimalista que gira la cabeza para seguir el cursor"></canvas>
@@ -130,7 +121,6 @@
       <a class="hero__scroll" href="#sobre-mi" aria-label="Bajar a la sección Sobre mí"><span></span></a>
     </section>
 
-    <!-- ============ 01 · SOBRE MÍ (bento) ============ -->
     <section id="sobre-mi" class="section" aria-labelledby="about-title">
       <div class="container">
         <header class="section__head" data-reveal>
@@ -227,7 +217,6 @@
       </div>
     </section>
 
-    <!-- ============ 02 · EXPERIENCIA ============ -->
     <section id="experiencia" class="section" aria-labelledby="exp-title">
       <div class="container">
         <header class="section__head" data-reveal>
@@ -312,7 +301,6 @@
       </div>
     </section>
 
-    <!-- ============ 03 · PROYECTOS (renderizados desde js/data.js) ============ -->
     <section id="proyectos" class="section" aria-labelledby="projects-title">
       <div class="container">
         <header class="section__head section__head--split" data-reveal>
@@ -327,7 +315,6 @@
       </div>
     </section>
 
-    <!-- ============ 04 · LOGOS (renderizados desde js/data.js) ============ -->
     <section id="logos" class="section" aria-labelledby="logos-title">
       <div class="container">
         <header class="section__head" data-reveal>
@@ -339,7 +326,6 @@
       </div>
     </section>
 
-    <!-- ============ 05 · PRENSA (renderizada desde js/data.js) ============ -->
     <section id="prensa" class="section" aria-labelledby="press-title">
       <div class="container">
         <header class="section__head" data-reveal>
@@ -351,7 +337,6 @@
       </div>
     </section>
 
-    <!-- ============ 05 · STACK (renderizado desde js/data.js) ============ -->
     <section id="stack" class="section" aria-labelledby="stack-title">
       <div class="container">
         <header class="section__head" data-reveal>
@@ -362,7 +347,6 @@
       </div>
     </section>
 
-    <!-- ============ 05 · FORMACIÓN ============ -->
     <section id="formacion" class="section" aria-labelledby="edu-title">
       <div class="container">
         <header class="section__head" data-reveal>
@@ -400,7 +384,6 @@
       </div>
     </section>
 
-    <!-- ============ 06 · CONTACTO ============ -->
     <section id="contacto" class="section section--contact" aria-labelledby="contact-title">
       <div class="container">
         <div class="card contact" data-reveal>
@@ -436,7 +419,6 @@
     </div>
   </footer>
 
-  <!-- Modal de detalle de proyecto (elemento nativo <dialog>: foco, Esc y accesibilidad incluidos) -->
   <dialog class="modal" id="project-modal" aria-labelledby="modal-title">
     <div class="modal__panel">
       <button class="modal__close" type="button" aria-label="Cerrar" data-close>
@@ -446,7 +428,6 @@
     </div>
   </dialog>
 
-  <!-- Chatbot: botón flotante + panel (js/chat.js) -->
   <div class="chat" data-chat>
     <button class="chat__fab" type="button" aria-expanded="false" aria-controls="chat-panel" data-chat-toggle>
       <span class="chat__fab-face" aria-hidden="true"><i></i><i></i></span>
@@ -472,16 +453,15 @@
     </section>
   </div>
 
-  <!-- Toast para feedback breve (copiar email, etc.) -->
   <div class="toast" role="status" aria-live="polite" hidden></div>
 
-  <!-- Three.js (build UMD clásico → funciona también abriendo el archivo sin servidor) -->
+  <!-- three.js en versión clásica para que también funcione abriendo el html sin servidor -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js" crossorigin defer></script>
-  <script src="js/data.js?v=4" defer></script>
-  <script src="js/robot.js?v=4" defer></script>
-  <script src="js/ui.js?v=4" defer></script>
-  <script src="js/chat.js?v=4" defer></script>
-  <script src="js/cursor.js?v=4" defer></script>
-  <script src="js/main.js?v=4" defer></script>
+  <script src="js/data.js?v=6" defer></script>
+  <script src="js/robot.js?v=6" defer></script>
+  <script src="js/ui.js?v=6" defer></script>
+  <script src="js/chat.js?v=6" defer></script>
+  <script src="js/cursor.js?v=6" defer></script>
+  <script src="js/main.js?v=6" defer></script>
 </body>
 </html>

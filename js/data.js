@@ -1,24 +1,4 @@
-/* ==========================================================================
-   data.js — Contenido del portfolio
-   --------------------------------------------------------------------------
-   Toda la información editable vive aquí. ui.js lee este objeto para pintar
-   proyectos, modal, prensa y stack, así que añadir un proyecto nuevo es
-   añadir un objeto al array `projects`.
-
-   Campos opcionales de un proyecto
-     links    botones del modal  [{ label, url }]
-     video    { youtube: 'ID' }  → reproductor en el modal (se carga al pulsar)
-     videos   [{ youtube, title }] → varios vídeos (el primero arriba, el resto debajo)
-     gallery  imágenes extra     [{ src, alt }]
-     press    true → el modal muestra la lista `press` de abajo
-     detailImage  imagen que se ve al abrir el proyecto (si no, se usa `image`)
-     imageFit     'contain' para logos que no deben recortarse
-
-   IMÁGENES
-   Formato .webp a 1200×750. Las .svg son ilustraciones para los proyectos
-   que aún no tienen captura real; basta con cambiar la ruta en `image`.
-   ========================================================================== */
-
+// todo el contenido de la web (proyectos, logos, prensa, stack...) se cambia desde aquí
 window.PORTFOLIO_DATA = {
   profile: {
     name: 'Jose Antonio Cuerda Aparicio',
@@ -28,7 +8,6 @@ window.PORTFOLIO_DATA = {
     cv: 'CV_JoseAntonioCuerda.pdf',
   },
 
-  /* Categorías que usan los filtros (data-filter en index.html) */
   categories: {
     web: 'Web y Full Stack',
     '3d': '3D y Unity',
@@ -37,9 +16,6 @@ window.PORTFOLIO_DATA = {
     video: 'Vídeo',
   },
 
-  /* ------------------------------------------------------------------------
-     Proyectos (featured: true → ocupa dos columnas en escritorio)
-     ------------------------------------------------------------------------ */
   projects: [
     {
       id: 'orbitaly',
@@ -395,10 +371,6 @@ window.PORTFOLIO_DATA = {
     },
   ],
 
-  /* ------------------------------------------------------------------------
-     Logos (sección «Logos»). Cada variante se ve sobre su fondo:
-     bg: 'navy' | 'light' | 'dark' | 'white'
-     ------------------------------------------------------------------------ */
   logos: [
     {
       id: 'logo-ds4m',
@@ -437,9 +409,6 @@ window.PORTFOLIO_DATA = {
     },
   ],
 
-  /* ------------------------------------------------------------------------
-     Prensa (campaña Datæ Valor y DS4M Mediterráneo)
-     ------------------------------------------------------------------------ */
   press: [
     {
       outlet: 'Cadena SER',
@@ -479,9 +448,6 @@ window.PORTFOLIO_DATA = {
     },
   ],
 
-  /* ------------------------------------------------------------------------
-     Stack técnico
-     ------------------------------------------------------------------------ */
   stack: [
     {
       group: 'Lenguajes y web',

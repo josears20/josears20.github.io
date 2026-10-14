@@ -1,18 +1,3 @@
-/* ==========================================================================
-   ui.js — Módulos de interfaz (sin dependencias)
-   --------------------------------------------------------------------------
-   Cada módulo es una función `init*` independiente que main.js invoca.
-   Se exponen en `window.PortfolioUI`.
-
-     initNav            estado al hacer scroll, menú móvil, scrollspy
-     initReveal         animaciones de entrada (IntersectionObserver)
-     initSpotlight      halo que sigue al ratón dentro de las .card
-     renderProjects     tarjetas + filtros + modal (vídeo, galería, prensa)
-     renderPress        sección de prensa
-     renderStack        grupos de tecnologías
-     initCopyEmail      copiar email al portapapeles con feedback
-   ========================================================================== */
-
 (function (global) {
   'use strict';
 
@@ -20,14 +5,10 @@
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
   const finePointer = global.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-  /** Escapa texto antes de interpolarlo en HTML */
   const esc = (str) => String(str).replace(/[&<>"']/g, (c) => (
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
   ));
 
-  /* ------------------------------------------------------------------------
-     Toast
-     ------------------------------------------------------------------------ */
   let toastTimer;
   function toast(message) {
     const el = $('.toast');
@@ -38,21 +19,16 @@
     toastTimer = setTimeout(() => { el.hidden = true; }, 2200);
   }
 
-  /* ------------------------------------------------------------------------
-     Navegación
-     ------------------------------------------------------------------------ */
   function initNav() {
     const nav = $('[data-nav]');
     if (!nav) return;
     const toggle = $('.nav__toggle', nav);
     const links = $$('[data-spy]', nav);
 
-    // Fondo glass solo cuando se ha hecho scroll
     const onScroll = () => nav.classList.toggle('is-scrolled', global.scrollY > 24);
     onScroll();
     global.addEventListener('scroll', onScroll, { passive: true });
 
-    // Menú móvil
     const setOpen = (open) => {
       nav.classList.toggle('is-open', open);
       toggle.setAttribute('aria-expanded', String(open));
@@ -62,7 +38,6 @@
     $$('a', nav).forEach((a) => a.addEventListener('click', () => setOpen(false)));
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
 
-    // Scrollspy: marca el enlace de la sección que ocupa el centro de la pantalla
     const byId = new Map(links.map((a) => [a.getAttribute('href').slice(1), a]));
     const spy = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -75,9 +50,6 @@
     $$('main > section[id]').forEach((s) => spy.observe(s));
   }
 
-  /* ------------------------------------------------------------------------
-     Reveal on scroll
-     ------------------------------------------------------------------------ */
   function initReveal(root = document) {
     const els = $$('[data-reveal]:not(.is-visible)', root);
     if (!('IntersectionObserver' in global)) {
@@ -94,12 +66,8 @@
     els.forEach((el) => io.observe(el));
   }
 
-  /* ------------------------------------------------------------------------
-     Spotlight en tarjetas (delegación: un único listener para toda la página)
-     ------------------------------------------------------------------------ */
   function initSpotlight() {
     if (!finePointer) return;
-    // Como mucho un cálculo por frame, aunque el ratón dispare más eventos
     let pending = null;
     const apply = () => {
       const { card, x, y } = pending;
@@ -116,21 +84,12 @@
     }, { passive: true });
   }
 
-  /* ------------------------------------------------------------------------
-     Proyectos: tarjetas, filtros y modal
-     ------------------------------------------------------------------------ */
   const ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
   const PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>';
 
-  /** Color de acento de cada categoría (la tarjeta usa el de su primera categoría) */
   const TONES = { web: '#5ce1ff', '3d': '#8b7bff', mobile: '#ffad7a', design: '#ff7ab8', video: '#4ade80' };
 
-  /**
-   * Tarjeta de proyecto a sangre completa: imagen de fondo, degradado,
-   * categoría + número arriba y título abajo. En hover se despliegan
-   * resumen y tecnologías (grid-template-rows 0fr → 1fr).
-   */
   function projectCard(p, i, categories) {
     const main = p.categories[0];
     const meta = [p.context, p.year].filter(Boolean).join(' · ');
@@ -162,10 +121,8 @@
       </article>`;
   }
 
-  /** Lista de vídeos de un proyecto (admite `video` suelto o `videos`) */
   const videosOf = (p) => (p.videos || (p.video ? [p.video] : [])).filter((v) => v && v.youtube);
 
-  /** Miniatura de YouTube + botón de play; el iframe solo se carga al pulsar */
   function videoFacade(v, img, alt, label) {
     return `
       <button type="button" class="video-facade" data-youtube="${esc(v.youtube)}" aria-label="${esc(label)}">
@@ -174,7 +131,6 @@
       </button>`;
   }
 
-  /** Media del modal: la foto del proyecto (con play si tiene vídeo) */
   function modalMedia(p) {
     const src = p.detailImage || p.image;
     const fit = p.imageFit === 'contain' ? ' modal__media--contain' : '';
@@ -185,7 +141,6 @@
     return `<figure class="modal__media${fit}"><img src="${esc(src)}" alt="${esc(p.alt)}"></figure>`;
   }
 
-  /** Vídeos adicionales (del segundo en adelante) */
   function moreVideos(p) {
     const rest = videosOf(p).slice(1);
     if (!rest.length) return '';
@@ -221,7 +176,6 @@
       return `<a class="btn btn--primary" href="${esc(l.url)}"${external ? ' target="_blank" rel="noopener"' : ' data-close'}>${esc(l.label)} ${ARROW}</a>`;
     }).join('');
 
-    // Fotos del proyecto: al pulsar se abren en grande dentro del propio modal
     const gallery = (p.gallery || []).length
       ? `<div class="modal__gallery-wrap"><h3>Fotos</h3><div class="modal__gallery">${p.gallery.map((g, i) => `
           <button type="button" class="modal__shot" data-shot="${i}" aria-label="Ver en grande: ${esc(g.alt)}">
@@ -260,11 +214,9 @@
     const reduced = global.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let lastTrigger = null;
 
-    // Todas las tarjetas se pintan una vez; filtrar solo las oculta/muestra
     grid.innerHTML = data.projects.map((p, i) => projectCard(p, i, data.categories)).join('');
     const cards = $$('.pcard', grid);
 
-    /* --- Barra de filtros: generada desde las categorías, con contador --- */
     const bar = $('[data-filters]');
     const count = (cat) => (cat === 'all' ? data.projects.length : data.projects.filter((p) => p.categories.includes(cat)).length);
     bar.innerHTML = '<span class="filters__pill" aria-hidden="true"></span>' +
@@ -283,7 +235,6 @@
     movePill();
     new ResizeObserver(movePill).observe(bar);
 
-    /* --- Filtrado con FLIP: las tarjetas que se quedan se deslizan a su nuevo sitio --- */
     const applyFilter = (filter) => {
       const before = new Map(cards.filter((c) => !c.hidden).map((c) => [c, c.getBoundingClientRect()]));
       cards.forEach((c) => { c.hidden = !(filter === 'all' || c.dataset.categories.split(' ').includes(filter)); });
@@ -311,7 +262,6 @@
       applyFilter(btn.dataset.filter);
     });
 
-    /* --- Inclinación 3D sutil que sigue al ratón (un cálculo por frame) --- */
     if (finePointer && !reduced) {
       let target = null, pos = null;
       const tilt = () => {
@@ -334,7 +284,6 @@
       });
     }
 
-    /* --- Visor de fotos (vive dentro del <dialog> para quedar por encima) --- */
     const viewer = document.createElement('div');
     viewer.className = 'viewer';
     viewer.hidden = true;
@@ -380,12 +329,10 @@
       if (e.key === 'ArrowLeft') showShot(shotIndex - 1);
       if (e.key === 'ArrowRight') showShot(shotIndex + 1);
     });
-    // Esc con el visor abierto cierra solo la foto, no el proyecto
     modal.addEventListener('cancel', (e) => {
       if (!viewer.hidden) { e.preventDefault(); closeViewer(); }
     });
 
-    /* --- Modal --- */
     let current = null;
     const openProject = (id, trigger) => {
       const project = byId.get(id);
@@ -397,20 +344,18 @@
       if (!modal.open) modal.showModal();
       modal.querySelector('.modal__panel').scrollTop = 0;
     };
-    global.PortfolioUI.openProject = openProject; // lo usa el chatbot
+    global.PortfolioUI.openProject = openProject;
 
-    // Toda la tarjeta es clicable; el <button> interno da acceso por teclado
     grid.addEventListener('click', (e) => {
       const card = e.target.closest('.pcard');
       if (card) openProject(card.dataset.id, $('.project__open', card));
     });
 
-    // Cerrar: botón, enlaces internos marcados con data-close, o clic fuera del panel
     modal.addEventListener('click', (e) => {
       if (e.target === modal || e.target.closest('[data-close]')) { modal.close(); return; }
       const shot = e.target.closest('[data-shot]');
       if (shot && current) { openViewer(current.gallery, +shot.dataset.shot, shot); return; }
-      // Vídeo: sustituimos la miniatura por el reproductor solo cuando se pulsa
+      // YouTube solo se carga al darle al play; si no, la web tarda mucho más en abrir
       const facade = e.target.closest('[data-youtube]');
       if (facade) {
         const id = encodeURIComponent(facade.dataset.youtube);
@@ -419,16 +364,12 @@
       }
     });
     modal.addEventListener('close', () => {
-      // Detiene el vídeo si estaba sonando (salvo que ya se haya reabierto con otro proyecto)
       if (!modal.open) modalBody.innerHTML = '';
       viewer.hidden = true;
       if (lastTrigger) lastTrigger.focus({ preventScroll: true });
     });
   }
 
-  /* ------------------------------------------------------------------------
-     Logos: cada tarjeta muestra una variante y unas pestañas para cambiarla
-     ------------------------------------------------------------------------ */
   function renderLogos(data) {
     const grid = $('#logos-grid');
     if (!grid || !data || !data.logos) return;
@@ -465,9 +406,6 @@
     });
   }
 
-  /* ------------------------------------------------------------------------
-     Prensa
-     ------------------------------------------------------------------------ */
   function renderPress(data) {
     const grid = $('#press-grid');
     if (!grid || !data || !data.press) return;
@@ -487,9 +425,6 @@
       </a>`).join('');
   }
 
-  /* ------------------------------------------------------------------------
-     Stack
-     ------------------------------------------------------------------------ */
   function renderStack(data) {
     const grid = $('#stack-grid');
     if (!grid || !data) return;
@@ -502,14 +437,10 @@
         <ul class="chips">${g.items.map((it) => `<li class="chip">${esc(it)}</li>`).join('')}</ul>
       </article>`).join('');
 
-    // El contador del hero se calcula a partir de los datos reales
     const total = data.stack.reduce((n, g) => n + g.items.length, 0);
     $$('[data-tech-count]').forEach((el) => { el.textContent = total; });
   }
 
-  /* ------------------------------------------------------------------------
-     Copiar email
-     ------------------------------------------------------------------------ */
   function initCopyEmail() {
     $$('[data-copy]').forEach((btn) => {
       btn.addEventListener('click', async () => {
@@ -520,16 +451,12 @@
           toast('Email copiado al portapapeles');
           if (status) status.textContent = 'Email copiado';
         } catch {
-          // Sin permiso de portapapeles: abrimos el cliente de correo
           global.location.href = `mailto:${value}`;
         }
       });
     });
   }
 
-  /* ------------------------------------------------------------------------
-     Datos de perfil opcionales (p. ej. GitHub)
-     ------------------------------------------------------------------------ */
   function applyProfile(data) {
     const gh = $('[data-github]');
     if (gh && data && data.profile.github) {

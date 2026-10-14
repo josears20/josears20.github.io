@@ -1,21 +1,3 @@
-/* ==========================================================================
-   chat.js — Asistente flotante que solo responde sobre Jose Antonio
-   --------------------------------------------------------------------------
-   Funciona 100 % en el navegador, sin API ni servidor:
-     1. El texto se normaliza (minúsculas, sin tildes) y se parte en palabras.
-        Los nombres de Jose se ignoran para que no "tiren" de una respuesta.
-     2. Se buscan cosas concretas: un proyecto, una tecnología o un sitio
-        donde ha trabajado. Si aparecen, la respuesta es sobre eso.
-     3. Si no, cada tema tiene raíces de palabras (tecnolog → tecnología,
-        tecnologías…) y gana el que más coincide.
-     4. Cada tema tiene varias respuestas: si preguntas lo mismo otra vez,
-        cuenta algo distinto en lugar de repetirse.
-     5. Recuerda el último proyecto del que se habló para entender
-        preguntas de seguimiento ("¿y qué tecnologías usó?", "cuéntame más").
-   Las respuestas se construyen con PORTFOLIO_DATA, así que si cambias
-   data.js el asistente se actualiza solo.
-   ========================================================================== */
-
 (function (global) {
   'use strict';
 
@@ -38,15 +20,11 @@
   const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
   const lower = (s) => s.charAt(0).toLowerCase() + s.slice(1);
 
-  // Palabras que no aportan nada para decidir el tema
   const NAMES = new Set(['jose', 'antonio', 'cuerda', 'aparicio', 'jose antonio', 'el', 'la', 'los', 'las', 'de', 'del', 'que', 'y', 'a', 'en', 'un', 'una', 'su', 'sus', 'es', 'me', 'te', 'le', 'lo', 'por', 'para', 'con', 'al', 'o', 'tu', 'mi']);
 
-  /* ------------------------------------------------------------------------
-     Datos de apoyo
-     ------------------------------------------------------------------------ */
   const LANGS = 'Su lengua materna es el <strong>castellano</strong>, tiene el <strong>B2 de valenciano</strong> certificado y un nivel <strong>B1 de inglés</strong>, aunque este último no lo tiene certificado.';
 
-  // Tecnologías que NO están en su stack pero que la gente suele preguntar
+  // cosas que la gente pregunta mucho aunque no las uso
   const NOT_IN_STACK = {
     vue: 'Vue no es una de sus herramientas habituales, pero trabaja con React y Angular, que se parecen bastante.',
     svelte: 'Svelte no lo ha usado en proyectos, pero se mueve bien con React y Angular.',
@@ -63,7 +41,6 @@
     premiere: 'Para editar vídeo usa CapCut.',
   };
 
-  // Nombres con los que alguien puede referirse a cada proyecto
   const PROJECT_ALIASES = [
     ['orbitaly', ['orbitaly', 'biblioteca social']],
     ['ds4m-web', ['portal', 'web oficial', 'ds4m web', 'web de ds4m', 'pagina de ds4m']],
@@ -80,10 +57,6 @@
     ['portfolio', ['portfolio', 'esta web', 'esta pagina']],
   ];
 
-  /* ------------------------------------------------------------------------
-     Temas: raíces de palabras → varias respuestas posibles
-     Cada respuesta devuelve { text, actions? }; text admite <strong>
-     ------------------------------------------------------------------------ */
   const INTENTS = [
     {
       id: 'saludo', stems: ['hola', 'buenas', 'hey', 'saludo', 'buenos dias', 'buenas tardes', 'que tal'], weight: 0.4,
@@ -336,7 +309,6 @@
     },
   ];
 
-  /* Preguntas sugeridas: se muestran unas pocas y desaparecen al usarlas */
   const SUGGESTIONS = [
     ['¿Quién es Jose?', 'quien'],
     ['¿Dónde ha trabajado?', 'experiencia'],
@@ -352,21 +324,16 @@
   const SHOWN = 4;
   const usedIntents = new Set();
 
-  /* ------------------------------------------------------------------------
-     Memoria de la conversación
-     ------------------------------------------------------------------------ */
-  const asked = new Map();  // id de tema/proyecto → veces que se ha respondido
+  const asked = new Map();
   let lastProject = null;
 
   let lastIntent = null;
 
-  /** Elige la siguiente respuesta del tema sin repetir la anterior */
   function nextAnswer(intent) {
     lastIntent = intent;
     const n = asked.get(intent.id) || 0;
     asked.set(intent.id, n + 1);
     if (n < intent.answers.length) return intent.answers[n]();
-    // Ya se contó todo sobre este tema: en vez de repetirlo, se dice y se ofrece otra cosa
     const { actions } = intent.answers[0]();
     const left = SUGGESTIONS.filter(([, id]) => !usedIntents.has(id)).slice(0, 2).map(([l]) => `«${l}»`);
     return {
@@ -376,14 +343,10 @@
     };
   }
 
-  /* ------------------------------------------------------------------------
-     Detección
-     ------------------------------------------------------------------------ */
   function tokens(q) {
     return q.split(' ').filter((w) => w && !NAMES.has(w));
   }
 
-  /** Coincide si la raíz es una frase contenida, o si alguna palabra empieza por ella */
   function hits(q, words, stem) {
     if (stem.includes(' ')) return q.includes(stem);
     if (stem.length <= 3) return words.includes(stem);
@@ -408,10 +371,8 @@
     return null;
   }
 
-  // Formas cortas con las que se suele nombrar una tecnología
   const TECH_ALIASES = { node: 'Node.js', nodejs: 'Node.js', js: 'JavaScript', html: 'HTML5/CSS3', css: 'HTML5/CSS3', postgres: 'PostgreSQL', sql: 'MySQL', mongo: 'MongoDB', wordpress: 'WordPress', wp: 'WordPress', k8s: 'Kubernetes', csharp: 'C#' };
 
-  /** "Unity 3D" → ['unity 3d', 'unity']; "HTML5/CSS3" → ['html5/css3', 'html5', 'css3'] */
   const techVariants = (item) => {
     const n = norm(item);
     return [n, ...n.split('/'), n.split(' ')[0], n.replace(/\./g, '')].map((v) => v.trim()).filter((v) => v.length > 1);
@@ -434,9 +395,6 @@
     return null;
   }
 
-  /* ------------------------------------------------------------------------
-     Respuestas sobre cosas concretas
-     ------------------------------------------------------------------------ */
   function techAnswer(t) {
     if (t.missing) return { text: NOT_IN_STACK[t.missing], actions: [{ label: 'Ver su stack', href: '#stack' }] };
     const variants = techVariants(t.item);
@@ -450,7 +408,6 @@
     };
   }
 
-  /** Cada vez que se pregunta por el mismo proyecto se cuenta algo nuevo */
   function projectAnswer(p, focus) {
     lastProject = p;
     const key = `p:${p.id}`;
@@ -462,8 +419,6 @@
     if (focus === 'stack') {
       return { text: `En <strong>${esc(p.title)}</strong> usó ${list(p.stack.map(esc))}.`, actions: [open] };
     }
-    // Las descripciones de data.js están escritas por Jose en primera persona,
-    // así que se citan como suyas
     const steps = [
       () => ({ text: `<strong>${esc(p.title)}</strong>. ${esc(p.summary)}`, actions: [open, ...ext] }),
       () => ({ text: `${pick(['Jose lo cuenta así', 'En sus palabras', 'Te lo cuenta él'])}: «${esc(p.description[p.description.length > 1 ? 1 : 0])}»`, actions: [open] }),
@@ -482,15 +437,12 @@
     const proj = findProject(q, words);
     const tech = findTech(q);
 
-    // 1 · Un proyecto concreto manda, salvo saludos o despedidas
     if (proj && !(intent && ['contacto', 'cv', 'disponible'].includes(intent.id) && score >= 1)) {
       return projectAnswer(proj, intent && intent.id === 'stack' ? 'stack' : null);
     }
-    // 2 · Una tecnología concreta ("¿sabe React?", "¿experiencia con Unity?")
     if (tech && (!intent || ['stack', 'proyectos', 'tresd', 'movil', 'equipo', 'experiencia', 'saludo', 'diseno', 'video'].includes(intent.id))) {
       return techAnswer(tech);
     }
-    // 3 · Pregunta de seguimiento sobre el último proyecto del que se habló
     const followUp = FOLLOW_UP.some((f) => (f.includes(' ') ? q.includes(f) : words.includes(f)));
     if (followUp && (!intent || score < 1)) {
       if (lastProject) return projectAnswer(lastProject);
@@ -499,12 +451,10 @@
     if (lastProject && intent && intent.id === 'stack' && /\b(uso|usaste|utilizo|hizo|hecho)\b/.test(q)) {
       return projectAnswer(lastProject, 'stack');
     }
-    // 4 · Tema general
     if (intent && score > 0) {
       usedIntents.add(intent.id);
       return nextAnswer(intent);
     }
-    // 5 · No se ha entendido
     const left = SUGGESTIONS.filter(([, id]) => !usedIntents.has(id)).slice(0, 2).map(([l]) => `«${l}»`);
     return {
       text: pick([
@@ -515,9 +465,6 @@
     };
   }
 
-  /* ------------------------------------------------------------------------
-     Interfaz
-     ------------------------------------------------------------------------ */
   function addMessage(who, html, actions = []) {
     const msg = document.createElement('div');
     msg.className = `chat__msg chat__msg--${who}`;
@@ -584,6 +531,6 @@
   root.querySelectorAll('[data-chat-toggle]').forEach((b) => b.addEventListener('click', () => setOpen(panel.hidden)));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !panel.hidden) { setOpen(false); fab.focus(); } });
 
-  // Para probar el motor desde la consola: PortfolioChat.reply('¿sabe React?')
+  // para probarlo desde la consola: PortfolioChat.reply('¿sabe React?')
   global.PortfolioChat = { reply };
 })(window);

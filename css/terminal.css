@@ -1,20 +1,8 @@
-/* ==========================================================================
-   terminal.css — Capa visual "terminal / editor de código"
-   --------------------------------------------------------------------------
-   Se carga después del resto y solo sobrescribe. Mismos colores que el
-   robot (cian, violeta y ámbar); lo que cambia es la forma:
-     · menú como la barra de una ventana de terminal (jose@cuerda:~$)
-     · cabeceras de sección como comandos (~/proyectos $ ls)
-     · tarjetas y botones con canto en relieve, como bloques en 3D
-     · el robot dentro de una ventana, sobre un suelo de rejilla en 3D
-   Quitar el <link> de este archivo en index.html devuelve el diseño anterior.
-   ========================================================================== */
-
+/* aspecto de terminal (menú, títulos y tarjetas); va la última para pisar al resto */
 :root {
   --radius-sm: 8px;
   --radius: 12px;
   --radius-lg: 16px;
-  /* Canto de los bloques "3D" (se apila en varias sombras de 1px) */
   --edge: rgba(var(--accent-rgb), 0.16);
   --edge-dim: rgba(var(--accent-rgb), 0.07);
   --dot-1: #ff7ab8;
@@ -22,9 +10,6 @@
   --dot-3: #4ade80;
 }
 
-/* --------------------------------------------------------------------------
-   Piezas comunes: botones de ventana y cursor parpadeante
-   -------------------------------------------------------------------------- */
 .term-dots { display: inline-flex; flex: none; gap: 6px; }
 .term-dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--dot-1); }
 .term-dots i:nth-child(2) { background: var(--dot-2); }
@@ -41,9 +26,6 @@
 }
 @keyframes term-blink { 50% { opacity: 0; } }
 
-/* --------------------------------------------------------------------------
-   Menú: barra de ventana de terminal
-   -------------------------------------------------------------------------- */
 .nav__inner,
 .nav.is-scrolled .nav__inner {
   border-radius: var(--radius);
@@ -90,9 +72,6 @@
   .nav__logo .term-dots { display: none; }
 }
 
-/* --------------------------------------------------------------------------
-   Botones como teclas: canto inferior que se hunde al pulsar
-   -------------------------------------------------------------------------- */
 .btn {
   border-radius: 10px;
   font-family: var(--font-mono);
@@ -112,9 +91,6 @@
 .filter, .filters__pill { border-radius: var(--radius-sm); }
 .filter { font-family: var(--font-mono); font-size: 0.78rem; }
 
-/* --------------------------------------------------------------------------
-   Cabeceras de sección como comandos de terminal
-   -------------------------------------------------------------------------- */
 .section__index {
   display: inline-flex;
   flex-wrap: wrap;
@@ -140,15 +116,9 @@
 .cmd-sign { color: var(--accent-2); }
 .contact .section__index { display: inline-flex; }
 
-/* Etiquetas de tarjeta como comentarios de código */
 .card__label { letter-spacing: 0.06em; text-transform: none; font-size: 0.78rem; }
 .card__label::before { content: '// '; color: var(--accent-2); }
 
-/* --------------------------------------------------------------------------
-   Bloques en relieve: un canto de varios píxeles abajo a la derecha.
-   Al pasar el ratón el bloque "sale" hacia arriba y el canto crece.
-   Se usa la propiedad `translate` para no pisar las animaciones de entrada.
-   -------------------------------------------------------------------------- */
 .card,
 .pcard {
   --lift: 0px;
@@ -169,17 +139,10 @@
   }
   .pcard:hover { transition: translate 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), border-color 0.4s, transform 0.15s linear; }
 }
-/* Tarjetas de enlace sin relieve exagerado */
 .press__item:hover { translate: -2px -2px; }
 
-/* --------------------------------------------------------------------------
-   Hero: el robot vive en una ventana, sobre un suelo de rejilla en 3D
-   -------------------------------------------------------------------------- */
-/* Sin marco: el robot flota sobre la página. Solo un suelo de rejilla en 3D
-   bajo sus pies, que se funde con el fondo por todos los lados */
 #robot-canvas { z-index: 1; }
 
-/* Suelo: rejilla cian en perspectiva que avanza despacio hacia el visitante */
 .hero__floor {
   position: absolute;
   left: 0; right: 0; bottom: 4%;
@@ -204,9 +167,6 @@
   .hero__floor, .term-caret, .section__index::after { animation: none; }
 }
 
-/* --------------------------------------------------------------------------
-   Logos
-   -------------------------------------------------------------------------- */
 .logos {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -283,9 +243,6 @@
   .logo[data-logo='logo-intras'] .logo__body { border-left: 0; border-top: 1px solid var(--border); }
 }
 
-/* --------------------------------------------------------------------------
-   Chat, modal y contacto con el mismo aire de terminal
-   -------------------------------------------------------------------------- */
 .chat__fab { border-radius: 14px; font-family: var(--font-mono); font-size: 0.82rem; box-shadow: 0 4px 0 rgba(var(--accent-rgb), 0.25), 0 18px 50px -12px rgba(0, 0, 0, 0.8); }
 .chat__panel { border-radius: var(--radius-lg); box-shadow: 1px 1px 0 var(--edge), 2px 2px 0 var(--edge-dim), 3px 3px 0 var(--edge-dim), 4px 4px 0 var(--edge-dim), 0 40px 100px -20px rgba(0, 0, 0, 0.85); }
 .chat__name { font-family: var(--font-mono); font-size: 0.9rem; }
