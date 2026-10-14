@@ -62,10 +62,14 @@
 .nav__links a.is-active { color: var(--accent); background: rgba(var(--accent-rgb), 0.08); }
 .nav__links a.is-active::before { content: '> '; color: var(--accent); }
 
-@media (max-width: 1100px) {
-  .nav__links a { padding-inline: 10px; }
+.nav__links a { white-space: nowrap; }
+@media (max-width: 1440px) {
+  .nav__inner { gap: 16px; }
+  .nav__menu { gap: 16px; }
+  .nav__links { gap: 0; }
+  .nav__links a { padding-inline: 8px; }
 }
-@media (max-width: 860px) {
+@media (max-width: 1240px) {
   .nav__menu { border-radius: var(--radius); }
 }
 @media (max-width: 420px) {

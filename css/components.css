@@ -253,7 +253,38 @@
 .nav__toggle[aria-expanded='true'] span:first-child { transform: translateY(3.5px) rotate(45deg); }
 .nav__toggle[aria-expanded='true'] span:last-child { transform: translateY(-3.5px) rotate(-45deg); }
 
-@media (max-width: 860px) {
+.nav__menu { margin-left: auto; }
+.nav__tools { display: flex; align-items: center; gap: 6px; }
+
+.lang {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.lang__btn {
+  display: grid;
+  place-items: center;
+  width: 34px; height: 28px;
+  border-radius: 7px;
+  opacity: 0.45;
+  filter: saturate(0.4);
+  transition: opacity var(--dur-fast), filter var(--dur-fast), background var(--dur-fast);
+}
+.lang__btn svg {
+  display: block;
+  width: 22px; height: 15px;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14);
+}
+.lang__btn:hover { opacity: 0.85; filter: none; }
+.lang__btn[aria-pressed='true'] { opacity: 1; filter: none; background: rgba(var(--accent-rgb), 0.12); }
+.lang__btn:focus-visible { outline: none; box-shadow: var(--ring); }
+
+.i18n-pending body { visibility: hidden; }
+
+@media (max-width: 1240px) {
   .nav__inner { padding-left: 18px; }
   .nav.is-scrolled .nav__inner,
   .nav.is-open .nav__inner {

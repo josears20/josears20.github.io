@@ -4,6 +4,7 @@
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
   const finePointer = global.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const t = (...args) => global.I18N.t(...args);
 
   const esc = (str) => String(str).replace(/[&<>"']/g, (c) => (
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
@@ -32,8 +33,10 @@
     const setOpen = (open) => {
       nav.classList.toggle('is-open', open);
       toggle.setAttribute('aria-expanded', String(open));
-      toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+      toggle.setAttribute('aria-label', open ? t('menuClose') : t('menuOpen'));
     };
+    setOpen(false);
+    global.addEventListener('langchange', () => setOpen(nav.classList.contains('is-open')));
     toggle.addEventListener('click', () => setOpen(!nav.classList.contains('is-open')));
     $$('a', nav).forEach((a) => a.addEventListener('click', () => setOpen(false)));
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
@@ -102,7 +105,7 @@
         <div class="pcard__shade" aria-hidden="true"></div>
         <div class="pcard__top">
           <span class="pcard__tag"><i aria-hidden="true"></i>${esc(categories[main] || '')}</span>
-          ${videosOf(p).length && main !== 'video' ?`<span class="pcard__tag pcard__tag--video">${PLAY}Vídeo</span>` : ''}
+          ${videosOf(p).length && main !== 'video' ?`<span class="pcard__tag pcard__tag--video">${PLAY}${esc(t('video'))}</span>` : ''}
           <span class="pcard__num" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
         </div>
         <div class="pcard__body">
@@ -112,11 +115,11 @@
           </h3>
           <div class="pcard__more"><div>
             <p class="pcard__summary">${esc(p.summary)}</p>
-            <ul class="chips chips--sm" aria-label="Tecnologías">
+            <ul class="chips chips--sm" aria-label="${esc(t('tech'))}">
               ${p.stack.slice(0, 4).map((s) => `<li class="chip">${esc(s)}</li>`).join('')}
             </ul>
           </div></div>
-          <span class="pcard__cta" aria-hidden="true">Ver proyecto ${ARROW}</span>
+          <span class="pcard__cta" aria-hidden="true">${esc(t('seeProject'))} ${ARROW}</span>
         </div>
       </article>`;
   }
@@ -136,7 +139,7 @@
     const fit = p.imageFit === 'contain' ? ' modal__media--contain' : '';
     const [first] = videosOf(p);
     if (first) {
-      return `<div class="modal__media">${videoFacade(first, src, p.alt, `Reproducir vídeo de ${p.title}`)}</div>`;
+      return `<div class="modal__media">${videoFacade(first, src, p.alt, t('playVideoOf', p.title))}</div>`;
     }
     return `<figure class="modal__media${fit}"><img src="${esc(src)}" alt="${esc(p.alt)}"></figure>`;
   }
@@ -146,10 +149,10 @@
     if (!rest.length) return '';
     return `
       <div class="modal__videos">
-        <h3>Más vídeos</h3>
+        <h3>${esc(t('moreVideos'))}</h3>
         <div class="modal__videos-grid">${rest.map((v) => `
           <figure>
-            <div class="modal__video">${videoFacade(v, `https://i.ytimg.com/vi/${encodeURIComponent(v.youtube)}/hqdefault.jpg`, v.title || 'Vídeo', `Reproducir ${v.title || 'vídeo'}`)}</div>
+            <div class="modal__video">${videoFacade(v, `https://i.ytimg.com/vi/${encodeURIComponent(v.youtube)}/hqdefault.jpg`, v.title || t('video'), t('play', v.title || t('video').toLowerCase()))}</div>
             ${v.title ? `<figcaption>${esc(v.title)}</figcaption>` : ''}
           </figure>`).join('')}
         </div>
@@ -159,7 +162,7 @@
   function pressList(press) {
     return `
       <div class="modal__press">
-        <h3>En los medios</h3>
+        <h3>${esc(t('inMedia'))}</h3>
         <ul>${press.map((a) => `
           <li><a href="${esc(a.url)}" target="_blank" rel="noopener"><strong>${esc(a.outlet)}</strong><span>${esc(a.title)}</span></a></li>`).join('')}
         </ul>
@@ -169,7 +172,7 @@
   function modalContent(p, categories, press) {
     const cats = p.categories.map((c) => categories[c]).filter(Boolean).join(' · ');
     const highlights = p.highlights.length
-      ? `<div><h3>Puntos clave</h3><ul class="modal__highlights">${p.highlights.map((h) => `<li>${esc(h)}</li>`).join('')}</ul></div>`
+      ? `<div><h3>${esc(t('highlights'))}</h3><ul class="modal__highlights">${p.highlights.map((h) => `<li>${esc(h)}</li>`).join('')}</ul></div>`
       : '';
     const links = p.links.map((l) => {
       const external = /^https?:/.test(l.url);
@@ -177,8 +180,8 @@
     }).join('');
 
     const gallery = (p.gallery || []).length
-      ? `<div class="modal__gallery-wrap"><h3>Fotos</h3><div class="modal__gallery">${p.gallery.map((g, i) => `
-          <button type="button" class="modal__shot" data-shot="${i}" aria-label="Ver en grande: ${esc(g.alt)}">
+      ? `<div class="modal__gallery-wrap"><h3>${esc(t('photos'))}</h3><div class="modal__gallery">${p.gallery.map((g, i) => `
+          <button type="button" class="modal__shot" data-shot="${i}" aria-label="${esc(t('zoom', g.alt))}">
             <img src="${esc(g.src)}" alt="${esc(g.alt)}" decoding="async">
           </button>`).join('')}</div></div>`
       : '';
@@ -194,7 +197,7 @@
           <div>
             <h3>Stack</h3>
             <ul class="chips">${p.stack.map((s) => `<li class="chip">${esc(s)}</li>`).join('')}</ul>
-            ${cats ? `<h3 style="margin-top:22px">Categoría</h3><p style="color:var(--text-2)">${esc(cats)}</p>` : ''}
+            ${cats ? `<h3 style="margin-top:22px">${esc(t('category'))}</h3><p style="color:var(--text-2)">${esc(cats)}</p>` : ''}
           </div>
         </div>
         ${moreVideos(p)}
@@ -204,43 +207,92 @@
       </div>`;
   }
 
+  // la primera llamada monta los eventos; las siguientes (al cambiar de idioma) solo repintan
+  let projects = null;
+
   function renderProjects(data) {
+    if (projects) { projects.paint(data); return; }
     const grid = $('#projects-grid');
     const modal = $('#project-modal');
     const modalBody = $('#modal-content');
     if (!grid || !data) return;
 
-    const byId = new Map(data.projects.map((p) => [p.id, p]));
     const reduced = global.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let lastTrigger = null;
-
-    grid.innerHTML = data.projects.map((p, i) => projectCard(p, i, data.categories)).join('');
-    const cards = $$('.pcard', grid);
-
     const bar = $('[data-filters]');
+    let lastTrigger = null;
+    let current = null;
+    let filter = 'all';
+
+    const cards = () => $$('.pcard', grid);
     const count = (cat) => (cat === 'all' ? data.projects.length : data.projects.filter((p) => p.categories.includes(cat)).length);
-    bar.innerHTML = '<span class="filters__pill" aria-hidden="true"></span>' +
-      [['all', 'Todos'], ...Object.entries(data.categories)].map(([key, label]) => `
-        <button class="filter" type="button" data-filter="${esc(key)}" aria-pressed="${key === 'all'}" style="--tone:${TONES[key] || '#eef1f7'}">
-          ${esc(label)}<span class="filter__count">${count(key)}</span>
-        </button>`).join('');
-    const pill = $('.filters__pill', bar);
+
     const movePill = () => {
+      const pill = $('.filters__pill', bar);
       const active = $('[aria-pressed="true"]', bar);
-      if (!active) return;
+      if (!active || !pill) return;
       pill.style.width = `${active.offsetWidth}px`;
       pill.style.height = `${active.offsetHeight}px`;
       pill.style.transform = `translate(${active.offsetLeft}px, ${active.offsetTop}px)`;
     };
-    movePill();
+
+    const viewer = document.createElement('div');
+    viewer.className = 'viewer';
+    viewer.hidden = true;
+    viewer.setAttribute('role', 'dialog');
+    viewer.innerHTML = `
+      <button type="button" class="viewer__btn viewer__close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <button type="button" class="viewer__btn viewer__prev"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <figure class="viewer__figure"><img alt=""><figcaption></figcaption></figure>
+      <button type="button" class="viewer__btn viewer__next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>`;
+    modal.appendChild(viewer);
+    const viewerImg = $('img', viewer);
+    const viewerCap = $('figcaption', viewer);
+    let shots = [], shotIndex = 0, shotTrigger = null;
+
+    const showShot = (i) => {
+      shotIndex = (i + shots.length) % shots.length;
+      const g = shots[shotIndex];
+      viewerImg.src = g.src;
+      viewerImg.alt = g.alt;
+      viewerCap.textContent = `${g.alt} · ${shotIndex + 1}/${shots.length}`;
+      viewer.classList.toggle('viewer--single', shots.length < 2);
+    };
+
+    const paint = (next) => {
+      data = next;
+      grid.innerHTML = data.projects.map((p, i) => projectCard(p, i, data.categories)).join('');
+      cards().forEach((c) => { c.hidden = !(filter === 'all' || c.dataset.categories.split(' ').includes(filter)); });
+
+      bar.innerHTML = '<span class="filters__pill" aria-hidden="true"></span>' +
+        [['all', t('all')], ...Object.entries(data.categories)].map(([key, label]) => `
+          <button class="filter" type="button" data-filter="${esc(key)}" aria-pressed="${key === filter}" style="--tone:${TONES[key] || '#eef1f7'}">
+            ${esc(label)}<span class="filter__count">${count(key)}</span>
+          </button>`).join('');
+      movePill();
+
+      viewer.setAttribute('aria-label', t('viewer'));
+      $('.viewer__close', viewer).setAttribute('aria-label', t('viewerClose'));
+      $('.viewer__prev', viewer).setAttribute('aria-label', t('viewerPrev'));
+      $('.viewer__next', viewer).setAttribute('aria-label', t('viewerNext'));
+
+      // si hay un proyecto abierto, se traduce también
+      if (current && modal.open) {
+        current = data.projects.find((p) => p.id === current.id) || current;
+        modalBody.innerHTML = modalContent(current, data.categories, data.press);
+        if (!viewer.hidden) { shots = current.gallery || shots; showShot(shotIndex); }
+      }
+    };
+
+    paint(data);
     new ResizeObserver(movePill).observe(bar);
 
-    const applyFilter = (filter) => {
-      const before = new Map(cards.filter((c) => !c.hidden).map((c) => [c, c.getBoundingClientRect()]));
-      cards.forEach((c) => { c.hidden = !(filter === 'all' || c.dataset.categories.split(' ').includes(filter)); });
+    const applyFilter = () => {
+      const all = cards();
+      const before = new Map(all.filter((c) => !c.hidden).map((c) => [c, c.getBoundingClientRect()]));
+      all.forEach((c) => { c.hidden = !(filter === 'all' || c.dataset.categories.split(' ').includes(filter)); });
       if (reduced) return;
       let entering = 0;
-      cards.forEach((c) => {
+      all.forEach((c) => {
         if (c.hidden) return;
         const a = before.get(c);
         const b = c.getBoundingClientRect();
@@ -258,8 +310,9 @@
       const btn = e.target.closest('[data-filter]');
       if (!btn || btn.getAttribute('aria-pressed') === 'true') return;
       $$('[data-filter]', bar).forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      filter = btn.dataset.filter;
       movePill();
-      applyFilter(btn.dataset.filter);
+      applyFilter();
     });
 
     if (finePointer && !reduced) {
@@ -284,29 +337,6 @@
       });
     }
 
-    const viewer = document.createElement('div');
-    viewer.className = 'viewer';
-    viewer.hidden = true;
-    viewer.setAttribute('role', 'dialog');
-    viewer.setAttribute('aria-label', 'Foto ampliada');
-    viewer.innerHTML = `
-      <button type="button" class="viewer__btn viewer__close" aria-label="Cerrar foto"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-      <button type="button" class="viewer__btn viewer__prev" aria-label="Foto anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-      <figure class="viewer__figure"><img alt=""><figcaption></figcaption></figure>
-      <button type="button" class="viewer__btn viewer__next" aria-label="Foto siguiente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>`;
-    modal.appendChild(viewer);
-    const viewerImg = $('img', viewer);
-    const viewerCap = $('figcaption', viewer);
-    let shots = [], shotIndex = 0, shotTrigger = null;
-
-    const showShot = (i) => {
-      shotIndex = (i + shots.length) % shots.length;
-      const g = shots[shotIndex];
-      viewerImg.src = g.src;
-      viewerImg.alt = g.alt;
-      viewerCap.textContent = `${g.alt} · ${shotIndex + 1}/${shots.length}`;
-      viewer.classList.toggle('viewer--single', shots.length < 2);
-    };
     const openViewer = (list, i, trigger) => {
       shots = list; shotTrigger = trigger;
       showShot(i);
@@ -333,9 +363,8 @@
       if (!viewer.hidden) { e.preventDefault(); closeViewer(); }
     });
 
-    let current = null;
     const openProject = (id, trigger) => {
-      const project = byId.get(id);
+      const project = data.projects.find((p) => p.id === id);
       if (!project) return;
       current = project;
       lastTrigger = trigger || null;
@@ -360,42 +389,50 @@
       if (facade) {
         const id = encodeURIComponent(facade.dataset.youtube);
         facade.parentElement.innerHTML =
-          `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" title="Vídeo del proyecto" allow="autoplay; encrypted-media; picture-in-picture; fullscreen"></iframe>`;
+          `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" title="${esc(t('projectVideo'))}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen"></iframe>`;
       }
     });
     modal.addEventListener('close', () => {
       if (!modal.open) modalBody.innerHTML = '';
       viewer.hidden = true;
+      current = null;
       if (lastTrigger) lastTrigger.focus({ preventScroll: true });
     });
+
+    projects = { paint };
   }
+
+  let logosData = null;
 
   function renderLogos(data) {
     const grid = $('#logos-grid');
     if (!grid || !data || !data.logos) return;
+    const first = !logosData;
+    logosData = data;
     grid.innerHTML = data.logos.map((l, i) => `
-      <article class="card logo" data-reveal style="--i:${i}" data-logo="${esc(l.id)}">
+      <article class="card logo${first ? '' : ' is-visible'}" data-reveal style="--i:${i}" data-logo="${esc(l.id)}">
         <div class="logo__stage" data-bg="${esc(l.variants[0].bg)}">
           <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
           <span class="logo__file" aria-hidden="true">${esc(l.id.replace(/^logo-/, ''))}.svg</span>
           <img src="${esc(l.variants[0].src)}" alt="${esc(l.variants[0].alt)}" loading="lazy" decoding="async">
         </div>
         <div class="logo__body">
-          ${l.variants.length > 1 ? `<div class="logo__tabs" role="group" aria-label="Versiones del logo">${l.variants.map((v, j) => `
+          ${l.variants.length > 1 ? `<div class="logo__tabs" role="group" aria-label="${esc(t('logoVersions'))}">${l.variants.map((v, j) => `
             <button type="button" class="logo__tab" data-v="${j}" aria-pressed="${j === 0}">${esc(v.label)}</button>`).join('')}
           </div>` : ''}
           <p class="logo__meta">${esc(l.context)}</p>
           <h3 class="logo__title">${esc(l.title)}</h3>
           <p class="logo__text">${esc(l.description)}</p>
-          <ul class="chips chips--sm" aria-label="Herramientas">${l.tools.map((t) => `<li class="chip">${esc(t)}</li>`).join('')}</ul>
+          <ul class="chips chips--sm" aria-label="${esc(t('tools'))}">${l.tools.map((tool) => `<li class="chip">${esc(tool)}</li>`).join('')}</ul>
         </div>
       </article>`).join('');
 
+    if (!first) return;
     grid.addEventListener('click', (e) => {
       const tab = e.target.closest('[data-v]');
       if (!tab) return;
       const card = tab.closest('[data-logo]');
-      const logo = data.logos.find((l) => l.id === card.dataset.logo);
+      const logo = logosData.logos.find((l) => l.id === card.dataset.logo);
       const v = logo.variants[+tab.dataset.v];
       const stage = $('.logo__stage', card);
       const img = $('img', stage);
@@ -409,27 +446,29 @@
   function renderPress(data) {
     const grid = $('#press-grid');
     if (!grid || !data || !data.press) return;
+    const shown = grid.childElementCount ? ' is-visible' : '';
     const campaign = data.projects.find((p) => p.press);
     const feature = campaign ? `
-      <div class="press__feature" data-reveal>
+      <div class="press__feature${shown}" data-reveal>
         <figure><img src="${esc(campaign.image)}" alt="${esc(campaign.alt)}" width="1200" height="750" loading="lazy" decoding="async"></figure>
         ${(campaign.gallery || []).slice(0, 1).map((g) => `
           <figure><img src="${esc(g.src)}" alt="${esc(g.alt)}" width="1200" height="750" loading="lazy" decoding="async"></figure>`).join('')}
       </div>` : '';
 
     grid.innerHTML = feature + data.press.map((a, i) => `
-      <a class="card press__item" href="${esc(a.url)}" target="_blank" rel="noopener" data-reveal style="--i:${i % 3}">
+      <a class="card press__item${shown}" href="${esc(a.url)}" target="_blank" rel="noopener" data-reveal style="--i:${i % 3}">
         <span class="press__meta"><span class="press__outlet">${esc(a.outlet)}</span><span class="press__date">${esc(a.date)}</span></span>
         <span class="press__title">${esc(a.title)}</span>
-        <span class="press__more">Leer artículo ↗</span>
+        <span class="press__more">${esc(t('readArticle'))}</span>
       </a>`).join('');
   }
 
   function renderStack(data) {
     const grid = $('#stack-grid');
     if (!grid || !data) return;
+    const shown = grid.childElementCount ? ' is-visible' : '';
     grid.innerHTML = data.stack.map((g, i) => `
-      <article class="card stack__group" data-reveal style="--i:${i};--dot:${esc(g.color)}">
+      <article class="card stack__group${shown}" data-reveal style="--i:${i};--dot:${esc(g.color)}">
         <header class="stack__head">
           <h3>${esc(g.group)}</h3>
           <span class="stack__count">${String(g.items.length).padStart(2, '0')}</span>
@@ -448,8 +487,8 @@
         const status = $('#copy-status');
         try {
           await navigator.clipboard.writeText(value);
-          toast('Email copiado al portapapeles');
-          if (status) status.textContent = 'Email copiado';
+          toast(t('copied'));
+          if (status) status.textContent = t('copiedShort');
         } catch {
           global.location.href = `mailto:${value}`;
         }

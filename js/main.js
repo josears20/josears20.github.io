@@ -1,15 +1,19 @@
 (function () {
   'use strict';
 
-  const data = window.PORTFOLIO_DATA;
   const UI = window.PortfolioUI;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  UI.renderProjects(data);
-  UI.renderLogos(data);
-  UI.renderPress(data);
-  UI.renderStack(data);
-  UI.applyProfile(data);
+  const render = () => {
+    const data = window.I18N.data();
+    UI.renderProjects(data);
+    UI.renderLogos(data);
+    UI.renderPress(data);
+    UI.renderStack(data);
+  };
+  render();
+  window.addEventListener('langchange', render);
+  UI.applyProfile(window.PORTFOLIO_DATA);
 
   UI.initNav();
   UI.initReveal();
