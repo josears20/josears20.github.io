@@ -192,6 +192,9 @@
 
 .profile__text { display: flex; flex-direction: column; justify-content: center; }
 .profile__text h3 { margin-bottom: 16px; font-size: var(--fs-lg); font-weight: 500; }
+.profile__text .profile__hello { display: flex; align-items: center; gap: 0.5em; font-family: var(--font-mono); font-weight: 400; color: var(--accent); }
+.profile__hello .cmd-sign { color: var(--text-3); }
+.profile__hello .term-caret { margin-left: -0.25em; }
 .profile__text p { margin-bottom: 14px; color: var(--text-2); }
 .profile__text p:last-child { margin-bottom: 0; }
 

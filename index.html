@@ -27,11 +27,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js" as="script" crossorigin>
-  <link rel="stylesheet" href="css/tokens.css?v=8">
-  <link rel="stylesheet" href="css/base.css?v=8">
-  <link rel="stylesheet" href="css/components.css?v=8">
-  <link rel="stylesheet" href="css/sections.css?v=8">
-  <link rel="stylesheet" href="css/terminal.css?v=8">
+  <link rel="stylesheet" href="css/tokens.css?v=9">
+  <link rel="stylesheet" href="css/base.css?v=9">
+  <link rel="stylesheet" href="css/components.css?v=9">
+  <link rel="stylesheet" href="css/sections.css?v=9">
+  <link rel="stylesheet" href="css/terminal.css?v=9">
 
   <script>
     document.documentElement.classList.add('js');
@@ -156,7 +156,7 @@
       <div class="container">
         <header class="section__head" data-reveal>
           <p class="section__index" data-i18n="about.cmd"><span class="cmd-path">~/sobre-mi</span> <span class="cmd-sign">$</span> cat perfil.md</p>
-          <h2 class="section__title" id="about-title" data-i18n="about.title">Programo, diseño <em>y edito vídeo.</em></h2>
+          <h2 class="section__title" id="about-title" data-i18n="about.title">Programación, diseño <em>y edición de vídeo.</em></h2>
         </header>
 
         <div class="bento">
@@ -165,48 +165,48 @@
               <img src="assets/img/profile.webp" alt="Retrato de Jose Antonio Cuerda Aparicio con americana oscura y camisa blanca" data-i18n-alt="about.photo" width="720" height="1009" loading="lazy" decoding="async">
             </figure>
             <div class="profile__text">
-              <h3 data-i18n="about.hello">Hola, soy Jose.</h3>
+              <h3 class="profile__hello" data-i18n="about.hello"><span class="cmd-sign" aria-hidden="true">&gt;</span> Hola mundo<span class="term-caret" aria-hidden="true"></span></h3>
               <p data-i18n="about.p1">
-                Soy <strong>Ingeniero Multimedia</strong> por la Universitat de València y he hecho el
+                Soy <strong>Ingeniero Multimedia</strong> por la Universitat de València y he realizado el
                 <strong>Máster en Tecnologías Web, Computación en la Nube y Aplicaciones Móviles (TWCAM)</strong>.
-                Desde 2024 trabajo en institutos de investigación de la UV haciendo webs,
-                aplicaciones en 3D y herramientas para recoger y analizar datos.
+                Desde 2024 estoy trabajando en institutos de investigación de la UV, desarrollando plataformas web,
+                aplicaciones 3D interactivas y soluciones de <strong>data analytics</strong>.
               </p>
               <p data-i18n="about.p2">
-                Tengo experiencia en <strong>frontend</strong> y <strong>backend</strong> dentro de
-                <strong>proyectos europeos</strong>. En DS4M Mediterráneo trabajé con el equipo en la web,
-                tanto en la interfaz como en el servidor, y en MIRACLE programé parte del software y organicé
-                cómo se conectaban sus aplicaciones.
+                En el proyecto europeo <strong>DS4M Mediterráneo</strong> colaboré con el equipo de investigación
+                en el diseño, el desarrollo <strong>full stack</strong>, el despliegue y el mantenimiento de la
+                web institucional. En <strong>MIRACLE</strong>, un proyecto de IA aplicada a la cirugía
+                robótica, participé en el desarrollo del software y en la arquitectura de integración entre sus aplicaciones.
               </p>
             </div>
           </article>
 
           <article class="card bento__focus" data-reveal style="--i:1">
-            <h3 class="card__label" data-i18n="focus.label">Lo que hago</h3>
+            <h3 class="card__label" data-i18n="focus.label">Especialidades</h3>
             <ul class="focus-list">
               <li>
                 <span class="focus-list__icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>
                 </span>
-                <div data-i18n="focus.web"><strong>Webs completas</strong><span>Lo que ves y lo que hay detrás: Node.js, React, Angular, PHP y bases de datos.</span></div>
+                <div data-i18n="focus.web"><strong>Desarrollo full stack</strong><span>Frontend y backend con Node.js, React, Angular, PHP y bases de datos.</span></div>
               </li>
               <li>
                 <span class="focus-list__icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3zM12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg>
                 </span>
-                <div data-i18n="focus.3d"><strong>3D interactivo</strong><span>Aplicaciones y simulaciones con Unity y C#, Three.js y Blender.</span></div>
+                <div data-i18n="focus.3d"><strong>3D interactivo</strong><span>Aplicaciones y simulaciones en tiempo real con Unity y C#, Three.js y Blender.</span></div>
               </li>
               <li>
                 <span class="focus-list__icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>
                 </span>
-                <div data-i18n="focus.mobile"><strong>Apps móviles</strong><span>Android con Kotlin, Ionic y React Native.</span></div>
+                <div data-i18n="focus.mobile"><strong>Apps móviles</strong><span>Desarrollo nativo en Android con Kotlin y multiplataforma con Ionic y React Native.</span></div>
               </li>
               <li>
                 <span class="focus-list__icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 000 18M3.5 9h17M3.5 15h17"/></svg>
                 </span>
-                <div data-i18n="focus.design"><strong>Diseño y vídeo</strong><span>Logos vectoriales en Figma, carteles, campañas, animación y edición de vídeo.</span></div>
+                <div data-i18n="focus.design"><strong>Diseño y vídeo</strong><span>Identidad visual en Figma, cartelería, campañas, motion graphics y edición de vídeo.</span></div>
               </li>
             </ul>
           </article>
@@ -228,20 +228,22 @@
             <h3 class="card__label" data-i18n="langs.label">Idiomas</h3>
             <ul class="langs">
               <li><span data-i18n="langs.es">Castellano</span><span class="langs__lvl" data-i18n="langs.native">Nativo</span><span class="langs__bar" style="--v:100%"></span></li>
-              <li><span data-i18n="langs.va">Valenciano</span><span class="langs__lvl" data-i18n="langs.b2">B2 certificado</span><span class="langs__bar" style="--v:78%"></span></li>
-              <li><span data-i18n="langs.en">Inglés</span><span class="langs__lvl" data-i18n="langs.b1">B1 (sin certificar)</span><span class="langs__bar" style="--v:50%"></span></li>
+              <li><span data-i18n="langs.va">Valenciano</span><span class="langs__lvl" data-i18n="langs.native">Nativo</span><span class="langs__bar" style="--v:100%"></span></li>
+              <li><span data-i18n="langs.en">Inglés</span><span class="langs__lvl" data-i18n="langs.b1">Nivel B1</span><span class="langs__bar" style="--v:50%"></span></li>
             </ul>
           </article>
 
           <article class="card bento__method" data-reveal style="--i:4">
-            <h3 class="card__label" data-i18n="method.label">Cómo trabajo</h3>
+            <h3 class="card__label">Soft skills</h3>
             <ul class="chips" data-i18n="method.chips">
-              <li class="chip">En equipo</li>
-              <li class="chip">Por sprints (Scrum)</li>
-              <li class="chip">Con IA como ayuda</li>
-              <li class="chip">Buscando soluciones</li>
-              <li class="chip">Cuidando los detalles</li>
-              <li class="chip">Redes sociales</li>
+              <li class="chip">Trabajo en equipo</li>
+              <li class="chip">Comunicación</li>
+              <li class="chip">Resolución de problemas</li>
+              <li class="chip">Pensamiento crítico</li>
+              <li class="chip">Adaptabilidad</li>
+              <li class="chip">Proactividad</li>
+              <li class="chip">Creatividad</li>
+              <li class="chip">Atención al detalle</li>
             </ul>
           </article>
         </div>
@@ -252,7 +254,7 @@
       <div class="container">
         <header class="section__head" data-reveal>
           <p class="section__index" data-i18n="xp.cmd"><span class="cmd-path">~/experiencia</span> <span class="cmd-sign">$</span> git log</p>
-          <h2 class="section__title" id="exp-title" data-i18n="xp.title">Dónde he trabajado <em>hasta ahora.</em></h2>
+          <h2 class="section__title" id="exp-title" data-i18n="xp.title">Experiencia <em>profesional.</em></h2>
         </header>
 
         <ol class="timeline">
@@ -268,11 +270,11 @@
                   <p class="xp__org">IRTIC · Universitat de València</p>
                 </header>
                 <ul class="xp__list" data-i18n="xp1.list">
-                  <li>En <strong>MIRACLE</strong>, un proyecto que usa IA para ayudar en operaciones con robots quirúrgicos, programé parte del software y organicé cómo se conectaban sus aplicaciones. También usé IA para automatizar tareas.</li>
-                  <li>Desarrollo web para el proyecto europeo <strong>DS4M Mediterráneo</strong>, trabajando por sprints con el equipo (Scrum).</li>
-                  <li>Participé en el diseño de la imagen, el merchandising y la campaña <strong>Datæ Valor</strong>, que se vio en marquesinas y estaciones de toda España y salió en prensa.</li>
-                  <li>Bases de datos, publicación de las webs y mejoras para que cargaran más rápido.</li>
-                  <li>Edición de vídeo, redes sociales y mantenimiento de la <a class="inline-link" href="https://ds4mmed.uv.es/index.php/es/" target="_blank" rel="noopener">web oficial</a>.</li>
+                  <li>Desarrollo de software en <strong>MIRACLE</strong>, un proyecto de IA aplicada a la cirugía robótica laparoscópica: participación en el código y en la arquitectura de integración entre aplicaciones, y automatización de tareas con IA.</li>
+                  <li>Desarrollo web full stack para el proyecto europeo <strong>DS4M Mediterráneo</strong> con metodología ágil (Scrum).</li>
+                  <li>Participación en la identidad visual, el merchandising y la campaña <strong>Datæ Valor</strong>, desplegada en marquesinas, estaciones y aeropuertos como Joaquín Sorolla (Valencia) o el aeropuerto de Barcelona, entre otros, y con cobertura en prensa.</li>
+                  <li>Modelado y gestión de bases de datos, despliegue en producción y optimización del rendimiento web.</li>
+                  <li>Edición de vídeo, gestión de redes sociales y mantenimiento de la <a class="inline-link" href="https://ds4mmed.uv.es/index.php/es/" target="_blank" rel="noopener">web oficial del proyecto DS4M Mediterráneo</a>.</li>
                 </ul>
                 <ul class="chips chips--sm" aria-label="Tecnologías y áreas" data-i18n-label="xp.chips" data-i18n="xp1.chips">
                   <li class="chip">IA</li><li class="chip">Full Stack</li><li class="chip">Scrum</li><li class="chip">Bases de datos</li><li class="chip">Branding</li>
@@ -293,12 +295,12 @@
                   <p class="xp__org">INTRAS · Universitat de València</p>
                 </header>
                 <ul class="xp__list" data-i18n="xp2.list">
-                  <li>Partes de la web y herramientas para el equipo del proyecto europeo <strong>DS4M Mediterráneo</strong>.</li>
-                  <li>Una plataforma para el proyecto <strong>ESCOLA</strong> que registra y analiza cómo reaccionan los niños ante situaciones de peligro.</li>
-                  <li>Diseño, programación y publicación de webs con WordPress, HTML, CSS, JavaScript y PHP.</li>
-                  <li>Vídeos para el instituto y la animación del logo del <strong>30 aniversario del INTRAS</strong>.</li>
+                  <li>Diseño, programación y mantenimiento de la web del proyecto europeo <strong>DS4M Mediterráneo</strong>.</li>
+                  <li>Aplicación 3D interactiva para el proyecto <strong>ESCOLA</strong>, que registra y analiza cómo reaccionan los niños ante situaciones de peligro vial.</li>
+                  <li>Optimización SEO de la web corporativa: estructura, metadatos y rendimiento para mejorar su posicionamiento.</li>
+                  <li>Creación de contenido y gestión de redes sociales, incluida la animación del logo del <strong>30 aniversario del INTRAS</strong>.</li>
                 </ul>
-                <p class="xp__note" data-i18n="xp2.note">Durante esta etapa desarrollé también mi <strong>TFG</strong>, <a class="inline-link" href="https://youtu.be/04wgOXJavtA" target="_blank" rel="noopener">VialGo</a>, una aplicación 3D interactiva para aprender a conducir.</p>
+                <p class="xp__note" data-i18n="xp2.note">En paralelo, desarrollo del <strong>TFG</strong> <a class="inline-link" href="https://youtu.be/04wgOXJavtA" target="_blank" rel="noopener">VialGo</a>, una aplicación 3D interactiva para el aprendizaje de la conducción.</p>
                 <ul class="chips chips--sm" aria-label="Tecnologías y áreas" data-i18n-label="xp.chips">
                   <li class="chip">WordPress</li><li class="chip">PHP</li><li class="chip">JavaScript</li><li class="chip">HTML/CSS</li><li class="chip">CapCut</li>
                 </ul>
@@ -320,7 +322,7 @@
                 <ul class="xp__list" data-i18n="xp3.list">
                   <li>Aplicaciones interactivas para el proyecto <a class="inline-link" href="https://www.uv.es/uvweb/instituto-universitario-investigacion-transito-seguridad-vial-INTRAS/es/grupos-investigacion/dats/experiencia-investigacion/escola-entornos-seguros-colegios-libres-accidentes-1285893039971/ProjecteInves.html?id=1286330274153" target="_blank" rel="noopener"><strong>ESCOLA</strong></a> (Entornos Seguros COlegios Libres de Accidentes).</li>
                   <li>Programación en <strong>C#</strong> con <strong>Unity</strong>.</li>
-                  <li>Escenarios en 3D y pruebas para que todo funcionara fluido.</li>
+                  <li>Diseño de escenarios 3D, testing y optimización del rendimiento.</li>
                 </ul>
                 <ul class="chips chips--sm" aria-label="Tecnologías y áreas" data-i18n-label="xp.chips" data-i18n="xp3.chips">
                   <li class="chip">Unity</li><li class="chip">C#</li><li class="chip">3D</li><li class="chip">Pruebas</li>
@@ -337,7 +339,7 @@
         <header class="section__head section__head--split" data-reveal>
           <div>
             <p class="section__index" data-i18n="projects.cmd"><span class="cmd-path">~/proyectos</span> <span class="cmd-sign">$</span> ls</p>
-            <h2 class="section__title" id="projects-title" data-i18n="projects.title">Algunas cosas <em>que he hecho.</em></h2>
+            <h2 class="section__title" id="projects-title" data-i18n="projects.title">Proyectos <em>destacados.</em></h2>
           </div>
           <div class="filters" role="group" aria-label="Filtrar proyectos" data-i18n-label="projects.filter" data-filters></div>
         </header>
@@ -350,8 +352,8 @@
       <div class="container">
         <header class="section__head" data-reveal>
           <p class="section__index"><span class="cmd-path">~/logos</span> <span class="cmd-sign">$</span> ls *.svg</p>
-          <h2 class="section__title" id="logos-title" data-i18n="logos.title">Logos que he diseñado, <em>todos en vectorial.</em></h2>
-          <p class="section__lead" data-i18n="logos.lead">Los dibujé en Figma como vectores, así que se ven igual de nítidos en una tarjeta de visita que en una lona de varios metros. Cada uno tiene versión para fondo claro y oscuro.</p>
+          <h2 class="section__title" id="logos-title" data-i18n="logos.title">Identidad visual, <em>100% vectorial.</em></h2>
+          <p class="section__lead" data-i18n="logos.lead">Diseñados en Figma como gráficos vectoriales, escalan sin pérdida de calidad desde una tarjeta de visita hasta una lona de gran formato. Cada logo incluye versiones para fondo claro y oscuro.</p>
         </header>
         <div class="logos" id="logos-grid"></div>
       </div>
@@ -362,7 +364,7 @@
         <header class="section__head" data-reveal>
           <p class="section__index" data-i18n="press.cmd"><span class="cmd-path">~/prensa</span> <span class="cmd-sign">$</span> grep "Datæ Valor"</p>
           <h2 class="section__title" id="press-title" data-i18n="press.title">La campaña <em>en los medios.</em></h2>
-          <p class="section__lead" data-i18n="press.lead">La campaña Datæ Valor de DS4M Mediterráneo, en cuyo diseño participé, se vio en marquesinas y estaciones de toda España, sus anuncios se emitieron en televisión, Netflix, Prime Video y Spotify, y varios medios hablaron de ella.</p>
+          <p class="section__lead" data-i18n="press.lead">La campaña Datæ Valor de DS4M Mediterráneo, en cuyo diseño participé, se desplegó en marquesinas, estaciones y aeropuertos como Joaquín Sorolla (Valencia) o el aeropuerto de Barcelona, entre otros. Sus spots se emitieron en televisión, Netflix, Prime Video y Spotify, y tuvo cobertura en varios medios.</p>
         </header>
         <div class="press" id="press-grid"></div>
       </div>
@@ -372,7 +374,7 @@
       <div class="container">
         <header class="section__head" data-reveal>
           <p class="section__index" data-i18n="stack.cmd"><span class="cmd-path">~/stack</span> <span class="cmd-sign">$</span> cat herramientas.txt</p>
-          <h2 class="section__title" id="stack-title" data-i18n="stack.title">Con qué <em>trabajo.</em></h2>
+          <h2 class="section__title" id="stack-title" data-i18n="stack.title">Stack <em>tecnológico.</em></h2>
         </header>
         <div class="stack" id="stack-grid"></div>
       </div>
@@ -382,7 +384,7 @@
       <div class="container">
         <header class="section__head" data-reveal>
           <p class="section__index" data-i18n="edu.cmd"><span class="cmd-path">~/formacion</span> <span class="cmd-sign">$</span> cat estudios.md</p>
-          <h2 class="section__title" id="edu-title" data-i18n="edu.title">Lo que <em>he estudiado.</em></h2>
+          <h2 class="section__title" id="edu-title" data-i18n="edu.title">Formación <em>académica.</em></h2>
         </header>
 
         <div class="edu">
@@ -488,12 +490,12 @@
 
   <!-- three.js en versión clásica para que también funcione abriendo el html sin servidor -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js" crossorigin defer></script>
-  <script src="js/data.js?v=8" defer></script>
-  <script src="js/i18n.js?v=8" defer></script>
-  <script src="js/robot.js?v=8" defer></script>
-  <script src="js/ui.js?v=8" defer></script>
-  <script src="js/chat.js?v=8" defer></script>
-  <script src="js/cursor.js?v=8" defer></script>
-  <script src="js/main.js?v=8" defer></script>
+  <script src="js/data.js?v=9" defer></script>
+  <script src="js/i18n.js?v=9" defer></script>
+  <script src="js/robot.js?v=9" defer></script>
+  <script src="js/ui.js?v=9" defer></script>
+  <script src="js/chat.js?v=9" defer></script>
+  <script src="js/cursor.js?v=9" defer></script>
+  <script src="js/main.js?v=9" defer></script>
 </body>
 </html>

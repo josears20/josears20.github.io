@@ -33,8 +33,8 @@
   ]);
 
   const LANGS = () => L(
-    'Su lengua materna es el <strong>castellano</strong>, tiene el <strong>B2 de valenciano</strong> certificado y un nivel <strong>B1 de inglés</strong>, aunque este último no lo tiene certificado.',
-    'His native language is <strong>Spanish</strong>, he has a certified <strong>B2 in Valencian</strong> and a <strong>B1 level of English</strong>, although that one is not certified.',
+    'Es nativo en <strong>castellano</strong> y <strong>valenciano</strong>, y tiene un nivel <strong>B1 de inglés</strong>.',
+    'He is a native speaker of <strong>Spanish</strong> and <strong>Valencian</strong>, and has a <strong>B1 level of English</strong>.',
   );
 
   // cosas que la gente pregunta mucho aunque no las uso
@@ -85,8 +85,8 @@
       answers: [
         () => ({
           text: L(
-            'Jose es <strong>Ingeniero Multimedia</strong> por la Universitat de València y ha hecho el Máster en Tecnologías Web (TWCAM). Trabaja en dos institutos de investigación de la UV, el IRTIC y el INTRAS, haciendo webs, aplicaciones en 3D y diseño. Vive en Valencia.',
-            'Jose is a <strong>Multimedia Engineer</strong> from the Universitat de València and holds a Master\'s in Web Technologies (TWCAM). He works at two UV research institutes, IRTIC and INTRAS, building websites, 3D applications and doing design. He lives in Valencia.',
+            'Jose es <strong>Ingeniero Multimedia</strong> por la Universitat de València y ha realizado el Máster en Tecnologías Web (TWCAM). Desde 2024 trabaja en dos institutos de investigación de la UV, el IRTIC y el INTRAS, desarrollando plataformas web, aplicaciones 3D interactivas y soluciones de data analytics, además de diseño. Vive en Valencia.',
+            'Jose is a <strong>Multimedia Engineer</strong> from the Universitat de València and has completed the Master\'s in Web Technologies (TWCAM). Since 2024 he has worked at two UV research institutes, IRTIC and INTRAS, developing web platforms, interactive 3D applications and data analytics solutions, as well as design work. He lives in Valencia.',
           ),
           actions: [{ label: L('Ver experiencia', 'See experience'), href: '#experiencia' }, { label: L('Ver proyectos', 'See projects'), href: '#proyectos' }],
         }),
@@ -564,7 +564,7 @@
     const steps = [
       () => ({ text: `${title}. ${esc(p.summary)}`, actions: [open, ...ext] }),
       () => ({
-        text: `${pick(L(['Jose lo cuenta así', 'En sus palabras', 'Te lo cuenta él'], ['Jose puts it like this', 'In his words', 'Here\'s how he tells it']))}: ${quote(esc(p.description[p.description.length > 1 ? 1 : 0]))}`,
+        text: `${pick(L(['En detalle', 'Un poco más a fondo', 'Más en concreto'], ['In more detail', 'Going a bit deeper', 'More specifically']))}: ${esc(p.description[p.description.length > 1 ? 1 : 0])}`,
         actions: [open],
       }),
       () => ({
