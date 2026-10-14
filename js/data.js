@@ -60,13 +60,13 @@ window.PORTFOLIO_DATA = {
       featured: false,
       image: 'assets/img/projects/ds4m-web.webp',
       alt: 'Portada del portal web DS4M Mediterráneo, Data Space for Mobility, con una vista aérea de la catedral de Cádiz',
-      summary: 'La web oficial del proyecto europeo DS4M Mediterráneo: diseño, programación y mantenimiento durante dos años.',
+      summary: 'La web oficial del proyecto europeo DS4M Mediterráneo, en la que participé durante dos años.',
       description: [
         'DS4M Mediterráneo es un proyecto europeo que quiere que empresas e instituciones del Corredor Mediterráneo compartan datos para mejorar el transporte y la movilidad.',
-        'Primero en el INTRAS y después en el IRTIC, me encargué de su web oficial: la diseñé, la programé y la he ido manteniendo. También hice otras herramientas web para el equipo y me ocupé de las bases de datos y de publicar los cambios.',
+        'Primero en el INTRAS y después en el IRTIC, formé parte del equipo de su web oficial: participé en el diseño, la programación y el mantenimiento. También colaboré en otras herramientas web para el equipo, en las bases de datos y en la publicación de cambios.',
       ],
       highlights: [
-        'Diseño, programación y mantenimiento de la web oficial',
+        'Participación en el diseño, la programación y el mantenimiento de la web',
         'Herramientas web para el equipo del proyecto',
         'Trabajo por sprints con el resto del equipo (Scrum)',
         'Bases de datos, publicación de cambios y que la web cargue rápido',
@@ -115,10 +115,10 @@ window.PORTFOLIO_DATA = {
       summary: 'La campaña «Introdúcete en la economía del dato», que se vio en marquesinas y pantallas de estaciones de toda España y salió en prensa.',
       description: [
         'Datæ Valor fue la primera campaña del INTRAS para explicar qué es la economía del dato y animar a empresas e instituciones a unirse a DS4M Mediterráneo.',
-        'Hice la imagen de la campaña y todas sus piezas. Se vieron en carteles, marquesinas de autobús y pantallas de estaciones de toda España, y salió en medios como Cadena SER, Europa Press y El Publicista.',
+        'Participé en el diseño de la imagen de la campaña y de sus piezas, que se vieron en carteles, marquesinas de autobús y pantallas de estaciones de toda España, y salió en medios como Cadena SER, Europa Press y El Publicista.',
       ],
       highlights: [
-        'Imagen y estilo de toda la campaña',
+        'Participación en la imagen y el estilo de la campaña',
         'Carteles, pantallas digitales y piezas para redes sociales',
         'Photocall para eventos',
         'Salió en prensa nacional y regional',
@@ -145,7 +145,7 @@ window.PORTFOLIO_DATA = {
       summary: 'Los anuncios de la campaña Datæ Valor, que se emitieron en televisión, Netflix, Prime Video y Spotify.',
       description: [
         'La campaña Datæ Valor no se quedó en los carteles: también tuvo anuncios que se emitieron en televisión y en plataformas como Netflix, Prime Video y Spotify.',
-        'Edité el spot siguiendo el mismo estilo que el resto de la campaña. Aquí tienes los dos anuncios.',
+        'Participé en la edición del spot, siguiendo el mismo estilo que el resto de la campaña. Aquí tienes los dos anuncios.',
       ],
       highlights: [
         'Emitidos en televisión',
@@ -223,9 +223,9 @@ window.PORTFOLIO_DATA = {
       featured: false,
       image: 'assets/img/projects/ds4m-branding.webp',
       alt: 'Mockup de las camisetas de DS4M Mediterráneo por delante y por detrás con el lema Data Space for Mobility',
-      summary: 'Más de 30 diseños para el proyecto: camisetas, photocall, trípticos y el cartel del Hackathon Data Spaces.',
+      summary: 'Participé en más de 30 diseños para el proyecto: camisetas, photocall, trípticos y el cartel del Hackathon Data Spaces.',
       description: [
-        'Además de la campaña, diseñé el material del proyecto DS4M Mediterráneo para sus eventos y para darlo a conocer.',
+        'Además de la campaña, participé en el diseño del material del proyecto DS4M Mediterráneo para sus eventos y para darlo a conocer.',
         'En total son más de 30 diseños, entre ellos las camisetas del equipo, el photocall, el tríptico informativo y el cartel del Hackathon Data Spaces, que se celebró en Las Naves (Valencia) el 27 y 28 de junio de 2026.',
       ],
       highlights: [
@@ -376,7 +376,7 @@ window.PORTFOLIO_DATA = {
       id: 'logo-ds4m',
       title: 'DS4M Mediterráneo',
       context: 'Logo del proyecto europeo',
-      description: 'Una red de datos en el centro, conectada con todas las formas de moverse (andando, en bici, tren, barco, avión, coche, autobús y camión) y la costa del Mediterráneo dibujada de una sola línea.',
+      description: 'Participé en su diseño. Tiene una red de datos en el centro, conectada con todas las formas de moverse (andando, en bici, tren, barco, avión, coche, autobús y camión) y la costa del Mediterráneo dibujada de una sola línea.',
       tools: ['Figma', 'Vectorial'],
       variants: [
         { label: 'Completo', src: 'assets/img/logos/ds4m-completo-oscuro.webp', bg: 'navy', alt: 'Logo completo de DS4M Mediterráneo en blanco sobre azul marino, con los iconos de transporte alrededor de la red de datos y la costa mediterránea' },

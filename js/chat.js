@@ -73,7 +73,7 @@
           actions: [{ label: 'Ver experiencia', href: '#experiencia' }, { label: 'Ver proyectos', href: '#proyectos' }],
         }),
         () => ({
-          text: 'Lo que hace a Jose un poco diferente es que no se queda solo en el código: también diseña y edita vídeo. Por ejemplo, en DS4M Mediterráneo programó la web y además diseñó la campaña que acabó en marquesinas de toda España y en anuncios de Netflix y Prime Video.',
+          text: 'Lo que hace a Jose un poco diferente es que no se queda solo en el código: también diseña y edita vídeo. Por ejemplo, en DS4M Mediterráneo trabajó en la web y además participó en el diseño de la campaña que acabó en marquesinas de toda España y en anuncios de Netflix y Prime Video.',
           actions: [{ label: 'Ver la campaña', project: 'datae-valor' }],
         }),
       ],
@@ -86,7 +86,7 @@
           actions: [{ label: 'Ir a Experiencia', href: '#experiencia' }],
         }),
         () => ({
-          text: 'En todos sus trabajos ha mezclado programación y diseño. En el IRTIC, por ejemplo, programaba el software de MIRACLE y, a la vez, diseñaba la campaña Datæ Valor. Si quieres, pregúntame por el IRTIC o por el INTRAS y te cuento más de cada uno.',
+          text: 'En todos sus trabajos ha mezclado programación y diseño. En el IRTIC, por ejemplo, programaba el software de MIRACLE y, a la vez, participaba en el diseño de la campaña Datæ Valor. Si quieres, pregúntame por el IRTIC o por el INTRAS y te cuento más de cada uno.',
         }),
       ],
     },
@@ -94,7 +94,7 @@
       id: 'irtic', stems: ['irtic'],
       answers: [
         () => ({
-          text: 'En el <strong>IRTIC</strong> (nov 2025 – ago 2026) trabajó como desarrollador. Programó parte del software de <strong>MIRACLE</strong>, un proyecto de IA para operaciones con robots quirúrgicos, hizo desarrollo web para <strong>DS4M Mediterráneo</strong> y diseñó la campaña <strong>Datæ Valor</strong>.',
+          text: 'En el <strong>IRTIC</strong> (nov 2025 – ago 2026) trabajó como desarrollador. Programó parte del software de <strong>MIRACLE</strong>, un proyecto de IA para operaciones con robots quirúrgicos, hizo desarrollo web para <strong>DS4M Mediterráneo</strong> y participó en el diseño de la campaña <strong>Datæ Valor</strong>.',
           actions: [{ label: 'Ver MIRACLE', project: 'miracle' }, { label: 'Ver Datæ Valor', project: 'datae-valor' }],
         }),
       ],
@@ -186,7 +186,7 @@
       id: 'prensa', stems: ['prensa', 'medios', 'noticia', 'periodico', 'articulo', 'famoso', 'salido en', 'salio en', 'aparecido', 'television', 'tele', 'tv'],
       answers: [
         () => ({
-          text: `Sí. La campaña <strong>Datæ Valor</strong> que diseñó salió en ${list(data.press.slice(0, 3).map((a) => a.outlet))}, entre otros medios. Además, sus anuncios se emitieron en televisión, Netflix, Prime Video y Spotify.`,
+          text: `Sí. La campaña <strong>Datæ Valor</strong>, en cuyo diseño participó, salió en ${list(data.press.slice(0, 3).map((a) => a.outlet))}, entre otros medios. Además, sus anuncios se emitieron en televisión, Netflix, Prime Video y Spotify.`,
           actions: [{ label: 'Ir a Prensa', href: '#prensa' }, { label: 'Ver los anuncios', project: 'spot-datae-valor' }],
         }),
       ],
@@ -195,7 +195,7 @@
       id: 'logos', stems: ['logo', 'logotipo', 'vector', 'identidad', 'figma'], weight: 1.5,
       answers: [
         () => ({
-          text: 'Sí, diseña logos en <strong>Figma</strong>, siempre en vectorial. Ha hecho el logo de <strong>DS4M Mediterráneo</strong>, el del <strong>INTRAS</strong> y el del <strong>30 aniversario del INTRAS</strong>, cada uno con versiones para fondo claro y oscuro.',
+          text: 'Sí, diseña logos en <strong>Figma</strong>, siempre en vectorial. Participó en el logo de <strong>DS4M Mediterráneo</strong> y ha hecho el del <strong>INTRAS</strong> y el del <strong>30 aniversario del INTRAS</strong>, cada uno con versiones para fondo claro y oscuro.',
           actions: [{ label: 'Ver los logos', href: '#logos' }],
         }),
       ],
@@ -204,7 +204,7 @@
       id: 'diseno', stems: ['diseno', 'disena', 'grafico', 'creativ', 'artistic', 'visual'],
       answers: [
         () => ({
-          text: 'Sí, diseña bastante. Lo más conocido es la campaña <strong>Datæ Valor</strong>, pero también ha hecho los logos de DS4M Mediterráneo y del INTRAS, más de 30 diseños para DS4M (camisetas, photocall, trípticos, carteles) y el logo animado del 30 aniversario del INTRAS.',
+          text: 'Sí, diseña bastante. Lo más conocido es la campaña <strong>Datæ Valor</strong>, en la que participó en el diseño, pero también ha trabajado en los logos de DS4M Mediterráneo y del INTRAS, en más de 30 diseños para DS4M (camisetas, photocall, trípticos, carteles) y el logo animado del 30 aniversario del INTRAS.',
           actions: [{ label: 'Ver Datæ Valor', project: 'datae-valor' }, { label: 'Ver los logos', href: '#logos' }],
         }),
       ],
@@ -213,7 +213,7 @@
       id: 'video', stems: ['video', 'edicion', 'edita', 'editar', 'montaje', 'capcut', 'youtube'],
       answers: [
         () => ({
-          text: 'Edita vídeo con CapCut. Hizo la edición del anuncio de Datæ Valor, que salió en televisión y plataformas, y por su cuenta montó un vídeo del Hackathon Data Spaces que no llegó a publicarse en ningún canal oficial.',
+          text: 'Edita vídeo con CapCut. Participó en la edición del anuncio de Datæ Valor, que salió en televisión y plataformas, y por su cuenta montó un vídeo del Hackathon Data Spaces que no llegó a publicarse en ningún canal oficial.',
           actions: [{ label: 'Ver anuncios', project: 'spot-datae-valor' }, { label: 'Vídeo del hackathon', project: 'hackathon-video' }],
         }),
       ],
@@ -253,7 +253,7 @@
           actions: [{ label: 'Ver proyectos', href: '#proyectos' }],
         }),
         () => ({
-          text: 'También tiene experiencia real trabajando en equipo por sprints (Scrum) en proyectos de investigación europeos, y ha sacado cosas que han llegado a mucha gente, como una app en Google Play o una campaña en toda España.',
+          text: 'También tiene experiencia real trabajando en equipo por sprints (Scrum) en proyectos de investigación europeos, y ha trabajado en cosas que han llegado a mucha gente, como una app en Google Play o una campaña que se vio en toda España.',
         }),
       ],
     },
