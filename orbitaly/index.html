@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orbitaly — biblioteca social de cine, series, videojuegos, música, libros y anime</title>
+<meta name="description" content="Orbitaly reúne en un solo perfil todo lo que ves, juegas, escuchas y lees. Puntúa del 1 al 10, escribe reseñas, crea listas y descubre recomendaciones. Gratis en web y Android.">
+<link rel="canonical" href="https://josears20.github.io/orbitaly/">
+<link rel="alternate" hreflang="es" href="https://josears20.github.io/orbitaly/">
+<link rel="alternate" hreflang="en" href="https://josears20.github.io/orbitaly/en/">
+<link rel="alternate" hreflang="x-default" href="https://josears20.github.io/orbitaly/">
+<meta name="theme-color" content="#0B0B12">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Orbitaly">
+<meta property="og:title" content="Orbitaly — biblioteca social de cine, series, videojuegos, música, libros y anime">
+<meta property="og:description" content="Orbitaly reúne en un solo perfil todo lo que ves, juegas, escuchas y lees. Puntúa del 1 al 10, escribe reseñas, crea listas y descubre recomendaciones. Gratis en web y Android.">
+<meta property="og:url" content="https://josears20.github.io/orbitaly/">
+<meta property="og:image" content="https://josears20.github.io/orbitaly/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Orbitaly — biblioteca social de cine, series, videojuegos, música, libros y anime">
+<meta name="twitter:description" content="Orbitaly reúne en un solo perfil todo lo que ves, juegas, escuchas y lees. Puntúa del 1 al 10, escribe reseñas, crea listas y descubre recomendaciones. Gratis en web y Android.">
+<meta name="twitter:image" content="https://josears20.github.io/orbitaly/og-image.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Orbitaly","url":"https://orbitaly.lovable.app","description":"Orbitaly reúne en un solo perfil todo lo que ves, juegas, escuchas y lees. Puntúa del 1 al 10, escribe reseñas, crea listas y descubre recomendaciones. Gratis en web y Android.","applicationCategory":"EntertainmentApplication","operatingSystem":"Web, Android","inLanguage":["es","en","fr","de","it","pt","ja","ko","ca"],"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"image":"https://josears20.github.io/orbitaly/og-image.png","author":{"@type":"Person","name":"Jose Antonio Cuerda","url":"https://josears20.github.io/"},"sameAs":["https://play.google.com/store/apps/details?id=app.lovable.orbitaly"]}</script>
+<style>
+  :root {
+    --bg: oklch(0.16 0.024 265);
+    --surface: oklch(0.21 0.03 265);
+    --border: oklch(0.3 0.03 265);
+    --fg: oklch(0.95 0.012 265);
+    --muted: oklch(0.72 0.028 265);
+    --primary: oklch(0.84 0.185 165);
+    --primary-fg: oklch(0.17 0.03 200);
+    --accent: oklch(0.63 0.19 265);
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 16px/1.6 "DM Sans", ui-sans-serif, system-ui, sans-serif;
+    background-image: radial-gradient(60rem 30rem at 80% -10%, oklch(0.63 0.19 265 / 0.25), transparent 60%),
+      radial-gradient(40rem 25rem at 0% 10%, oklch(0.84 0.185 165 / 0.12), transparent 60%);
+    background-repeat: no-repeat;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+  header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding: 20px 0; font-size: 14px; }
+  header nav { display: flex; flex-wrap: wrap; gap: 16px; }
+  header a { color: var(--muted); text-decoration: none; }
+  header a:hover { color: var(--fg); }
+  .brand { display: flex; align-items: center; gap: 10px; font: 700 18px "Space Grotesk", sans-serif; letter-spacing: .08em; color: var(--fg) !important; }
+  .brand img { width: 32px; height: 32px; border-radius: 8px; }
+  .hero { padding: 56px 0 40px; }
+  .eyebrow { color: var(--primary); font-weight: 500; font-size: 14px; letter-spacing: .04em; margin: 0 0 16px; }
+  h1 { font: 700 clamp(2.2rem, 7vw, 4.5rem)/1.05 "Space Grotesk", sans-serif; margin: 0; letter-spacing: -.02em; text-wrap: balance; }
+  .neon { background: linear-gradient(100deg, var(--primary), var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lead { max-width: 40rem; color: var(--muted); font-size: 1.15rem; margin: 24px 0 32px; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 22px; border-radius: 999px; font-weight: 700; text-decoration: none; }
+  .btn-primary { background: var(--primary); color: var(--primary-fg); }
+  .btn-ghost { border: 1px solid var(--border); background: var(--surface); }
+  .btn:hover { filter: brightness(1.08); }
+  .shot { margin: 48px 0 0; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); }
+  .shot img { display: block; width: 100%; height: auto; }
+  h2 { font: 700 1.6rem "Space Grotesk", sans-serif; margin: 64px 0 20px; }
+  .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); list-style: none; padding: 0; margin: 0; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 18px; }
+  .card .ico { font-size: 1.5rem; }
+  .card h3 { margin: 8px 0 4px; font-size: 1.05rem; }
+  .card p { margin: 0; color: var(--muted); font-size: .95rem; }
+  .tech { max-width: 46rem; color: var(--muted); }
+  footer { margin-top: 72px; padding: 24px 0 40px; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="brand" href="https://josears20.github.io/orbitaly/"><img src="icon-192.png" alt="" width="32" height="32">ORBITALY</a>
+    <nav>
+      <a href="https://josears20.github.io/orbitaly/en/" hreflang="en" lang="en">English</a>
+      <a href="https://josears20.github.io/">← Volver al portfolio</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">Proyecto de Jose Antonio Cuerda</p>
+      <h1>Todo lo que ves, juegas y escuchas<br><span class="neon">en un solo perfil</span></h1>
+      <p class="lead">Cine, series, videojuegos, música, libros y anime. Puntúa del 1 al 10, escribe reseñas, crea listas y descubre lo que le gusta a la gente a la que sigues.</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href="https://orbitaly.lovable.app">Abrir Orbitaly</a>
+        <a class="btn btn-ghost" href="https://play.google.com/store/apps/details?id=app.lovable.orbitaly">Descargar en Google Play</a>
+      </div>
+      <figure class="shot"><img src="grafico-funciones-1024x500.png" width="1024" height="500" alt="Orbitaly — biblioteca social de cine, series, videojuegos, música, libros y anime"></figure>
+    </section>
+    <section>
+      <h2>Qué puedes hacer</h2>
+      <ul class="grid">
+        <li class="card"><div class="ico" aria-hidden="true">🎬</div><h3>Películas y series</h3><p>Estrenos, clásicos, reparto, tráilers y dónde verlas en tu país.</p></li>
+        <li class="card"><div class="ico" aria-hidden="true">🎮</div><h3>Videojuegos</h3><p>Lanzamientos, mejor valorados y por plataforma.</p></li>
+        <li class="card"><div class="ico" aria-hidden="true">🎵</div><h3>Música</h3><p>Artistas, discografías completas y fragmentos de 30 segundos.</p></li>
+        <li class="card"><div class="ico" aria-hidden="true">📚</div><h3>Libros</h3><p>Novedades, clásicos y autores, con reseñas de la comunidad lectora.</p></li>
+        <li class="card"><div class="ico" aria-hidden="true">🌸</div><h3>Anime</h3><p>En emisión, más populares y mejor valorados.</p></li>
+        <li class="card"><div class="ico" aria-hidden="true">⭐</div><h3>Reseñas y listas</h3><p>Notas del 1 al 10, reseñas y listas públicas o privadas.</p></li>
+        <li class="card"><div class="ico" aria-hidden="true">🧭</div><h3>Para ti</h3><p>Recomendaciones que aprenden de tus gustos.</p></li>
+        <li class="card"><div class="ico" aria-hidden="true">💬</div><h3>Social</h3><p>Feed, mensajes privados y perfiles para seguir a tus amigos.</p></li>
+      </ul>
+    </section>
+    <section>
+      <h2>Cómo está hecho</h2>
+      <p class="tech">Aplicación full-stack con React y TanStack Start (renderizado en servidor), Supabase (PostgreSQL con seguridad por filas, autenticación y tiempo real), Tailwind CSS y Capacitor para Android. Conecta en tiempo real con TMDB, IGDB, Deezer, Apple Music, Spotify, Google Books, Open Library, Kitsu y AniList, con búsqueda por relevancia, caché y límites de peticiones. Interfaz en 9 idiomas.</p>
+    </section>
+  </main>
+  <footer>Orbitaly es un proyecto independiente de Jose Antonio Cuerda. · <a href="https://orbitaly.lovable.app/privacidad">Privacidad</a> · <a href="https://orbitaly.lovable.app/aviso-legal">Aviso legal</a></footer>
+</div>
+</body>
+</html>
