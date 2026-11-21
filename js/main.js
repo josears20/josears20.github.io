@@ -20,22 +20,6 @@
   UI.initSpotlight();
   UI.initCopyEmail();
 
-  // Ciudad de las Artes y las Ciencias en 3D
-  (function initValencia() {
-    const stage = document.getElementById('vlc-stage');
-    const canvas = document.getElementById('vlc-canvas');
-    if (!stage || !canvas) return;
-    if (!window.THREE || !window.ValenciaScene) { stage.classList.add('is-fallback'); return; }
-    try {
-      const scene = new window.ValenciaScene(canvas, stage, { reducedMotion, labels: document.getElementById('vlc-labels') });
-      scene.start();
-      canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); stage.classList.add('is-fallback'); });
-    } catch (err) {
-      stage.classList.add('is-fallback');
-      console.warn('[valencia] sin 3D:', err);
-    }
-  })();
-
   const canvas = document.getElementById('robot-canvas');
   const stage = canvas && canvas.parentElement;
   if (!canvas) return;

@@ -54,10 +54,6 @@
     'langs.b1': 'B1 level',
     'method.chips': '<li class="chip">Teamwork</li><li class="chip">Communication</li><li class="chip">Problem solving</li><li class="chip">Critical thinking</li><li class="chip">Adaptability</li><li class="chip">Proactivity</li><li class="chip">Creativity</li><li class="chip">Attention to detail</li>',
 
-    'vlc.canvas': 'The City of Arts and Sciences in Valencia drawn in 3D with sky-blue lines: Palau de les Arts, Hemisfèric, Museu de les Ciències, Umbracle, Assut de l’Or Bridge, Àgora and Oceanogràfic',
-    'vlc.cmd': '<span class="cmd-path">~/valencia</span> <span class="cmd-sign">$</span> render ciutat-arts-ciencies.obj',
-    'vlc.title': 'Made in <em>Valencia.</em>',
-    'vlc.lead': 'I live and work in Valencia. This is the City of Arts and Sciences traced in lines with Three.js, no external models. It rotates as you scroll.',
     'org.meta': '3 positions · 2 yrs 6 mos',
     'org.end': 'Aug 2026',
     'org.place': 'Valencia, Valencian Community · On-site',
