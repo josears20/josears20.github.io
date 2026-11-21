@@ -723,3 +723,141 @@ html:not(.js) .langs__bar::after { transform: scaleX(1); }
   .pcard__media--contain img { padding: 6% 18%; }
 }
 @media (max-width: 600px) { .pcard--wide .pcard__media { aspect-ratio: 16 / 10; } }
+
+/* ---------- experiencia unificada en la UV (estilo LinkedIn) ---------- */
+.org { padding: clamp(18px, 2.6vw, 32px); }
+.org__head {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-bottom: clamp(18px, 2.4vw, 26px);
+  margin-bottom: clamp(18px, 2.4vw, 28px);
+  border-bottom: 1px solid var(--border);
+}
+.org__logo {
+  flex: none;
+  width: 56px; height: 56px;
+  display: grid; place-items: center;
+  color: var(--accent);
+  filter: drop-shadow(0 0 14px rgba(var(--accent-rgb), 0.35));
+}
+.org__logo svg { width: 100%; height: 100%; fill: rgba(var(--accent-rgb), 0.06); stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.org__logo rect { stroke: rgba(var(--accent-rgb), 0.5); stroke-width: 1.2; }
+.org__name { font-size: var(--fs-lg); font-weight: 500; }
+.org__meta { margin-top: 4px; color: var(--text-2); font-size: var(--fs-sm); }
+.org__place { margin-top: 2px; color: var(--text-3); font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: 0.04em; }
+
+.roles { position: relative; display: grid; gap: clamp(26px, 3.4vw, 40px); padding-left: 34px; }
+.roles::before {
+  content: '';
+  position: absolute;
+  left: 6px; top: 14px; bottom: 14px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--accent), rgba(var(--accent-2-rgb), 0.5) 70%, transparent);
+}
+.role { position: relative; }
+.role::before {
+  content: '';
+  position: absolute;
+  left: -34px; top: 8px;
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--accent-rgb), 0.6);
+  background: var(--bg);
+  box-shadow: inset 0 0 0 3px var(--bg), inset 0 0 0 7px var(--accent), 0 0 16px rgba(var(--accent-rgb), 0.5);
+}
+.role + .role { padding-top: clamp(26px, 3.4vw, 40px); border-top: 1px dashed var(--border); }
+.role + .role::before { top: calc(clamp(26px, 3.4vw, 40px) + 8px); }
+.role .xp { padding: 0; }
+.xp__org { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin-bottom: 4px; }
+.xp__unit {
+  padding: 1px 9px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(var(--accent-rgb), 0.35);
+  background: rgba(var(--accent-rgb), 0.08);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+}
+.xp__org > span:last-child { color: var(--text-2); font-size: var(--fs-sm); font-weight: 400; }
+.xp__meta { margin-bottom: 18px; color: var(--text-3); font-size: var(--fs-sm); }
+@media (max-width: 760px) {
+  .roles { padding-left: 22px; }
+  .roles::before { left: 3px; }
+  .role::before { left: -23px; width: 8px; height: 8px; box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.6); background: var(--accent); }
+  .org__logo { width: 46px; height: 46px; }
+}
+
+/* ---------- Valencia 3D ---------- */
+.vlc { position: relative; height: 420vh; margin-top: var(--section-y); }
+.vlc__sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+.vlc__canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  display: block;
+  filter: drop-shadow(0 0 3px rgba(120, 210, 255, 0.55)) drop-shadow(0 0 14px rgba(92, 225, 255, 0.25));
+}
+.vlc__shade {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, var(--bg) 0%, transparent 18%, transparent 78%, var(--bg) 100%),
+    radial-gradient(120% 80% at 50% 55%, transparent 55%, rgba(6, 7, 11, 0.7) 100%);
+}
+.vlc__ui { position: relative; height: 100%; pointer-events: none; }
+.vlc__ui a, .vlc__ui button { pointer-events: auto; }
+.vlc__head { position: absolute; top: calc(var(--nav-h) + clamp(12px, 3vh, 36px)); left: var(--gutter); right: var(--gutter); max-width: 560px; }
+.vlc__lead { margin-top: 14px; max-width: 470px; color: var(--text-2); font-size: var(--fs-base); }
+.vlc__caption {
+  position: absolute;
+  left: var(--gutter); bottom: clamp(28px, 8vh, 80px);
+  max-width: min(440px, calc(100% - 2 * var(--gutter)));
+  padding: 16px 20px 18px;
+  border: 1px solid rgba(var(--accent-rgb), 0.22);
+  border-radius: var(--radius);
+  background: rgba(6, 9, 15, 0.55);
+  -webkit-backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur));
+  transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+}
+.vlc__caption.is-swapping { opacity: 0; transform: translateY(8px); }
+.vlc__num { color: var(--accent); font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: 0.14em; }
+.vlc__of { color: var(--text-3); }
+.vlc__name { margin: 6px 0 6px; font-size: var(--fs-lg); font-weight: 500; }
+.vlc__fact { color: var(--text-2); font-size: var(--fs-sm); }
+.vlc__rail {
+  position: absolute;
+  right: var(--gutter); top: 50%;
+  display: grid; gap: 14px;
+  transform: translateY(-50%);
+}
+.vlc__rail li {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--accent-rgb), 0.5);
+  transition: background var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+}
+.vlc__rail li.is-on { background: var(--accent); box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.8); transform: scale(1.35); }
+.vlc__coords, .vlc__hint {
+  position: absolute;
+  right: var(--gutter); bottom: clamp(28px, 8vh, 80px);
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.12em;
+}
+.vlc__hint { bottom: calc(clamp(28px, 8vh, 80px) + 24px); color: var(--accent); transition: opacity var(--dur); }
+.vlc.is-scrolled .vlc__hint { opacity: 0; }
+.vlc__head { transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out); }
+.vlc.is-touring .vlc__head { opacity: 0; transform: translateY(-16px); }
+.vlc.is-fallback .vlc__canvas { display: none; }
+@media (max-width: 760px) {
+  .vlc { height: 360vh; }
+  .vlc__rail { display: none; }
+  .vlc__coords, .vlc__hint { display: none; }
+  .vlc__lead { font-size: var(--fs-sm); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vlc__caption { transition: none; }
+}

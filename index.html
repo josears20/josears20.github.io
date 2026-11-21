@@ -27,11 +27,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js" as="script" crossorigin>
-  <link rel="stylesheet" href="css/tokens.css?v=10">
-  <link rel="stylesheet" href="css/base.css?v=10">
-  <link rel="stylesheet" href="css/components.css?v=10">
-  <link rel="stylesheet" href="css/sections.css?v=10">
-  <link rel="stylesheet" href="css/terminal.css?v=10">
+  <link rel="stylesheet" href="css/tokens.css?v=11">
+  <link rel="stylesheet" href="css/base.css?v=11">
+  <link rel="stylesheet" href="css/components.css?v=11">
+  <link rel="stylesheet" href="css/sections.css?v=11">
+  <link rel="stylesheet" href="css/terminal.css?v=11">
 
   <script>
     document.documentElement.classList.add('js');
@@ -250,6 +250,30 @@
       </div>
     </section>
 
+    <section id="valencia" class="vlc" aria-labelledby="vlc-title">
+      <div class="vlc__sticky">
+        <canvas id="vlc-canvas" class="vlc__canvas" role="img" aria-label="Ciudad de las Artes y las Ciencias de Valencia dibujada en 3D con líneas azul celeste, que gira al hacer scroll" data-i18n-label="vlc.canvas"></canvas>
+        <div class="vlc__shade" aria-hidden="true"></div>
+        <div class="container vlc__ui">
+          <header class="vlc__head">
+            <p class="section__index" data-i18n="vlc.cmd"><span class="cmd-path">~/valencia</span> <span class="cmd-sign">$</span> render ciutat-arts-ciencies.obj</p>
+            <h2 class="section__title" id="vlc-title" data-i18n="vlc.title">Hecho en <em>Valencia.</em></h2>
+            <p class="vlc__lead" data-i18n="vlc.lead">Vivo y trabajo en Valencia. Esta es la Ciudad de las Artes y las Ciencias trazada línea a línea con Three.js, sin modelos externos: haz scroll y recórrela.</p>
+          </header>
+          <div class="vlc__caption" aria-live="polite">
+            <p class="vlc__num"><span id="vlc-num">00</span> <span class="vlc__of">/ 07</span></p>
+            <h3 class="vlc__name" id="vlc-name">Ciutat de les Arts i les Ciències</h3>
+            <p class="vlc__fact" id="vlc-fact">Santiago Calatrava y Félix Candela · 1998–2009</p>
+          </div>
+          <ol class="vlc__rail" id="vlc-rail" aria-hidden="true">
+            <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+          </ol>
+          <p class="vlc__coords" aria-hidden="true">39.4545° N · 0.3505° W</p>
+          <p class="vlc__hint" aria-hidden="true" data-i18n="vlc.hint">Scroll para girar</p>
+        </div>
+      </div>
+    </section>
+
     <section id="experiencia" class="section" aria-labelledby="exp-title">
       <div class="container">
         <header class="section__head" data-reveal>
@@ -257,9 +281,20 @@
           <h2 class="section__title" id="exp-title" data-i18n="xp.title">Experiencia <em>profesional.</em></h2>
         </header>
 
-        <ol class="timeline">
-          <li class="timeline__item" data-reveal>
-            <article class="card xp">
+        <article class="card org" data-reveal>
+          <header class="org__head">
+            <span class="org__logo" aria-hidden="true">
+              <svg viewBox="0 0 48 48"><rect x="1" y="1" width="46" height="46" rx="12"/><path d="M12 15v10a6 6 0 0012 0V15M24 15l6 18 6-18"/></svg>
+            </span>
+            <div>
+              <h3 class="org__name">Universitat de València</h3>
+              <p class="org__meta" data-i18n="org.meta">3 puestos · 2 años 6 meses</p>
+              <p class="org__place"><time datetime="2024-03">Mar 2024</time> – <time datetime="2026-08" data-i18n="org.end">Ago 2026</time> · <span data-i18n="org.place">Valencia, Comunidad Valenciana · Presencial</span></p>
+            </div>
+          </header>
+          <ol class="roles">
+          <li class="role" data-reveal>
+            <article class="xp">
               <figure class="xp__media">
                 <img src="assets/img/experience/irtic.svg" alt="Ilustración del trabajo en el IRTIC con el corredor de datos de DS4M Mediterráneo, el póster de la campaña Datæ Valor, el brazo robótico de MIRACLE y piezas de branding y vídeo" data-i18n-alt="xp1.img" width="1200" height="750" loading="lazy" decoding="async">
               </figure>
@@ -267,7 +302,8 @@
                 <header class="xp__head">
                   <p class="xp__date" data-i18n="xp1.date"><time datetime="2025-11">Nov 2025</time> – <time datetime="2026-08">Ago 2026</time></p>
                   <h3 class="xp__role">Software & Full Stack Developer</h3>
-                  <p class="xp__org">IRTIC · Universitat de València</p>
+                  <p class="xp__org"><span class="xp__unit">IRTIC</span> <span data-i18n="xp1.unit">Instituto de Robótica y Tecnologías de la Información y las Comunicaciones</span></p>
+                  <p class="xp__meta"><span data-i18n="xp1.type">Contrato</span> · <span data-i18n="xp1.dur">10 meses</span></p>
                 </header>
                 <ul class="xp__list" data-i18n="xp1.list">
                   <li>Desarrollo de software en <strong>MIRACLE</strong>, un proyecto de IA aplicada a la cirugía robótica laparoscópica: participación en el código y en la arquitectura de integración entre aplicaciones, y automatización de tareas con IA.</li>
@@ -282,17 +318,17 @@
               </div>
             </article>
           </li>
-
-          <li class="timeline__item" data-reveal>
-            <article class="card xp">
+          <li class="role" data-reveal>
+            <article class="xp">
               <figure class="xp__media">
                 <img src="assets/img/experience/intras-fullstack.svg" alt="Ilustración del trabajo en el INTRAS con el portal web de DS4M Mediterráneo, la plataforma de medición de ESCOLA y el montaje del vídeo del 30 aniversario" data-i18n-alt="xp2.img" width="1200" height="750" loading="lazy" decoding="async">
               </figure>
               <div class="xp__body">
                 <header class="xp__head">
                   <p class="xp__date"><time datetime="2024-09">Sep 2024</time> – <time datetime="2025-09">Sep 2025</time></p>
-                  <h3 class="xp__role">Software & Full Stack Developer <span class="xp__tag" data-i18n="xp2.tag">Prácticas extracurriculares</span></h3>
-                  <p class="xp__org">INTRAS · Universitat de València</p>
+                  <h3 class="xp__role">Software & Full Stack Developer</h3>
+                  <p class="xp__org"><span class="xp__unit">INTRAS</span> <span data-i18n="xp2.unit">Instituto de Investigación en Tráfico y Seguridad Vial</span></p>
+                  <p class="xp__meta"><span data-i18n="xp2.type">Prácticas extracurriculares</span> · <span data-i18n="xp2.dur">1 año 1 mes</span></p>
                 </header>
                 <ul class="xp__list" data-i18n="xp2.list">
                   <li>Diseño, programación y mantenimiento de la web del proyecto europeo <strong>DS4M Mediterráneo</strong>.</li>
@@ -307,17 +343,17 @@
               </div>
             </article>
           </li>
-
-          <li class="timeline__item" data-reveal>
-            <article class="card xp">
+          <li class="role" data-reveal>
+            <article class="xp">
               <figure class="xp__media">
                 <img src="assets/img/experience/intras-unity.svg" alt="Ilustración del editor de Unity con la escena 3D de un colegio del proyecto ESCOLA y un script en C#" data-i18n-alt="xp3.img" width="1200" height="750" loading="lazy" decoding="async">
               </figure>
               <div class="xp__body">
                 <header class="xp__head">
                   <p class="xp__date"><time datetime="2024-03">Mar 2024</time> – <time datetime="2024-07">Jul 2024</time></p>
-                  <h3 class="xp__role">Software & Application Developer <span class="xp__tag" data-i18n="xp3.tag">Prácticas curriculares</span></h3>
-                  <p class="xp__org">INTRAS · Universitat de València</p>
+                  <h3 class="xp__role">Software & Application Developer</h3>
+                  <p class="xp__org"><span class="xp__unit">INTRAS</span> <span data-i18n="xp3.unit">Instituto de Investigación en Tráfico y Seguridad Vial</span></p>
+                  <p class="xp__meta"><span data-i18n="xp3.type">Prácticas curriculares</span> · <span data-i18n="xp3.dur">5 meses</span></p>
                 </header>
                 <ul class="xp__list" data-i18n="xp3.list">
                   <li>Aplicaciones interactivas para el proyecto <a class="inline-link" href="https://www.uv.es/uvweb/instituto-universitario-investigacion-transito-seguridad-vial-INTRAS/es/grupos-investigacion/dats/experiencia-investigacion/escola-entornos-seguros-colegios-libres-accidentes-1285893039971/ProjecteInves.html?id=1286330274153" target="_blank" rel="noopener"><strong>ESCOLA</strong></a> (Entornos Seguros COlegios Libres de Accidentes).</li>
@@ -330,7 +366,8 @@
               </div>
             </article>
           </li>
-        </ol>
+          </ol>
+        </article>
       </div>
     </section>
 
@@ -490,12 +527,13 @@
 
   <!-- three.js en versión clásica para que también funcione abriendo el html sin servidor -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js" crossorigin defer></script>
-  <script src="js/data.js?v=10" defer></script>
-  <script src="js/i18n.js?v=10" defer></script>
-  <script src="js/robot.js?v=10" defer></script>
-  <script src="js/ui.js?v=10" defer></script>
-  <script src="js/chat.js?v=10" defer></script>
-  <script src="js/cursor.js?v=10" defer></script>
-  <script src="js/main.js?v=10" defer></script>
+  <script src="js/data.js?v=11" defer></script>
+  <script src="js/i18n.js?v=11" defer></script>
+  <script src="js/robot.js?v=11" defer></script>
+  <script src="js/valencia.js?v=11" defer></script>
+  <script src="js/ui.js?v=11" defer></script>
+  <script src="js/chat.js?v=11" defer></script>
+  <script src="js/cursor.js?v=11" defer></script>
+  <script src="js/main.js?v=11" defer></script>
 </body>
 </html>
