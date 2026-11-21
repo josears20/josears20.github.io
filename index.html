@@ -27,11 +27,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js" as="script" crossorigin>
-  <link rel="stylesheet" href="css/tokens.css?v=12">
-  <link rel="stylesheet" href="css/base.css?v=12">
-  <link rel="stylesheet" href="css/components.css?v=12">
-  <link rel="stylesheet" href="css/sections.css?v=12">
-  <link rel="stylesheet" href="css/terminal.css?v=12">
+  <link rel="stylesheet" href="css/tokens.css?v=13">
+  <link rel="stylesheet" href="css/base.css?v=13">
+  <link rel="stylesheet" href="css/components.css?v=13">
+  <link rel="stylesheet" href="css/sections.css?v=13">
+  <link rel="stylesheet" href="css/terminal.css?v=13">
 
   <script>
     document.documentElement.classList.add('js');
@@ -250,26 +250,17 @@
       </div>
     </section>
 
-    <section id="valencia" class="vlc" aria-labelledby="vlc-title">
-      <div class="vlc__sticky">
-        <canvas id="vlc-canvas" class="vlc__canvas" role="img" aria-label="Ciudad de las Artes y las Ciencias de Valencia dibujada en 3D con líneas azul celeste, que gira al hacer scroll" data-i18n-label="vlc.canvas"></canvas>
-        <div class="vlc__shade" aria-hidden="true"></div>
-        <div class="container vlc__ui">
-          <header class="vlc__head">
-            <p class="section__index" data-i18n="vlc.cmd"><span class="cmd-path">~/valencia</span> <span class="cmd-sign">$</span> render ciutat-arts-ciencies.obj</p>
-            <h2 class="section__title" id="vlc-title" data-i18n="vlc.title">Hecho en <em>Valencia.</em></h2>
-            <p class="vlc__lead" data-i18n="vlc.lead">Vivo y trabajo en Valencia. Esta es la Ciudad de las Artes y las Ciencias trazada línea a línea con Three.js, sin modelos externos: haz scroll y recórrela.</p>
-          </header>
-          <div class="vlc__caption" aria-live="polite">
-            <p class="vlc__num"><span id="vlc-num">00</span> <span class="vlc__of">/ 07</span></p>
-            <h3 class="vlc__name" id="vlc-name">Ciutat de les Arts i les Ciències</h3>
-            <p class="vlc__fact" id="vlc-fact">Santiago Calatrava y Félix Candela · 1998–2009</p>
-          </div>
-          <ol class="vlc__rail" id="vlc-rail" aria-hidden="true">
-            <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-          </ol>
+    <section id="valencia" class="section vlc" aria-labelledby="vlc-title">
+      <div class="container">
+        <header class="section__head" data-reveal>
+          <p class="section__index" data-i18n="vlc.cmd"><span class="cmd-path">~/valencia</span> <span class="cmd-sign">$</span> render ciutat-arts-ciencies.obj</p>
+          <h2 class="section__title" id="vlc-title" data-i18n="vlc.title">Hecho en <em>Valencia.</em></h2>
+          <p class="section__lead" data-i18n="vlc.lead">Vivo y trabajo en Valencia. Esta es la Ciudad de las Artes y las Ciencias trazada con líneas en Three.js, sin modelos externos. Gira al hacer scroll.</p>
+        </header>
+        <div class="vlc__stage" id="vlc-stage" data-reveal>
+          <canvas id="vlc-canvas" class="vlc__canvas" role="img" aria-label="Ciudad de las Artes y las Ciencias de Valencia dibujada en 3D con líneas azul celeste: Palau de les Arts, l'Hemisfèric, Museu de les Ciències, l'Umbracle, Pont de l'Assut de l'Or, l'Àgora y l'Oceanogràfic" data-i18n-label="vlc.canvas"></canvas>
+          <div class="vlc__labels" id="vlc-labels" aria-hidden="true"></div>
           <p class="vlc__coords" aria-hidden="true">39.4545° N · 0.3505° W</p>
-          <p class="vlc__hint" aria-hidden="true" data-i18n="vlc.hint">Scroll para girar</p>
         </div>
       </div>
     </section>
@@ -527,13 +518,13 @@
 
   <!-- three.js en versión clásica para que también funcione abriendo el html sin servidor -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js" crossorigin defer></script>
-  <script src="js/data.js?v=12" defer></script>
-  <script src="js/i18n.js?v=12" defer></script>
-  <script src="js/robot.js?v=12" defer></script>
-  <script src="js/valencia.js?v=12" defer></script>
-  <script src="js/ui.js?v=12" defer></script>
-  <script src="js/chat.js?v=12" defer></script>
-  <script src="js/cursor.js?v=12" defer></script>
-  <script src="js/main.js?v=12" defer></script>
+  <script src="js/data.js?v=13" defer></script>
+  <script src="js/i18n.js?v=13" defer></script>
+  <script src="js/robot.js?v=13" defer></script>
+  <script src="js/valencia.js?v=13" defer></script>
+  <script src="js/ui.js?v=13" defer></script>
+  <script src="js/chat.js?v=13" defer></script>
+  <script src="js/cursor.js?v=13" defer></script>
+  <script src="js/main.js?v=13" defer></script>
 </body>
 </html>

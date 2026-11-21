@@ -1,5 +1,5 @@
 // Ciudad de las Artes y las Ciencias en líneas: todo generado por código, sin modelos 3D externos.
-// La cámara recorre el complejo de oeste a este según el scroll de la sección.
+// Vista panorámica que gira con el scroll; solo se redibuja cuando algo cambia.
 (function (global) {
   'use strict';
 
@@ -28,7 +28,7 @@
   function hemisferic() {
     const b = new Builder();
     const L = 11, W = 5.2, H = 4.6;
-    const N = 25, M = 14;
+    const N = 18, M = 10;
     const rows = [];
     for (let i = 0; i <= N; i++) {
       const x = -L + (2 * L * i) / N;
@@ -44,17 +44,17 @@
     for (let j = 0; j <= M; j += 2) b.line(rows.map((r) => r[j]));
     // pupila
     const R = 3.1;
-    for (let lat = 1; lat <= 5; lat++) {
-      const phi = (lat / 6) * (Math.PI / 2);
+    for (let lat = 1; lat <= 3; lat++) {
+      const phi = (lat / 4) * (Math.PI / 2);
       const ring = [];
-      for (let s = 0; s < 40; s++) {
-        const t = (s / 40) * TAU;
+      for (let s = 0; s < 28; s++) {
+        const t = (s / 28) * TAU;
         ring.push([R * Math.cos(phi) * Math.cos(t), R * Math.sin(phi), R * Math.cos(phi) * Math.sin(t)]);
       }
       b.line(ring, true);
     }
-    for (let m = 0; m < 16; m++) {
-      const t = (m / 16) * TAU;
+    for (let m = 0; m < 10; m++) {
+      const t = (m / 10) * TAU;
       const mer = [];
       for (let s = 0; s <= 10; s++) {
         const phi = (s / 10) * (Math.PI / 2);
@@ -116,7 +116,7 @@
   // L'Umbracle: paseo de arcos paralelo al museo.
   function umbracle() {
     const b = new Builder();
-    const half = 21, N = 34, w = 2.8, h = 6.4;
+    const half = 21, N = 22, w = 2.8, h = 6.4;
     const rows = [];
     for (let i = 0; i <= N; i++) {
       const x = -half + (2 * half * i) / N;
@@ -235,16 +235,16 @@
     const b = new Builder();
     const R = 8.5, lobes = 8;
     const height = (r, a) => 0.4 + (r / R) ** 2 * (3.6 + 3.6 * Math.cos(lobes * a));
-    for (let k = 1; k <= 7; k++) {
-      const r = (R * k) / 7, ring = [];
-      for (let s = 0; s < 128; s++) {
-        const a = (s / 128) * TAU;
+    for (let k = 1; k <= 5; k++) {
+      const r = (R * k) / 5, ring = [];
+      for (let s = 0; s < 80; s++) {
+        const a = (s / 80) * TAU;
         ring.push([r * Math.cos(a), height(r, a), r * Math.sin(a)]);
       }
       b.line(ring, true);
     }
-    for (let m = 0; m < 48; m++) {
-      const a = (m / 48) * TAU, ray = [];
+    for (let m = 0; m < 32; m++) {
+      const a = (m / 32) * TAU, ray = [];
       for (let s = 0; s <= 8; s++) { const r = (R * s) / 8; ray.push([r * Math.cos(a), height(r, a), r * Math.sin(a)]); }
       b.line(ray);
     }
@@ -257,78 +257,49 @@
     const pools = [[-75, -49, -10, 10], [-48, -24, -8.5, 8.5], [-22, 22, -11.5, -6.5]];
     pools.forEach(([x0, x1, z0, z1]) => {
       b.line([[x0, 0, z0], [x1, 0, z0], [x1, 0, z1], [x0, 0, z1]], true);
-      for (let z = z0 + 1.2; z < z1; z += 1.2) b.seg([x0 + 0.6, 0, z], [x1 - 0.6, 0, z]);
+      for (let z = z0 + 2; z < z1; z += 2) b.seg([x0 + 0.6, 0, z], [x1 - 0.6, 0, z]);
     });
     return b.v;
   }
   function ground() {
     const b = new Builder();
-    for (let x = -100; x <= 90; x += 8) b.seg([x, -0.02, -32], [x, -0.02, 32]);
-    for (let z = -32; z <= 32; z += 8) b.seg([-100, -0.02, z], [90, -0.02, z]);
+    for (let x = -96; x <= 96; x += 16) b.seg([x, -0.02, -32], [x, -0.02, 32]);
+    for (let z = -32; z <= 32; z += 16) b.seg([-100, -0.02, z], [90, -0.02, z]);
     return b.v;
   }
 
+
   const BUILDINGS = [
-    { id: 'palau', make: palau, at: [-62, 0, 0] },
-    { id: 'hemisferic', make: hemisferic, at: [-36, 0, 0] },
-    { id: 'museu', make: museu, at: [-2, 0, -2] },
-    { id: 'umbracle', make: umbracle, at: [-2, 0, 13] },
-    { id: 'pont', make: pont, at: [30, 0, 0], rotY: 0 },
-    { id: 'agora', make: agora, at: [46, 0, 0] },
-    { id: 'oceanografic', make: oceanografic, at: [70, 0, 0] },
+    { id: 'palau', name: 'Palau de les Arts', make: palau, at: [-62, 0, 0], label: [-60, 21, 0] },
+    { id: 'hemisferic', name: "L'Hemisfèric", make: hemisferic, at: [-36, 0, 0], label: [-36, 8, 0] },
+    { id: 'museu', name: 'Museu de les Ciències', make: museu, at: [-2, 0, -2], label: [-2, 12.5, -2] },
+    { id: 'umbracle', name: "L'Umbracle", make: umbracle, at: [-2, 0, 13], label: [12, 7.5, 13], minor: true },
+    { id: 'pont', name: "Pont de l'Assut de l'Or", make: pont, at: [30, 0, 0], label: [30, 23.5, -17] },
+    { id: 'agora', name: "L'Àgora", make: agora, at: [46, 0, 0], label: [46, 12.5, 0] },
+    { id: 'oceanografic', name: "L'Oceanogràfic", make: oceanografic, at: [70, 0, 0], label: [70, 9, 0] },
   ];
-
-  // paradas de cámara (p = progreso del scroll en la sección)
-  const KEYS = [
-    { p: 0.0, tx: 4, th: 0.45, r: 112, h: 46, focus: -1 },
-    { p: 0.12, tx: -60, th: 0.95, r: 66, h: 24, focus: 0 },
-    { p: 0.25, tx: -36, th: 0.4, r: 54, h: 20, focus: 1 },
-    { p: 0.39, tx: -2, th: -0.35, r: 84, h: 34, focus: 2 },
-    { p: 0.52, tx: -2, th: 0.75, r: 74, h: 22, focus: 3 },
-    { p: 0.65, tx: 30, th: 1.25, r: 66, h: 22, focus: 4 },
-    { p: 0.77, tx: 46, th: 0.55, r: 54, h: 18, focus: 5 },
-    { p: 0.89, tx: 70, th: -0.35, r: 54, h: 26, focus: 6 },
-    { p: 1.0, tx: 4, th: -0.95, r: 118, h: 64, focus: -1 },
-  ];
-
-  function camAt(p) {
-    let i = 0;
-    while (i < KEYS.length - 2 && p > KEYS[i + 1].p) i++;
-    const a = KEYS[i], c = KEYS[i + 1];
-    const t = ease(clamp((p - a.p) / (c.p - a.p), 0, 1));
-    return { tx: lerp(a.tx, c.tx, t), th: lerp(a.th, c.th, t), r: lerp(a.r, c.r, t), h: lerp(a.h, c.h, t) };
-  }
-  function focusAt(p) {
-    let best = -1, dist = 0.06;
-    KEYS.forEach((k) => { if (k.focus >= 0 && Math.abs(k.p - p) < dist) { dist = Math.abs(k.p - p); best = k.focus; } });
-    return best;
-  }
 
   class ValenciaScene {
-    constructor(canvas, section, opts = {}) {
+    constructor(canvas, stage, opts = {}) {
       this.canvas = canvas;
-      this.section = section;
+      this.stage = stage;
       this.reduced = !!opts.reducedMotion;
-      this.onFocus = opts.onFocus || (() => {});
-      this.focus = -2;
+      this.labelsEl = opts.labels || null;
       this.built = this.reduced ? 1 : 0;
-      this.running = false;
       this.visible = false;
+      this.running = false;
+      this.dirty = true;
 
-      const r = this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-      r.setPixelRatio(Math.min(global.devicePixelRatio || 1, 2));
+      const r = this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'low-power' });
+      r.setPixelRatio(Math.min(global.devicePixelRatio || 1, 1.5));
       r.setClearColor(0x000000, 0);
 
       const scene = this.scene = new THREE.Scene();
-      scene.fog = new THREE.Fog(0x06070b, 60, 300);
-      this.camera = new THREE.PerspectiveCamera(42, 1, 0.5, 600);
+      scene.fog = new THREE.Fog(0x06070b, 90, 290);
+      this.camera = new THREE.PerspectiveCamera(36, 1, 1, 600);
 
-      const COLOR = new THREE.Color(0x8fdcff);
-      const HOT = new THREE.Color(0xd8f6ff);
-      this.COLOR = COLOR; this.HOT = HOT;
-
-      const mat = (opacity, color = COLOR) => new THREE.LineBasicMaterial({
-        color: color.clone(), transparent: true, opacity, blending: THREE.AdditiveBlending, depthWrite: false, fog: true,
+      const mat = (hex, opacity) => new THREE.LineBasicMaterial({
+        color: hex, transparent: true, opacity, blending: THREE.AdditiveBlending, depthWrite: false, fog: true,
       });
       const geo = (arr) => {
         const g = new THREE.BufferGeometry();
@@ -336,47 +307,54 @@
         return g;
       };
 
-      const city = this.city = new THREE.Group();
-      const mirror = new THREE.Group();
-      mirror.scale.y = -1;
-      scene.add(city, mirror);
+      scene.add(new THREE.LineSegments(geo(ground()), mat(0x3a86a8, 0.12)));
+      scene.add(new THREE.LineSegments(geo(water()), mat(0x5ab8e0, 0.28)));
 
-      const groundLines = new THREE.LineSegments(geo(ground()), mat(0.09, new THREE.Color(0x3a86a8)));
-      const waterLines = new THREE.LineSegments(geo(water()), mat(0.22, new THREE.Color(0x5ab8e0)));
-      scene.add(groundLines, waterLines);
-      this.waterMat = waterLines.material;
-
-      this.items = BUILDINGS.map((def, idx) => {
+      const lineMat = mat(0x9fe3ff, 0.85);
+      this.items = BUILDINGS.map((def) => {
         const g = geo(def.make());
-        const count = g.attributes.position.count;
-        const m = mat(0.55), mm = mat(0.12);
-        const top = new THREE.LineSegments(g, m);
-        const low = new THREE.LineSegments(g, mm);
-        [top, low].forEach((o) => { o.position.set(...def.at); if (def.rotY) o.rotation.y = def.rotY; });
-        city.add(top); mirror.add(low);
-        const item = { def, g, count, m, mm, glow: 0, idx };
+        const obj = new THREE.LineSegments(g, lineMat);
+        obj.position.set(...def.at);
+        scene.add(obj);
+        const item = { def, g, count: g.attributes.position.count };
         if (def.id === 'hemisferic') {
+          // párpado abierto, fijo
           const lg = geo(hemisfericLid());
-          item.lid = [new THREE.LineSegments(lg, m), new THREE.LineSegments(lg, mm)];
-          item.lid.forEach((o, k) => {
-            o.position.set(def.at[0], 0, def.at[2] + 5.2);
-            (k ? mirror : city).add(o);
-          });
+          const lid = new THREE.LineSegments(lg, lineMat);
+          lid.position.set(def.at[0], 0, def.at[2] + 5.2);
+          lid.rotation.x = -Math.PI / 2 + 0.75;
+          scene.add(lid);
           item.lidGeo = lg;
         }
         return item;
       });
 
-      this.cam = camAt(0);
-      this.target = camAt(0);
-      this.mouse = { x: 0, y: 0, tx: 0, ty: 0 };
+      // etiquetas HTML ancladas a cada edificio
+      this.labels = [];
+      if (this.labelsEl) {
+        this.labelsEl.innerHTML = '';
+        BUILDINGS.forEach((def) => {
+          const el = document.createElement('span');
+          el.className = 'vlc__label' + (def.minor ? ' vlc__label--minor' : '');
+          el.textContent = def.name;
+          this.labelsEl.appendChild(el);
+          this.labels.push({ el, pos: new THREE.Vector3(...def.label) });
+        });
+      }
+
+      this.angle = 0.4;
+      this.angleTarget = 0.4;
+      this.mouse = 0;
+      this.mouseTarget = 0;
       this.clock = new THREE.Clock();
+      this._v = new THREE.Vector3();
       this._loop = this._loop.bind(this);
       this._resize = this._resize.bind(this);
       this._scroll = this._scroll.bind(this);
       this._move = (e) => {
-        this.mouse.tx = (e.clientX / global.innerWidth) * 2 - 1;
-        this.mouse.ty = (e.clientY / global.innerHeight) * 2 - 1;
+        if (!this.visible || this.reduced) return;
+        this.mouseTarget = (e.clientX / global.innerWidth) * 2 - 1;
+        this._play();
       };
       this._applyBuild();
     }
@@ -384,16 +362,46 @@
     start() {
       this._resize();
       this._scroll();
+      this.angle = this.angleTarget;
       global.addEventListener('resize', this._resize);
       global.addEventListener('scroll', this._scroll, { passive: true });
       global.addEventListener('pointermove', this._move, { passive: true });
       this._io = new IntersectionObserver(([e]) => {
         this.visible = e.isIntersecting;
-        if (this.visible) this._play(); else this.running = false;
-      }, { rootMargin: '120px' });
-      this._io.observe(this.canvas);
-      this.cam = { ...this.target };
-      this._render(0);
+        if (this.visible) { this.dirty = true; this._play(); }
+      }, { rootMargin: '80px' });
+      this._io.observe(this.stage);
+    }
+
+    _scroll() {
+      const rect = this.stage.getBoundingClientRect();
+      const vh = global.innerHeight;
+      // 0 cuando el bloque asoma por abajo, 1 cuando sale por arriba
+      const p = clamp((vh - rect.top) / (vh + rect.height), 0, 1);
+      this.angleTarget = lerp(0.42, -0.42, p);
+      if (this.visible) this._play();
+    }
+
+    _resize() {
+      const w = this.stage.clientWidth || 1, h = this.stage.clientHeight || 1;
+      this.w = w; this.h = h;
+      this.renderer.setSize(w, h, false);
+      this.camera.aspect = w / h;
+      this.camera.updateProjectionMatrix();
+      // distancia para que quepa todo el complejo a lo ancho
+      const hfov = 2 * Math.atan(Math.tan(THREE.MathUtils.degToRad(this.camera.fov / 2)) * this.camera.aspect);
+      const halfWidth = this.camera.aspect < 1.2 ? 60 : 80;
+      this.dist = clamp(halfWidth / Math.tan(hfov / 2), 95, 260);
+      this.dirty = true;
+      if (this.visible) this._play();
+    }
+
+    _applyBuild() {
+      this.items.forEach((it, i) => {
+        const local = clamp(this.built * 1.6 - i * 0.1, 0, 1);
+        it.g.setDrawRange(0, Math.floor((it.count / 2) * ease(local)) * 2);
+        if (it.lidGeo) it.lidGeo.setDrawRange(0, local >= 1 ? Infinity : 0);
+      });
     }
 
     _play() {
@@ -403,75 +411,49 @@
       requestAnimationFrame(this._loop);
     }
 
-    _scroll() {
-      const rect = this.section.getBoundingClientRect();
-      const span = rect.height - global.innerHeight;
-      this.progress = span > 0 ? clamp(-rect.top / span, 0, 1) : 0.5;
-      this.target = camAt(this.progress);
-    }
-
-    _resize() {
-      const w = this.canvas.clientWidth || 1, h = this.canvas.clientHeight || 1;
-      this.renderer.setSize(w, h, false);
-      this.camera.aspect = w / h;
-      // en vertical se aleja un poco para que quepa el complejo
-      this.zoom = w / h < 0.8 ? 1.6 : w / h < 1.2 ? 1.2 : 1;
-      // en escritorio el edificio queda a la derecha y deja sitio al texto
-      if (w / h > 1.2) this.camera.setViewOffset(w, h, -w * 0.12, -h * 0.08, w, h);
-      else if (this.camera.view) this.camera.clearViewOffset();
-      this.camera.updateProjectionMatrix();
-    }
-
-    _applyBuild() {
-      this.items.forEach((it, i) => {
-        const local = clamp(this.built * 1.6 - i * 0.1, 0, 1);
-        const n = Math.floor((it.count / 2) * ease(local)) * 2;
-        it.g.setDrawRange(0, n);
-        if (it.lidGeo) it.lidGeo.setDrawRange(0, local >= 1 ? Infinity : 0);
-      });
-    }
-
     _loop() {
-      if (!this.running) return;
-      const dt = Math.min(this.clock.getDelta(), 0.05);
-      this._render(dt);
-      requestAnimationFrame(this._loop);
+      const raw = this.clock.getDelta();
+      const dt = Math.min(raw, 0.05);
+      let moving = false;
+      if (this.built < 1) {
+        this.built = Math.min(1, this.built + Math.min(raw, 0.2) * 0.8);
+        this._applyBuild();
+        moving = true;
+      }
+      const k = this.reduced ? 1 : 1 - Math.exp(-6 * dt);
+      const da = this.angleTarget - this.angle, dm = this.mouseTarget - this.mouse;
+      if (Math.abs(da) > 1e-4 || Math.abs(dm) > 1e-4) {
+        this.angle += da * k;
+        this.mouse += dm * k;
+        moving = true;
+      }
+      if (moving || this.dirty) {
+        this._render();
+        this.dirty = false;
+      }
+      // se para cuando ya no cambia nada; el scroll o el ratón lo despiertan
+      if (this.visible && moving) requestAnimationFrame(this._loop);
+      else this.running = false;
     }
 
-    _render(dt) {
-      const t = this.clock.elapsedTime;
-      if (this.built < 1) {
-        this.built = Math.min(1, this.built + dt * 0.4);
-        this._applyBuild();
-      }
-      const k = this.reduced ? 60 : 4.5;
-      ['tx', 'th', 'r', 'h'].forEach((key) => { this.cam[key] = damp(this.cam[key], this.target[key], k, dt || 1); });
-      this.mouse.x = damp(this.mouse.x, this.reduced ? 0 : this.mouse.tx, 3, dt || 1);
-      this.mouse.y = damp(this.mouse.y, this.reduced ? 0 : this.mouse.ty, 3, dt || 1);
+    _render() {
+      const th = this.angle + this.mouse * 0.06;
+      const r = this.dist, cam = this.camera;
+      cam.position.set(Math.sin(th) * r, r * 0.3, Math.cos(th) * r);
+      cam.lookAt(0, 11, 0);
+      this.renderer.render(this.scene, cam);
 
-      const c = this.cam, zoom = this.zoom || 1;
-      const th = c.th + this.mouse.x * 0.08 + (this.reduced ? 0 : Math.sin(t * 0.15) * 0.03);
-      const r = c.r * zoom;
-      this.camera.position.set(c.tx + Math.sin(th) * r, c.h * zoom + this.mouse.y * -2, Math.cos(th) * r);
-      this.camera.lookAt(c.tx, 3, 0);
-
-      const f = focusAt(this.progress ?? 0);
-      if (f !== this.focus) { this.focus = f; this.onFocus(f); }
-      this.items.forEach((it) => {
-        it.glow = damp(it.glow, it.idx === f ? 1 : 0, 5, dt || 1);
-        const base = f === -1 ? 0.75 : 0.42;
-        it.m.opacity = base + it.glow * 0.62;
-        it.m.color.copy(this.COLOR).lerp(this.HOT, it.glow * 0.8);
-        it.mm.opacity = (base + it.glow * 0.5) * 0.22;
+      const v = this._v;
+      this.labels.forEach((l) => {
+        v.copy(l.pos).project(cam);
+        const x = (v.x * 0.5 + 0.5) * this.w, y = (-v.y * 0.5 + 0.5) * this.h;
+        const show = v.z < 1 && x > 20 && x < this.w - 20 && this.built >= 1;
+        // que la etiqueta no se salga por la derecha
+        const lw = l.w || (l.w = l.el.offsetWidth);
+        const lx = Math.min(x, this.w - lw - 10);
+        l.el.style.transform = `translate(${lx.toFixed(1)}px, ${y.toFixed(1)}px)`;
+        l.el.classList.toggle('is-on', show);
       });
-      // el párpado del Hemisfèric se abre y se cierra despacio
-      const hemi = this.items[1];
-      if (hemi.lid) {
-        const open = this.reduced ? 0.6 : 0.55 + Math.sin(t * 0.6) * 0.45;
-        hemi.lid.forEach((o) => { o.rotation.x = -Math.PI / 2 + open * 1.1; });
-      }
-      this.waterMat.opacity = 0.18 + Math.sin(t * 1.3) * 0.05;
-      this.renderer.render(this.scene, this.camera);
     }
   }
 
