@@ -158,6 +158,31 @@
   const DATA_EN = {
     categories: { web: 'Web & Full Stack', '3d': '3D & Unity', mobile: 'Mobile', design: 'Design', video: 'Video' },
     projects: {
+      escano351: {
+        context: 'Personal project · Civic platform',
+        alt: 'Congress hemicycle on Escaño 351 with each seat coloured by its vote, 172 in favour and 178 against, and the percentage for each group',
+        summary: 'Citizen platform to understand how the Spanish Congress votes, with verifiable official data and plain-language explanations.',
+        description: [
+          'Escaño 351 turns the open data of the Spanish Congress of Deputies into something anyone can understand: what was voted, how each deputy and each group voted, and whether it passed. The name plays on the 350 seats in Congress: seat 351 belongs to the citizen.',
+          'It imports the entire 15th Legislature (412 deputies, 2,189 plenary votes and around 761,000 individual votes) with the provenance and hash of every record. Roll-call votes are rebuilt by reading the Official Journal of Sessions and checked against the official totals. It runs at zero cost on Cloudflare and is promoted with original videos on TikTok, Instagram and YouTube.',
+        ],
+        highlights: [
+          'Idempotent ingestion of official Congress data: ~761,000 votes with full traceability',
+          'Interactive hemicycle with the real seats, filters, search and group view',
+          'Result of each vote computed with the majority required by the Standing Orders',
+          'Political affinity quiz with 182 questions based on the party manifestos',
+          'State budget explained: how much is spent, on what and how much per person',
+          'Anonymous question of the day, team dashboard with 2FA, roles and audit log',
+          'Zero-cost architecture with abuse limits, caching and a read-only mode',
+        ],
+        gallery: [
+          { alt: 'Escaño 351 home page with a newspaper look and the countdown to the 29 November election' },
+          { alt: 'A vote with the hemicycle coloured by vote and a summary of how each group voted' },
+          { alt: 'Political affinity quiz with 182 questions, 16 topics and 47 parties' },
+          { alt: 'Budget page: the State spends €10,107 per person per year, broken down in a grid chart' },
+        ],
+        links: [{ label: 'Visit Escaño 351' }, {}, {}, {}],
+      },
       orbitaly: {
         context: 'Personal project',
         alt: 'Orbitaly home page with the headline “Everything you watch, play and listen to in one profile” and links to films, series, video games, music, books and anime',

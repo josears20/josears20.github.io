@@ -18,6 +18,43 @@ window.PORTFOLIO_DATA = {
 
   projects: [
     {
+      id: 'escano351',
+      title: 'Escaño 351',
+      context: 'Proyecto personal · Plataforma cívica',
+      year: '2026',
+      categories: ['web'],
+      featured: true,
+      image: 'assets/img/projects/escano351.webp',
+      alt: 'Hemiciclo del Congreso en Escaño 351 con cada escaño coloreado según su voto, 172 a favor y 178 en contra, y el porcentaje de cada grupo',
+      summary: 'Plataforma ciudadana para entender qué vota el Congreso, con datos oficiales verificables y explicaciones sencillas.',
+      description: [
+        'Escaño 351 traduce los datos abiertos del Congreso de los Diputados a algo que cualquiera pueda entender: qué se votó, qué votó cada diputado y cada grupo, y si salió adelante. El nombre juega con los 350 escaños del Congreso: el 351 es el del ciudadano.',
+        'Importa la XV Legislatura completa (412 diputados, 2.189 votaciones del Pleno y unos 761.000 votos individuales) con la procedencia y el hash de cada registro. Las votaciones por llamamiento se reconstruyen leyendo el Diario de Sesiones y se contrastan con los totales oficiales. Está publicada con coste cero en Cloudflare y se difunde con vídeos propios en TikTok, Instagram y YouTube.',
+      ],
+      highlights: [
+        'Ingesta idempotente de datos oficiales del Congreso: ~761.000 votos con trazabilidad',
+        'Hemiciclo interactivo con los escaños reales, filtros, búsqueda y vista por grupos',
+        'Resultado de cada votación calculado con la mayoría que exige el Reglamento',
+        'Test de afinidad política con 182 preguntas a partir de los programas electorales',
+        'Presupuestos del Estado explicados: cuánto se gasta, en qué y cuánto toca por persona',
+        'Pregunta del día anónima, panel de equipo con 2FA, roles y auditoría',
+        'Arquitectura de coste cero con límites contra abuso, caché y modo de solo lectura',
+      ],
+      stack: ['Next.js', 'React', 'TypeScript', 'Drizzle ORM', 'PostgreSQL', 'Cloudflare Workers', 'D1', 'Vitest', 'Remotion'],
+      gallery: [
+        { src: 'assets/img/projects/escano351/01.webp', alt: 'Portada de Escaño 351 con estética de periódico y la cuenta atrás para las elecciones del 29 de noviembre' },
+        { src: 'assets/img/projects/escano351/02.webp', alt: 'Votación con el hemiciclo coloreado por voto y el resumen de cómo votó cada grupo' },
+        { src: 'assets/img/projects/escano351/03.webp', alt: 'Test de afinidad política con 182 preguntas, 16 temas y 47 partidos' },
+        { src: 'assets/img/projects/escano351/04.webp', alt: 'Página de presupuestos: el Estado gasta 10.107 € al año por persona, desglosado en un gráfico de cuadrícula' },
+      ],
+      links: [
+        { label: 'Visitar Escaño 351', url: 'https://escano351.escano351-api.workers.dev' },
+        { label: 'TikTok', url: 'https://www.tiktok.com/@escanyo351' },
+        { label: 'Instagram', url: 'https://www.instagram.com/escanyo351/' },
+        { label: 'YouTube', url: 'https://www.youtube.com/@Esca%C3%B1o351' },
+      ],
+    },
+    {
       id: 'orbitaly',
       title: 'Orbitaly',
       context: 'Proyecto personal',

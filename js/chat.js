@@ -55,6 +55,7 @@
   };
 
   const PROJECT_ALIASES = [
+    ['escano351', ['escano', '351', 'congreso', 'diputados', 'votaciones', 'hemiciclo', 'afinidad', 'congress', 'parliament', 'deputies', 'hemicycle']],
     ['orbitaly', ['orbitaly', 'biblioteca social', 'social library']],
     ['ds4m-web', ['portal', 'web oficial', 'ds4m web', 'web de ds4m', 'pagina de ds4m', 'official website', 'ds4m website']],
     ['escola', ['escola', 'colegio', 'colegios', 'ninos', 'children', 'kids']],
@@ -193,10 +194,10 @@
       answers: [
         () => ({
           text: L(
-            `Tiene ${base.projects.length} proyectos en la web. Si tuviera que elegir tres: <strong>Orbitaly</strong>, una web para guardar todo lo que ves, juegas y lees; la <strong>campaña Datæ Valor</strong>, que acabó en marquesinas y en Netflix; y <strong>VialGo</strong>, su app 3D para aprender a conducir.`,
-            `He has ${base.projects.length} projects on the site. If I had to pick three: <strong>Orbitaly</strong>, a website to log everything you watch, play and read; the <strong>Datæ Valor campaign</strong>, which ended up on bus shelters and on Netflix; and <strong>VialGo</strong>, his 3D app for learning to drive.`,
+            `Tiene ${base.projects.length} proyectos en la web. Si tuviera que elegir tres: <strong>Escaño 351</strong>, una plataforma para entender qué vota el Congreso con datos oficiales; la <strong>campaña Datæ Valor</strong>, que acabó en marquesinas y en Netflix; y <strong>VialGo</strong>, su app 3D para aprender a conducir.`,
+            `He has ${base.projects.length} projects on the site. If I had to pick three: <strong>Escaño 351</strong>, a platform to understand how Congress votes using official data; the <strong>Datæ Valor campaign</strong>, which ended up on bus shelters and on Netflix; and <strong>VialGo</strong>, his 3D app for learning to drive.`,
           ),
-          actions: [{ label: 'Orbitaly', project: 'orbitaly' }, { label: 'Datæ Valor', project: 'datae-valor' }, { label: 'VialGo', project: 'vialgo' }],
+          actions: [{ label: 'Escaño 351', project: 'escano351' }, { label: 'Datæ Valor', project: 'datae-valor' }, { label: 'VialGo', project: 'vialgo' }],
         }),
         () => ({
           text: L(
